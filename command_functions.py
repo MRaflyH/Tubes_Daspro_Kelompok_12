@@ -1,4 +1,4 @@
-from custom_functions import cek_user_terdaftar, cek_password_cocok, daftar_jin, custom_append_array
+from custom_functions import cek_user_terdaftar, cek_password_cocok, daftar_jin, custom_append
 """
 
 """
@@ -46,7 +46,7 @@ def SummonJin(nama, data_user):
         print("Mengumpulkan sesajen...\nMenyerahkan sesajen...\nMembacakan mantra...\n")
         print(f"Jin {data_jin[0]} berhasil dipanggil!\n")
 
-        data_user = custom_append_array(data_user, data_jin)
+        data_user = custom_append(data_user, data_jin)
 
     return data_user
 

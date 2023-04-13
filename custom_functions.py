@@ -10,10 +10,12 @@ Digunakan untuk list dan array saja, tuple dan string tidak bisa
 """
 
 
-def custom_len_array(array):
-    if array == []:
-        return 0
-    return custom_len_array(array[1:]) + 1
+def custom_len(array):
+    count = 0
+ 
+    for i in array:
+        count += 1
+    return count
 
 
 """
@@ -24,12 +26,11 @@ Mengembalikan persis kayak append() atau konso di Haskell tapi parameter elemen 
 [1, 2, 3, 4]
 """
 
-
-def custom_append_array(array, elemen):
-    array_baru = [None for i in range(custom_len_array(array) + 1)]
-    for i in range(custom_len_array(array)):
+def custom_append(array, elemen):
+    array_baru = [None for i in range(custom_len(array) + 1)]
+    for i in range(custom_len(array)):
         array_baru[i] = array[i]
-    array_baru[custom_len_array(array)] = elemen
+    array_baru[custom_len(array)] = elemen
     return array_baru
 
 
@@ -42,10 +43,10 @@ Mengembalikan persis kayak insert() atau konsdot di Haskell tapi parameter eleme
 """
 
 
-def custom_insert_array(elemen, array):
-    array_baru = [None for i in range(custom_len_array(array) + 1)]
+def custom_insert(elemen, array):
+    array_baru = [None for i in range(custom_len(array) + 1)]
     array_baru[0] = elemen
-    for i in range(custom_len_array(array)):
+    for i in range(custom_len(array)):
         array_baru[i + 1] = array[i]
     return array_baru
 
@@ -60,15 +61,15 @@ Lakukan:
 """
 
 
-def custom_pop_remove_array(array, index):
+def custom_pop(array, index):
     if index == 0:
-        return custom_pop_remove_array(array[1:], index - 1)
-    elif custom_len_array(array) == 0:
+        return custom_pop(array[1:], index - 1)
+    elif custom_len(array) == 0:
         return []
-    elif custom_len_array(array) == 1:
+    elif custom_len(array) == 1:
         return array
     else:
-        return custom_insert_array(array[0], custom_pop_remove_array(array[1:], index - 1))
+        return custom_insert(array[0], custom_pop(array[1:], index - 1))
 
 
 """
@@ -92,7 +93,7 @@ def custom_split(string_list, pemisah=" "):
             index_awal = index_akhir + 1
             index_akhir = index
             elemen_sementara = string_list[index_awal: index_akhir]
-            data_list = custom_append_array(data_list, elemen_sementara)
+            data_list = custom_append(data_list, elemen_sementara)
             if string_list[index] == "\n":
                 return data_list
         index += 1
@@ -112,20 +113,20 @@ def csv_to_matriks(nama_file_csv):
         if string_baris_user == "":
             break
         data_baris_user = custom_split(string_baris_user, ";")
-        data_matriks = custom_append_array(data_matriks, data_baris_user)
+        data_matriks = custom_append(data_matriks, data_baris_user)
     file_user.close()
     return data_matriks
 
 
 def cek_user_terdaftar(user, data):
-    for i in range(custom_len_array(data)):
+    for i in range(custom_len(data)):
         if data[i][0] == user:
             return True
     return False
 
 
 def cek_password_cocok(password, user, data):
-    for i in range(custom_len_array(data)):
+    for i in range(custom_len(data)):
         if data[i][0] == user:
             if password == data[i][1]:
                 return True
