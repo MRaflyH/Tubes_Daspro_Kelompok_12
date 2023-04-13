@@ -1,11 +1,6 @@
-from custom_functions import cek_user_terdaftar, cek_password_cocok
+from custom_functions import cek_user_terdaftar, cek_password_cocok, daftar_jin, custom_append_array
 """
 
-"""
-
-
-"""
-Menjalankan prosedur login dan mengembalikan nama nama user yang login
 """
 
 
@@ -36,3 +31,22 @@ def Logout(nama):
     if nama == "":
         print("Logout gagal!\nAnda belum login, silahkan login terlebih dahulu sebelum melakukan logout")
     return ""
+
+
+def SummonJin(nama, data_user):
+    if nama != "Bondowoso":
+        print(f"Anda tidak memiliki akses untuk summonjin")
+    else:
+        print("Jenis jin yang dapat dipanggil:")
+        print("  (1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
+        print("  (2) Pembangun - Bertugas membangun candi")
+
+        data_jin = daftar_jin(data_user)
+
+        print("Mengumpulkan sesajen...\nMenyerahkan sesajen...\nMembacakan mantra...\n")
+        print(f"Jin {data_jin[0]} berhasil dipanggil!\n")
+
+        data_user = custom_append_array(data_user, data_jin)
+
+    return data_user
+
