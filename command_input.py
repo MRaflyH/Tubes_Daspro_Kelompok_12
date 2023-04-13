@@ -6,5 +6,5 @@ def run(command, nama, data_user, data_candi, data_bahan_bangunan):
         return Login(nama, data_user), data_user, data_candi, data_bahan_bangunan
     elif command == "logout":
         return Logout(nama), data_user, data_candi, data_bahan_bangunan
-    elif command == "exit":
-        return nama, data_user, data_candi, data_bahan_bangunan
+    elif command == "summonjin":
+        return nama, SummonJin(nama, data_user), data_candi, data_bahan_bangunan
