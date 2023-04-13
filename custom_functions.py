@@ -132,3 +132,33 @@ def cek_password_cocok(password, user, data):
             return False
         return False
 
+
+def daftar_jin(data):
+    while True:
+        nomor_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
+        if nomor_jin != 1 and nomor_jin != 2:
+            print(f'Tidak ada jenis jin bernomor "{nomor_jin}"')
+        else:
+            if nomor_jin == 1:  # Jin pengumpul
+                print('Memilih jin “Pengumpul”.\n')
+                jenis_jin = "jin_pengumpul"
+            else:  # nomor_jin == 2; Jin pembangun
+                print('Memilih jin "Pembangun”.\n')
+                jenis_jin = "jin_pembangun"
+            break
+
+    while True:
+        user_jin = input("Masukkan username jin: ")
+        if cek_user_terdaftar(user_jin, data):
+            print(f"Username “{user_jin}” sudah diambil!")
+        else:
+            break
+
+    while True:
+        pass_jin = input("Masukkan password jin: ")
+        if (len(pass_jin) < 5) or (len(pass_jin) > 25):
+            print("Password panjangnya harus 5-25 karakter!\n")
+        else:
+            break
+
+    return [user_jin, pass_jin, jenis_jin]
