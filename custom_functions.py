@@ -12,7 +12,7 @@ Digunakan untuk list dan array saja, tuple dan string tidak bisa
 
 def custom_len(array):
     count = 0
- 
+
     for i in array:
         count += 1
     return count
@@ -25,6 +25,7 @@ Mengembalikan persis kayak append() atau konso di Haskell tapi parameter elemen 
 >>> print(array)
 [1, 2, 3, 4]
 """
+
 
 def custom_append(array, elemen):
     array_baru = [None for i in range(custom_len(array) + 1)]
@@ -118,23 +119,23 @@ def csv_to_matriks(nama_file_csv):
     return data_matriks
 
 
-def cek_user_terdaftar(user, data):
-    for i in range(custom_len(data)):
-        if data[i][0] == user:
+def cek_nama_terdaftar(nama, data_user):
+    for i in range(custom_len(data_user)):
+        if data_user[i][0] == nama:
             return True
     return False
 
 
-def cek_password_cocok(password, user, data):
-    for i in range(custom_len(data)):
-        if data[i][0] == user:
-            if password == data[i][1]:
+def cek_password_cocok(password, nama, data_user):
+    for i in range(custom_len(data_user)):
+        if data_user[i][0] == nama:
+            if password == data_user[i][1]:
                 return True
             return False
         return False
 
 
-def daftar_jin(data):
+def daftar_jin(data_user):
     while True:
         nomor_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
         if nomor_jin != 1 and nomor_jin != 2:
@@ -150,7 +151,7 @@ def daftar_jin(data):
 
     while True:
         user_jin = input("Masukkan username jin: ")
-        if cek_user_terdaftar(user_jin, data):
+        if cek_nama_terdaftar(user_jin, data_user):
             print(f"Username “{user_jin}” sudah diambil!")
         else:
             break
@@ -163,3 +164,19 @@ def daftar_jin(data):
             break
 
     return [user_jin, pass_jin, jenis_jin]
+
+
+def hapus_candi_jin(jin, data_candi):
+    for i in range(custom_len(data_candi) - 1, -1, -1):
+        if data_candi[i][1] == jin:
+            data_candi = custom_pop(data_candi, i)
+    return data_candi
+
+
+def string_role_jin(jin, data_user):
+    for i in range(custom_len(data_user)):
+        if data_user[i][0] == jin:
+            if data_user[i][2] == "jin_pengumpul":
+                return "Pengumpul"
+            else:
+                return "Pembangun"

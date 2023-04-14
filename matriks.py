@@ -1,6 +1,6 @@
 from custom_functions import custom_len, csv_to_matriks
 
-user_login = ""
+user_login = None
 user = csv_to_matriks("user.csv")
 candi = csv_to_matriks("candi.csv")
 bahan_bangunan = csv_to_matriks("bahan_bangunan.csv")
