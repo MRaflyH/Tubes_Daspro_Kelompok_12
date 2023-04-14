@@ -118,3 +118,17 @@ def ubah_tipe_jin(nama, data_user):
 
     return data_user
 
+def ayam_berkokok(jumlah_candi):
+    print("Kukuruyuk.. Kukuruyuk..")
+    print(f"Jumlah Candi: {jumlah_candi}")
+
+    if jumlah_candi < 100:
+        print("Selamat, Roro Jonggrang memenangkan permainan!")
+        print("*Bandung Bondowoso angry noise*")
+        print("Roro Jonggrang dikutuk menjadi candi.")
+    else:
+        print("Selamat, Bandung Bondowoso memenangkan permainan!")
+        print("*Roro Jonggrang angry noise*")
+        print("Bandung Bondowoso menikahi Roro Jonggrang.")
+
+    exit()
