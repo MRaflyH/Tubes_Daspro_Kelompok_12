@@ -5,7 +5,7 @@ from custom_functions import cek_nama_terdaftar, cek_password_cocok, daftar_jin,
 JUDUL
 """
 
-
+# F01 - Login
 def login(nama, data_user):
     berhasil_login = False
     input_user = ""
@@ -31,13 +31,13 @@ def login(nama, data_user):
     else:
         return nama
 
-
+# F02 - Logout
 def logout(nama):
     if nama is None:
         print("Logout gagal!\nAnda belum login, silahkan login terlebih dahulu sebelum melakukan logout")
     return None
 
-
+# F03 - Summon Jin
 def summon_jin(nama, data_user):
     if nama != "Bondowoso":
         print(f"{nama} tidak memiliki akses untuk summonjin")
@@ -55,7 +55,7 @@ def summon_jin(nama, data_user):
 
     return data_user
 
-
+# F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
 # fungsi hilangkan_jin() bisa menghapus bondowoso dan roro (harusnya gaboleh)
 def hilangkan_jin(nama, data_user, data_candi):
     if nama != "Bondowoso":
@@ -80,7 +80,7 @@ def hilangkan_jin(nama, data_user, data_candi):
 
     return data_user, data_candi
 
-
+# F05 - Ubah Tipe Jin
 def ubah_tipe_jin(nama, data_user):
     if nama != "Bondowoso":
         print(f"{nama} tidak memiliki akses untuk summonjin")
@@ -118,17 +118,76 @@ def ubah_tipe_jin(nama, data_user):
 
     return data_user
 
-def ayam_berkokok(jumlah_candi):
-    print("Kukuruyuk.. Kukuruyuk..")
-    print(f"Jumlah Candi: {jumlah_candi}")
+# F08 - Batch Kumpul/Bangun
+# F09 - Ambil Laporan Jin
+# F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
+# F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 
-    if jumlah_candi < 100:
-        print("Selamat, Roro Jonggrang memenangkan permainan!")
-        print("*Bandung Bondowoso angry noise*")
-        print("Roro Jonggrang dikutuk menjadi candi.")
+# F12 - Ayam Berkokok (Akses : Roro Jonggrang)
+'''
+def ayam_berkokok(jumlah_candi,nama):
+    if nama == "Roro":
+        print("Kukuruyuk.. Kukuruyuk..")
+        print(f"Jumlah Candi: {jumlah_candi}")
+
+        if jumlah_candi < 100:
+            print("Selamat, Roro Jonggrang memenangkan permainan!")
+            print("*Bandung Bondowoso angry noise*")
+            print("Roro Jonggrang dikutuk menjadi candi.")
+        else:
+            print("Selamat, Bandung Bondowoso memenangkan permainan!")
+            print("*Roro Jonggrang angry noise*")
+            print("Bandung Bondowoso menikahi Roro Jonggrang.")
+        exit()
     else:
-        print("Selamat, Bandung Bondowoso memenangkan permainan!")
-        print("*Roro Jonggrang angry noise*")
-        print("Bandung Bondowoso menikahi Roro Jonggrang.")
+        print("Anda tidak memiliki akses ini.")
+    return None
+'''
 
-    exit()
+# F13 - Load
+# F14 - Save
+
+# F15 - Help
+'''
+def help(nama):
+    print("=========== HELP ===========")
+    if nama == '':
+        print("1. login")
+        print("   Untuk masuk menggunakan akun")
+        print("2. exit")
+        print("   Untuk keluar dari program dan kembali ke terminal")
+    elif nama =="Bondowoso":
+        print("1. logout")
+        print("   Untuk keluar dari akun yang digunakan sekarang")
+        print("2. summonjin")
+        print("   Untuk memanggil jin")
+        # print("3. ")
+        # Jika ada, lanjutkan
+    elif nama == "Roro":
+        print("1. logout")
+        print("   Untuk keluar dari akun yang digunakan sekarang")
+        print("2. hancurkancandi")
+        print("   Untuk menghancurkan candi yang tersedia")
+        # print("3. ")
+        # Jika ada, lanjutkan
+    return None
+'''
+
+# F16 - Exit
+'''
+def exit():
+    ask_simpan = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)", end='')
+
+    if ask_simpan != 'y' or ask_simpan != 'n':
+        while True:
+            ask_simpan = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)", end='')
+            if ask_simpan == 'y':
+                save()
+            exit()
+    else:
+        if ask_simpan == 'y':
+            save()
+        exit()
+'''
+
+
