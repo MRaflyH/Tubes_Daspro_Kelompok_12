@@ -180,3 +180,10 @@ def string_role_jin(jin, data_user):
                 return "Pengumpul"
             else:
                 return "Pembangun"
+
+def find_huruf_awal(data_user):
+    for i in range(custom_len(data_user)):
+        huruf = data_user[i][0]
+    return huruf[0]
+
+# def pengumpul_terajin(data_user):
