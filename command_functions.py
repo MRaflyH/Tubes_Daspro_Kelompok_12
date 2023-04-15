@@ -56,7 +56,6 @@ def summon_jin(nama, data_user, max_data_user):
     return data_user
 
 # F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
-# fungsi hilangkan_jin() bisa menghapus bondowoso dan roro (harusnya gaboleh)
 def hilangkan_jin(nama, data_user, data_candi, max_data_user, max_data_candi):
     if nama != "Bondowoso":
         print(f"{nama} tidak memiliki akses untuk hilangkan jin")
