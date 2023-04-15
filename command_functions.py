@@ -5,12 +5,13 @@ from custom_functions import cek_nama_terdaftar, cek_password_cocok, daftar_jin,
 JUDUL
 """
 
+
 # F01 - Login
-def login(nama, data_user, max_data_user):
+def login(nama, role, data_user, max_data_user):
     berhasil_login = False
     input_user = ""
 
-    if nama is not None:
+    if role is not None:
         print(f"Login gagal!\nAnda telah login dengan username {nama}, silahkan lakukan “logout” sebelum melakukan "
               "login kembali.")
     else:
@@ -27,19 +28,22 @@ def login(nama, data_user, max_data_user):
             berhasil_login = True
 
     if berhasil_login:
-        return input_user
+        role = nama_to_role(input_user, data_user, max_data_user)
+        return input_user, role
     else:
-        return nama
+        return nama, role
+
 
 # F02 - Logout
 def logout(nama):
     if nama is None:
         print("Logout gagal!\nAnda belum login, silahkan login terlebih dahulu sebelum melakukan logout")
-    return None
+    return None, None
+
 
 # F03 - Summon Jin
-def summon_jin(nama, data_user, max_data_user):
-    if nama != "Bondowoso":
+def summon_jin(nama, role, data_user, max_data_user):
+    if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk summon jin")
     else:
         print("Jenis jin yang dapat dipanggil:")
@@ -55,9 +59,10 @@ def summon_jin(nama, data_user, max_data_user):
 
     return data_user
 
+
 # F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
-def hilangkan_jin(nama, data_user, data_candi, max_data_user, max_data_candi):
-    if nama != "Bondowoso":
+def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_candi):
+    if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk hilangkan jin")
     else:
         confirm = ""
@@ -79,9 +84,10 @@ def hilangkan_jin(nama, data_user, data_candi, max_data_user, max_data_candi):
 
     return data_user, data_candi
 
+
 # F05 - Ubah Tipe Jin
-def ubah_tipe_jin(nama, data_user, max_data_user):
-    if nama != "Bondowoso":
+def ubah_tipe_jin(nama, role, data_user, max_data_user):
+    if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk ubah tipe jin")
     else:
         confirm = ""
@@ -117,6 +123,7 @@ def ubah_tipe_jin(nama, data_user, max_data_user):
 
     return data_user
 
+
 # F06 - Jin Pembangun (Akses : Jin Pembangun)
 
 # F07 - Jin Pengumpul (Akses : Jin Pengumpul)
@@ -145,14 +152,16 @@ def laporan_jin(nama, data_user):
                     count_total_jin_pembangun += 1                
 '''
 
+
 # F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
 
 # F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 
 # F12 - Ayam Berkokok (Akses : Roro Jonggrang)
-'''
-def ayam_berkokok(jumlah_candi,nama):
-    if nama == "Roro":
+def ayam_berkokok(nama, role, data_candi, max_data_candi):
+    jumlah_candi = hitung_candi(data_candi, max_data_candi)
+
+    if role == "roro_jonggrang":
         print("Kukuruyuk.. Kukuruyuk..")
         print(f"Jumlah Candi: {jumlah_candi}")
 
@@ -164,29 +173,33 @@ def ayam_berkokok(jumlah_candi,nama):
             print("Selamat, Bandung Bondowoso memenangkan permainan!")
             print("*Roro Jonggrang angry noise*")
             print("Bandung Bondowoso menikahi Roro Jonggrang.")
-        exit()
+        return True
+
     else:
-        print("Anda tidak memiliki akses ini.")
-    return None
-'''
+        print(f"{nama} tidak memiliki akses ini.")
+        return False
+
 
 # F13 - Load
+
 # F14 - Save
 
 # F15 - Help
-'''
-def help(nama):
+def help_role(role):
     print("=========== HELP ===========")
-    if nama == '':
+    if role is None:
         print("1. login")
         print("   Untuk masuk menggunakan akun")
         print("2. exit")
         print("   Untuk keluar dari program dan kembali ke terminal")
-    elif nama =="Bondowoso":
+    elif role == "bandung_bondowoso":
         print("1. logout")
         print("   Untuk keluar dari akun yang digunakan sekarang")
         print("2. summonjin")
         print("   Untuk memanggil jin")
+        # print("3. ")
+        # Jika ada, lanjutkan
+    elif role == "roro_jonggrang":
         print("3. hapusjin")
         print("   Untuk menghapus jin")
         print("4. ubahjin")
@@ -201,33 +214,18 @@ def help(nama):
         print("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
         print("9. exit")
         print("   Untuk keluar dari program dan kembali ke terminal")
-    elif nama == "Roro":
-        print("1. logout")
-        print("   Untuk keluar dari akun yang digunakan sekarang")
-        print("2. hancurkancandi")
-        print("   Untuk menghancurkan candi yang tersedia")
-        print("3. ayamberkokok")
-        print("   Untuk menyelesaikan permainan dengan memalsukan pagi hari")
-        print("4. exit")
-        print("   Untuk keluar dari program dan kembali ke terminal")
-    return None
-'''
+
 
 # F16 - Exit
-'''
-def exit():
-    confirm = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (Y/N)", end='')
 
-    if confirm != 'y' or confirm != 'n':
-        while True:
-            confirm = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)", end='')
-            if confirm == 'y':
-                save()
-            exit()
-    else:
+def exit_game():
+    while True:
+        confirm = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
         if confirm == 'y':
-            save()
-        exit()
-'''
-
-
+            print("jalanin save()")
+            # save() belum ada
+            break
+        elif confirm == 'n':
+            print("tidak jalanin save()")
+            break
+    return True

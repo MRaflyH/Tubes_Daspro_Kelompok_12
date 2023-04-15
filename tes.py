@@ -19,40 +19,30 @@
 #         print("   Untuk menghancurkan candi yang tersedia")
 #         # Jika ada, lanjutkan
 
-# # nama = input()
+# nama = input()
 
-# # print(help(nama))
+# print(help(nama))
 
-# def ayam_berkokok(nama,jumlah_candi):
-#     if nama == "Roro":
-#         print("Kukuruyuk.. Kukuruyuk..")
-#         print(f"Jumlah Candi: {jumlah_candi}")
+def ayam_berkokok(nama,jumlah_candi):
+    if nama == "Roro":
+        print("Kukuruyuk.. Kukuruyuk..")
+        print(f"Jumlah Candi: {jumlah_candi}")
 
-#         if jumlah_candi < 100:
-#             print("Selamat, Roro Jonggrang memenangkan permainan!")
-#             print("*Bandung Bondowoso angry noise*")
-#             print("Roro Jonggrang dikutuk menjadi candi.")
-#         else:
-#             print("Selamat, Bandung Bondowoso memenangkan permainan!")
-#             print("*Roro Jonggrang angry noise*")
-#             print("Bandung Bondowoso menikahi Roro Jonggrang.")
-#         exit()
-#     else:
-#         print("Anda tidak memiliki akses ini.")
+        if jumlah_candi < 100:
+            print("Selamat, Roro Jonggrang memenangkan permainan!")
+            print("*Bandung Bondowoso angry noise*")
+            print("Roro Jonggrang dikutuk menjadi candi.")
+        else:
+            print("Selamat, Bandung Bondowoso memenangkan permainan!")
+            print("*Roro Jonggrang angry noise*")
+            print("Bandung Bondowoso menikahi Roro Jonggrang.")
+        exit()
+    else:
+        print("Anda tidak memiliki akses ini.")
 
-# nama = input("Nama:")
-# candi = 99
 
-# print(ayam_berkokok(nama,candi))
+user_login = input("Nama:")
+candi = 99
 
-# a = [['ab','cd','de'], ['ef','fg','hi']]
-# for i in range(len(a)):
-#     b = a[i][0]
-#     print(b[0])
-
-# F09 - Ambil Laporan Jin
-
-a = [1,2,3]
-
-for i in range(2,3):
-    print(a[i])
+print(ayam_berkokok(user_login, candi))
+print()

@@ -1,19 +1,24 @@
 from command_functions import *
 
 
-def run(command, nama, data_user, data_candi, data_bahan_bangunan):
+def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan):
     if command == "login":
-        return login(nama, data_user), data_user, data_candi, data_bahan_bangunan
+        nama, role = login(nama, role, data_user, max_data_user)
     elif command == "logout":
-        return logout(nama), data_user, data_candi, data_bahan_bangunan
+        nama, role = logout(nama)
     elif command == "summonjin":
-        return nama, summon_jin(nama, data_user), data_candi, data_bahan_bangunan
+        data_user = summon_jin(nama, role, data_user, max_data_user)
     elif command == "hapusjin":
-        data_user, data_candi = hilangkan_jin(nama, data_user, data_candi)
-        return nama, data_user, data_candi, data_bahan_bangunan
+        data_user, data_candi = hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_candi)
     elif command == "ubahjin":
-        return nama, ubah_tipe_jin(nama, data_user), data_candi, data_bahan_bangunan
-    # elif ayam_berkokok == "ayamberkokok":
-    #     return ayam_berkokok(jumlah_candi,nama), data_user, data_candi, data_bahan_bangunan
-    # elif command == "help":
-    #     return help(nama), data_user, data_candi, data_bahan_bangunan
+        data_user = ubah_tipe_jin(nama, role, data_user, max_data_user)
+    elif command == "ayamberkokok":
+        end = ayam_berkokok(nama, role, data_candi, max_data_candi)
+    elif command == "help":
+        help_role(role)
+    elif command == "exit":
+        end = exit_game()
+    return nama, role, end, data_user, data_candi, data_bahan_bangunan
+
+
+# test
