@@ -45,7 +45,10 @@
 
 # print(ayam_berkokok(nama,candi))
 
-a = [['ab','cd','de'], ['ef','fg','hi']]
-for i in range(len(a)):
-    b = a[i][0]
-    print(b[0])
+# a = [['ab','cd','de'], ['ef','fg','hi']]
+# for i in range(len(a)):
+#     b = a[i][0]
+#     print(b[0])
+
+# F09 - Ambil Laporan Jin
+def 
