@@ -19,3 +19,6 @@ def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, ma
     elif command == "exit":
         end = exit_game()
     return nama, role, end, data_user, data_candi, data_bahan_bangunan
+
+
+# test

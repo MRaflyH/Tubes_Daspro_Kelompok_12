@@ -14,3 +14,5 @@ while not end_game:
         break
     user_login, role_login, end_game, user, candi, bahan_bangunan = run(masukan, user_login, role_login, end_game, user, candi, bahan_bangunan, max_user, max_candi, max_bahan_bangunan)
 
+
+# test

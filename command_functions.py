@@ -123,6 +123,7 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
 
     return data_user
 
+
 # F06 - Jin Pembangun (Akses : Jin Pembangun)
 
 # F07 - Jin Pengumpul (Akses : Jin Pengumpul)
@@ -150,6 +151,7 @@ def laporan_jin(nama, data_user):
                 else:
                     count_total_jin_pembangun += 1                
 '''
+
 
 # F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
 
@@ -179,6 +181,7 @@ def ayam_berkokok(nama, role, data_candi, max_data_candi):
 
 
 # F13 - Load
+
 # F14 - Save
 
 # F15 - Help
@@ -211,18 +214,6 @@ def help_role(role):
         print("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
         print("9. exit")
         print("   Untuk keluar dari program dan kembali ke terminal")
-    elif nama == "Roro":
-        print("1. logout")
-        print("   Untuk keluar dari akun yang digunakan sekarang")
-        print("2. hancurkancandi")
-        print("   Untuk menghancurkan candi yang tersedia")
-        # print("3. ")
-        # Jika ada, lanjutkan
-
-        print("3. ayamberkokok")
-        print("   Untuk menyelesaikan permainan dengan memalsukan pagi hari")
-        print("4. exit")
-        print("   Untuk keluar dari program dan kembali ke terminal")
 
 
 # F16 - Exit
@@ -238,4 +229,3 @@ def exit_game():
             print("tidak jalanin save()")
             break
     return True
-
