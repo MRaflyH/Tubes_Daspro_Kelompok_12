@@ -124,8 +124,6 @@ def ubah_tipe_jin(nama, data_user, max_data_user):
 # F08 - Batch Kumpul/Bangun
 
 # F09 - Ambil Laporan Jin
-
-# F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
 '''
 def laporan_jin(nama, data_user):
     count_total_jin = 0
@@ -146,6 +144,8 @@ def laporan_jin(nama, data_user):
                 else:
                     count_total_jin_pembangun += 1                
 '''
+
+# F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
 
 # F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 
