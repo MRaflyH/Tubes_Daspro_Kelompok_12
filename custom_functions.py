@@ -71,6 +71,13 @@ def cek_password_cocok(password, nama, data_user, max_data_user):
     return False
 
 
+def nama_to_role(nama, data_user, max_data_user):
+    for i in range(custom_len(data_user, max_data_user)):
+        if data_user[i][0] == nama:
+            return data_user[i][2]
+    return None
+
+
 def daftar_jin(data_user, max_data_user):
     while True:
         nomor_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
@@ -116,3 +123,12 @@ def string_role_jin(jin, data_user, max_data_user):
                 return "Pengumpul"
             else:
                 return "Pembangun"
+
+
+def hitung_candi(data_candi, max_data_candi):
+    jumlah_candi = 0
+    for i in range(custom_len(data_candi, max_data_candi)):
+        if data_candi[i][1] is not None:
+            jumlah_candi += 1
+    return jumlah_candi
+

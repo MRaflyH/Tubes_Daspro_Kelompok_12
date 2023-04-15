@@ -23,7 +23,7 @@
 
 # print(help(nama))
 
-def ayam_berkokok(nama,jumlah_candi):
+def ayam_berkokok(nama, jumlah_candi):
     if nama == "Roro":
         print("Kukuruyuk.. Kukuruyuk..")
         print(f"Jumlah Candi: {jumlah_candi}")
@@ -40,7 +40,8 @@ def ayam_berkokok(nama,jumlah_candi):
     else:
         print("Anda tidak memiliki akses ini.")
 
-nama = input("Nama:")
+
+user_login = input("Nama:")
 candi = 99
 
-print(ayam_berkokok(nama,candi))
+print(ayam_berkokok(user_login, candi))
