@@ -1,5 +1,5 @@
-from custom_functions import cek_nama_terdaftar, cek_password_cocok, nama_to_role, daftar_jin, custom_append, \
-    custom_len, custom_pop, hapus_candi_jin, hitung_candi
+from custom_functions import cek_nama_terdaftar, cek_password_cocok, daftar_jin, custom_append, custom_len, custom_pop, \
+    hapus_candi_jin
 
 """
 JUDUL
@@ -61,7 +61,6 @@ def summon_jin(nama, role, data_user, max_data_user):
 
 
 # F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
-# fungsi hilangkan_jin() bisa menghapus bondowoso dan roro (harusnya gaboleh)
 def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_candi):
     if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk hilangkan jin")
@@ -73,7 +72,7 @@ def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_can
         else:
             confirm = input(f"Apakah anda yakin ingin menghapus jin dengan username {jin} (Y/N)? ")
 
-        if confirm == 'Y':
+        if confirm == 'Y' or confirm == 'y':
             for i in range(custom_len(data_user, max_data_user)):
                 if data_user[i][0] == jin:
                     data_user = custom_pop(data_user, i, max_data_user)
@@ -113,7 +112,7 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
                         reverse_role_jin = "jin_pembangun"
                     break
 
-        if confirm == 'Y':
+        if confirm == 'Y' or confirm == 'y':
             for i in range(custom_len(data_user, max_data_user)):
                 if data_user[i][0] == jin:
                     data_user[i][2] = reverse_role_jin
@@ -124,10 +123,36 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
 
     return data_user
 
+# F06 - Jin Pembangun (Akses : Jin Pembangun)
+
+# F07 - Jin Pengumpul (Akses : Jin Pengumpul)
 
 # F08 - Batch Kumpul/Bangun
+
 # F09 - Ambil Laporan Jin
+'''
+def laporan_jin(nama, data_user):
+    count_total_jin = 0
+    count_total_jin_pengumpul = 0
+    count_total_jin_pembangun = 0
+
+    if nama != "Bondowoso":
+        print("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
+    else:
+        if custom_len(data_user) > 2:
+            for i in range(2, custom_len(data_user)-1):
+                count_total_jin += 1
+                if data_user[i][2] == "jin_pembangun":
+                    count_total_jin_pengumpul += 1
+                    {mencari jin terajin dan termalas dari jumlah bahan yang mereka kumpulkan,
+                     lalu bandingkan huruf awal dari nama jin (jika ada yang sama) dengan fungsi
+                     custom, yani find_huruf_awal}
+                else:
+                    count_total_jin_pembangun += 1                
+'''
+
 # F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
+
 # F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 
 # F12 - Ayam Berkokok (Akses : Roro Jonggrang)
@@ -172,6 +197,21 @@ def help_role(role):
         # print("3. ")
         # Jika ada, lanjutkan
     elif role == "roro_jonggrang":
+        print("3. hapusjin")
+        print("   Untuk menghapus jin")
+        print("4. ubahjin")
+        print("   Untuk mengubah tipe jin")
+        print("5. batchkumpul")
+        print("   Untuk mengerahkan seluruh pasukan jin")
+        print("6. laporanjin")
+        print("   Untuk mengambil laporan jin dan mengetahui kinerja dari para jin")
+        print("7. laporancandi")
+        print("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
+        print("8. laporancandi")
+        print("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
+        print("9. exit")
+        print("   Untuk keluar dari program dan kembali ke terminal")
+    elif nama == "Roro":
         print("1. logout")
         print("   Untuk keluar dari akun yang digunakan sekarang")
         print("2. hancurkancandi")
@@ -179,17 +219,22 @@ def help_role(role):
         # print("3. ")
         # Jika ada, lanjutkan
 
+        print("3. ayamberkokok")
+        print("   Untuk menyelesaikan permainan dengan memalsukan pagi hari")
+        print("4. exit")
+        print("   Untuk keluar dari program dan kembali ke terminal")
+
 
 # F16 - Exit
 
 def exit_game():
     while True:
-        ask_simpan = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
-        if ask_simpan == 'y':
+        confirm = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
+        if confirm == 'y':
             print("jalanin save()")
             # save() belum ada
             break
-        elif ask_simpan == 'n':
+        elif confirm == 'n':
             print("tidak jalanin save()")
             break
     return True

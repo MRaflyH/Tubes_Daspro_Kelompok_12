@@ -23,7 +23,7 @@
 
 # print(help(nama))
 
-def ayam_berkokok(nama, jumlah_candi):
+def ayam_berkokok(nama,jumlah_candi):
     if nama == "Roro":
         print("Kukuruyuk.. Kukuruyuk..")
         print(f"Jumlah Candi: {jumlah_candi}")

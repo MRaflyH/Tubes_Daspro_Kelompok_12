@@ -125,6 +125,14 @@ def string_role_jin(jin, data_user, max_data_user):
                 return "Pembangun"
 
 
+def find_huruf_awal(data_user):
+    for i in range(custom_len(data_user)):
+        huruf = data_user[i][0]
+    return huruf[0]
+
+# def pengumpul_terajin(data_user):
+
+
 def hitung_candi(data_candi, max_data_candi):
     jumlah_candi = 0
     for i in range(custom_len(data_candi, max_data_candi)):
