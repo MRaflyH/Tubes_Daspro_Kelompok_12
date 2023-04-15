@@ -1,23 +1,23 @@
-# # def help(nama):
-# #     print("=========== HELP ===========")
-# #     if nama == '':
-# #         print("1. login")
-# #         print("   Untuk masuk menggunakan akun")
-# #         print("2. exit")
-# #         print("   Untuk keluar dari program dan kembali ke terminal")
-# #     elif nama =="Bondowoso":
-# #         print("1. logout")
-# #         print("   Untuk keluar dari akun yang digunakan sekarang")
-# #         print("2. summonjin")
-# #         print("   Untuk memanggil jin")
-# #         print("3. ")
-# #         # Jika ada, lanjutkan
-# #     elif nama == "Roro":
-# #         print("1. logout")
-# #         print("   Untuk keluar dari akun yang digunakan sekarang")
-# #         print("2. hancurkancandi")
-# #         print("   Untuk menghancurkan candi yang tersedia")
-# #         # Jika ada, lanjutkan
+# def help(nama):
+#     print("=========== HELP ===========")
+#     if nama == '':
+#         print("1. login")
+#         print("   Untuk masuk menggunakan akun")
+#         print("2. exit")
+#         print("   Untuk keluar dari program dan kembali ke terminal")
+#     elif nama =="Bondowoso":
+#         print("1. logout")
+#         print("   Untuk keluar dari akun yang digunakan sekarang")
+#         print("2. summonjin")
+#         print("   Untuk memanggil jin")
+#         print("3. ")
+#         # Jika ada, lanjutkan
+#     elif nama == "Roro":
+#         print("1. logout")
+#         print("   Untuk keluar dari akun yang digunakan sekarang")
+#         print("2. hancurkancandi")
+#         print("   Untuk menghancurkan candi yang tersedia")
+#         # Jika ada, lanjutkan
 
 # # nama = input()
 
@@ -51,3 +51,8 @@
 #     print(b[0])
 
 # F09 - Ambil Laporan Jin
+
+a = [1,2,3]
+
+for i in range(2,3):
+    print(a[i])

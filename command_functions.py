@@ -136,7 +136,7 @@ def laporan_jin(nama, data_user):
         print("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
     else:
         if custom_len(data_user) > 2:
-            for i in range(3, custom_len(data_user)-1):
+            for i in range(2, custom_len(data_user)-1):
                 count_total_jin += 1
                 if data_user[i][2] == "jin_pembangun":
                     count_total_jin_pengumpul += 1
