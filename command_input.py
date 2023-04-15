@@ -13,3 +13,7 @@ def run(command, nama, data_user, data_candi, data_bahan_bangunan):
         return nama, data_user, data_candi, data_bahan_bangunan
     elif command == "ubahjin":
         return nama, ubah_tipe_jin(nama, data_user), data_candi, data_bahan_bangunan
+    # elif ayam_berkokok == "ayamberkokok":
+    #     return ayam_berkokok(jumlah_candi,nama), data_user, data_candi, data_bahan_bangunan
+    # elif command == "help":
+    #     return help(nama), data_user, data_candi, data_bahan_bangunan
