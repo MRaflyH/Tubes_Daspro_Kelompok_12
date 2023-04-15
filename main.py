@@ -1,4 +1,5 @@
-from matriks import user_login, role_login, end_game, user, candi, bahan_bangunan, max_user, max_candi, max_bahan_bangunan
+from matriks import user_login, role_login, end_game, user, candi, bahan_bangunan, max_user, max_candi, \
+    max_bahan_bangunan
 from command_input import run
 
 while not end_game:
@@ -12,7 +13,8 @@ while not end_game:
     masukan = input(">>> ")
     if masukan == "stop":
         break
-    user_login, role_login, end_game, user, candi, bahan_bangunan = run(masukan, user_login, role_login, end_game, user, candi, bahan_bangunan, max_user, max_candi, max_bahan_bangunan)
-
+    user_login, role_login, end_game, user, candi, bahan_bangunan = run(masukan, user_login, role_login, end_game, user,
+                                                                        candi, bahan_bangunan, max_user, max_candi,
+                                                                        max_bahan_bangunan)
 
 # test
