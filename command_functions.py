@@ -1,5 +1,5 @@
 from custom_functions import cek_nama_terdaftar, cek_password_cocok, daftar_jin, custom_append, custom_len, custom_pop, \
-    hapus_candi_jin
+    hapus_candi_jin, hitung_candi, nama_to_role
 
 """
 JUDUL
