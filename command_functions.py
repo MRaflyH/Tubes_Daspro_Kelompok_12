@@ -119,8 +119,11 @@ def ubah_tipe_jin(nama, data_user):
     return data_user
 
 # F08 - Batch Kumpul/Bangun
+
 # F09 - Ambil Laporan Jin
+
 # F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
+
 # F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 
 # F12 - Ayam Berkokok (Akses : Roro Jonggrang)
@@ -145,6 +148,7 @@ def ayam_berkokok(jumlah_candi,nama):
 '''
 
 # F13 - Load
+
 # F14 - Save
 
 # F15 - Help
