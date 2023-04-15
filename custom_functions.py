@@ -1,90 +1,31 @@
-"""
-Fungsi-Fungsi Mengsimulasikan Fungsi yang Diban dan Fungsi Selain Fungsi Utama
-"""
-
-"""
-Persis kayak len()
->>> custom_len_list([1, 2, 3, 4])
-4
-Digunakan untuk list dan array saja, tuple dan string tidak bisa
-"""
+def custom_len(array, max_array):
+    for i in range(max_array):
+        if array[i] is None:
+            return i
+    return max_array
 
 
-def custom_len(array):
-    count = 0
-
-    for i in array:
-        count += 1
-    return count
+def custom_append(array, elemen, max_array):
+    array[custom_len(array, max_array)] = elemen
+    return array
 
 
-"""
-Mengembalikan persis kayak append() atau konso di Haskell tapi parameter elemen ga boleh kosong, atau ga hasilnya
-[e1, e2, e3, ]
->>> array = custom_append_list([1, 2, 3]], 4)
->>> print(array)
-[1, 2, 3, 4]
-"""
+def custom_insert(elemen, array, max_array):
+    for i in range(custom_len(array, max_array)-1, 0, -1):
+        array[i] = array[i-1]
+    array[0] = elemen
+    return array
 
 
-def custom_append(array, elemen):
-    array_baru = [None for i in range(custom_len(array) + 1)]
-    for i in range(custom_len(array)):
-        array_baru[i] = array[i]
-    array_baru[custom_len(array)] = elemen
-    return array_baru
+def custom_pop(array, index, max_array):
+    for i in range(index, custom_len(array, max_array)-1):
+        array[i] = array[i+1]
+    array[custom_len(array, max_array)-1] = None
+    return array
 
 
-"""
-Mengembalikan persis kayak insert() atau konsdot di Haskell tapi parameter elemen ga boleh kosong, atau ga hasilnya
-[ , e1, e2, e3]
->>> array = custom_append_list(1, [2, 3, 4])
->>> print(array)
-[1, 2, 3, 4]
-"""
-
-
-def custom_insert(elemen, array):
-    array_baru = [None for i in range(custom_len(array) + 1)]
-    array_baru[0] = elemen
-    for i in range(custom_len(array)):
-        array_baru[i + 1] = array[i]
-    return array_baru
-
-
-"""
-Mengsimulasi pop() tapi cara penggunaannya beda sedikit
-Untuk replikasi:
->>> elemen = array.pop(index)
-Lakukan:
->>> elemen = array[index]
->>> array = custom_pop_remove(array, index)
-"""
-
-
-def custom_pop(array, index):
-    if index == 0:
-        return custom_pop(array[1:], index - 1)
-    elif custom_len(array) == 0:
-        return []
-    elif custom_len(array) == 1:
-        return array
-    else:
-        return custom_insert(array[0], custom_pop(array[1:], index - 1))
-
-
-"""
-Mirip dengan split() tapi cara penggunaannya beda sedikit
-Untuk replikasi:
->>> data = text.split(pemisah)
-Lakukan:
->>> data = custom.split(text, pemisah)
-Hanya bisa digunakkan jika string selalu berakhir dengan \n
-"""
-
-
-def custom_split(string_list, pemisah=" "):
-    data_list = []
+def custom_split(string_list, jumlah_elemen, pemisah=" "):
+    data_list = [None for i in range(jumlah_elemen)]
     elemen_sementara = ""
     index = 0
     index_awal = 0
@@ -94,48 +35,43 @@ def custom_split(string_list, pemisah=" "):
             index_awal = index_akhir + 1
             index_akhir = index
             elemen_sementara = string_list[index_awal: index_akhir]
-            data_list = custom_append(data_list, elemen_sementara)
+            data_list = custom_append(data_list, elemen_sementara, jumlah_elemen)
             if string_list[index] == "\n":
                 return data_list
         index += 1
 
 
-"""
-Function yang mengembalikan matriks data suatu file csv (tanpa baris pertamanya)
-"""
-
-
-def csv_to_matriks(nama_file_csv):
-    data_matriks = []
+def csv_to_matriks(nama_file_csv, jumlah_elemen, max_data):
+    data_matriks = [None for i in range(max_data)]
     file_user = open(nama_file_csv, 'r')
     file_user.readline()
     while True:
         string_baris_user = file_user.readline()
         if string_baris_user == "":
             break
-        data_baris_user = custom_split(string_baris_user, ";")
-        data_matriks = custom_append(data_matriks, data_baris_user)
+        data_baris_user = custom_split(string_baris_user, jumlah_elemen, ";")
+        data_matriks = custom_append(data_matriks, data_baris_user, max_data)
     file_user.close()
     return data_matriks
 
 
-def cek_nama_terdaftar(nama, data_user):
-    for i in range(custom_len(data_user)):
+def cek_nama_terdaftar(nama, data_user, max_data_user):
+    for i in range(custom_len(data_user, max_data_user)):
         if data_user[i][0] == nama:
             return True
     return False
 
 
-def cek_password_cocok(password, nama, data_user):
-    for i in range(custom_len(data_user)):
+def cek_password_cocok(password, nama, data_user, max_data_user):
+    for i in range(custom_len(data_user, max_data_user)):
         if data_user[i][0] == nama:
             if password == data_user[i][1]:
                 return True
             return False
-        return False
+    return False
 
 
-def daftar_jin(data_user):
+def daftar_jin(data_user, max_data_user):
     while True:
         nomor_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
         if nomor_jin != 1 and nomor_jin != 2:
@@ -151,7 +87,7 @@ def daftar_jin(data_user):
 
     while True:
         user_jin = input("Masukkan username jin: ")
-        if cek_nama_terdaftar(user_jin, data_user):
+        if cek_nama_terdaftar(user_jin, data_user, max_data_user):
             print(f"Username “{user_jin}” sudah diambil!")
         else:
             break
@@ -166,15 +102,15 @@ def daftar_jin(data_user):
     return [user_jin, pass_jin, jenis_jin]
 
 
-def hapus_candi_jin(jin, data_candi):
-    for i in range(custom_len(data_candi) - 1, -1, -1):
+def hapus_candi_jin(jin, data_candi, max_data_candi):
+    for i in range(custom_len(data_candi, max_data_candi) - 1, -1, -1):
         if data_candi[i][1] == jin:
-            data_candi = custom_pop(data_candi, i)
+            data_candi = custom_pop(data_candi, i, max_data_candi)
     return data_candi
 
 
-def string_role_jin(jin, data_user):
-    for i in range(custom_len(data_user)):
+def string_role_jin(jin, data_user, max_data_user):
+    for i in range(custom_len(data_user, max_data_user)):
         if data_user[i][0] == jin:
             if data_user[i][2] == "jin_pengumpul":
                 return "Pengumpul"

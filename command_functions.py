@@ -6,7 +6,7 @@ JUDUL
 """
 
 
-def login(nama, data_user):
+def login(nama, data_user, max_data_user):
     berhasil_login = False
     input_user = ""
 
@@ -17,9 +17,9 @@ def login(nama, data_user):
         input_user = input("Username: ")
         input_password = input("Password: ")
 
-        if not cek_nama_terdaftar(input_user, data_user):
+        if not cek_nama_terdaftar(input_user, data_user, max_data_user):
             print("Username tidak terdaftar!\n")
-        elif not cek_password_cocok(input_password, input_user, data_user):
+        elif not cek_password_cocok(input_password, input_user, data_user, max_data_user):
             print("Password salah!\n")
         else:
             print(f"Selamat datang, {input_user}!\n")
@@ -38,42 +38,42 @@ def logout(nama):
     return None
 
 
-def summon_jin(nama, data_user):
+def summon_jin(nama, data_user, max_data_user):
     if nama != "Bondowoso":
-        print(f"{nama} tidak memiliki akses untuk summonjin")
+        print(f"{nama} tidak memiliki akses untuk summon jin")
     else:
         print("Jenis jin yang dapat dipanggil:")
         print("  (1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
         print("  (2) Pembangun - Bertugas membangun candi")
 
-        data_jin = daftar_jin(data_user)
+        data_jin = daftar_jin(data_user, max_data_user)
 
         print("Mengumpulkan sesajen...\nMenyerahkan sesajen...\nMembacakan mantra...\n")
         print(f"Jin {data_jin[0]} berhasil dipanggil!\n")
 
-        data_user = custom_append(data_user, data_jin)
+        data_user = custom_append(data_user, data_jin, max_data_user)
 
     return data_user
 
 
 # fungsi hilangkan_jin() bisa menghapus bondowoso dan roro (harusnya gaboleh)
-def hilangkan_jin(nama, data_user, data_candi):
+def hilangkan_jin(nama, data_user, data_candi, max_data_user, max_data_candi):
     if nama != "Bondowoso":
-        print(f"{nama} tidak memiliki akses untuk summonjin")
+        print(f"{nama} tidak memiliki akses untuk hilangkan jin")
     else:
         confirm = ""
         jin = input("Masukkan username jin: ")
-        if not cek_nama_terdaftar(jin, data_user):
+        if not cek_nama_terdaftar(jin, data_user, max_data_user):
             print("Tidak ada jin dengan username tersebut.")
         else:
             confirm = input(f"Apakah anda yakin ingin menghapus jin dengan username {jin} (Y/N)? ")
 
         if confirm == 'Y':
-            for i in range(custom_len(data_user)):
+            for i in range(custom_len(data_user, max_data_user)):
                 if data_user[i][0] == jin:
-                    data_user = custom_pop(data_user, i)
+                    data_user = custom_pop(data_user, i, max_data_user)
                     break
-            data_candi = hapus_candi_jin(jin, data_candi)
+            data_candi = hapus_candi_jin(jin, data_candi, max_data_candi)
             print("Jin telah berhasil dihapus dari alam gaib.")
         else:
             print("Jin tidak dihapus dari alam gaib.")
@@ -81,19 +81,19 @@ def hilangkan_jin(nama, data_user, data_candi):
     return data_user, data_candi
 
 
-def ubah_tipe_jin(nama, data_user):
+def ubah_tipe_jin(nama, data_user, max_data_user):
     if nama != "Bondowoso":
-        print(f"{nama} tidak memiliki akses untuk summonjin")
+        print(f"{nama} tidak memiliki akses untuk ubah tipe jin")
     else:
         confirm = ""
         role_jin = ""
         reverse_role_jin = ""
         jin = input("Masukkan username jin: ")
 
-        if not cek_nama_terdaftar(jin, data_user):
+        if not cek_nama_terdaftar(jin, data_user, max_data_user):
             print("Tidak ada jin dengan username tersebut.")
         else:
-            for i in range(custom_len(data_user)):
+            for i in range(custom_len(data_user, max_data_user)):
                 if data_user[i][0] == jin:
                     if data_user[i][2] == "jin_pengumpul":
                         confirm = input(
@@ -108,7 +108,7 @@ def ubah_tipe_jin(nama, data_user):
                     break
 
         if confirm == 'Y':
-            for i in range(custom_len(data_user)):
+            for i in range(custom_len(data_user, max_data_user)):
                 if data_user[i][0] == jin:
                     data_user[i][2] = reverse_role_jin
                     break
