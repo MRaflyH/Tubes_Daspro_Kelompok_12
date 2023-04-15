@@ -19,3 +19,5 @@ for i in range(0, custom_len(candi, max_candi)):
 
 for i in range(0, custom_len(bahan_bangunan, max_bahan_bangunan)):
     bahan_bangunan[i][2] = int(bahan_bangunan[i][2])
+
+# test

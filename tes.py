@@ -45,3 +45,4 @@ user_login = input("Nama:")
 candi = 99
 
 print(ayam_berkokok(user_login, candi))
+print()
