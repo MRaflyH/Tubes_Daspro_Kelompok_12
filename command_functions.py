@@ -1,5 +1,4 @@
-from custom_functions import cek_nama_terdaftar, cek_password_cocok, daftar_jin, custom_append, custom_len, custom_pop, \
-    hapus_candi_jin, hitung_candi, nama_to_role
+from custom_functions import *
 
 """
 JUDUL
@@ -91,7 +90,6 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
         print(f"{nama} tidak memiliki akses untuk ubah tipe jin")
     else:
         confirm = ""
-        role_jin = ""
         reverse_role_jin = ""
         jin = input("Masukkan username jin: ")
 
@@ -103,12 +101,10 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
                     if data_user[i][2] == "jin_pengumpul":
                         confirm = input(
                             "Jin ini bertipe \"Pengumpul\". Yakin ingin mengubah ke tipe \"Pembangun\" (Y/N)?")
-                        role_jin = data_user[i][2]
                         reverse_role_jin = "jin_pembangun"
                     else:
                         confirm = input(
                             "Jin ini bertipe \"Pembangun\". Yakin ingin mengubah ke tipe \"Pengumpul\" (Y/N)?")
-                        role_jin = data_user[i][2]
                         reverse_role_jin = "jin_pembangun"
                     break
 
@@ -131,26 +127,33 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
 # F08 - Batch Kumpul/Bangun
 
 # F09 - Ambil Laporan Jin
-'''
-def laporan_jin(nama, data_user):
-    count_total_jin = 0
-    count_total_jin_pengumpul = 0
-    count_total_jin_pembangun = 0
 
-    if nama != "Bondowoso":
+def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan):
+    jumlah_candi_tiap_jin = [0 for i in range(custom_len(data_user, max_data_user))]
+
+    if role != "bandung_bondowoso":
         print("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
     else:
-        if custom_len(data_user) > 2:
-            for i in range(2, custom_len(data_user)-1):
-                count_total_jin += 1
-                if data_user[i][2] == "jin_pembangun":
-                    count_total_jin_pengumpul += 1
-                    {mencari jin terajin dan termalas dari jumlah bahan yang mereka kumpulkan,
-                     lalu bandingkan huruf awal dari nama jin (jika ada yang sama) dengan fungsi
-                     custom, yani find_huruf_awal}
-                else:
-                    count_total_jin_pembangun += 1                
-'''
+        max_data_jin = 100
+        data_jin = [None for i in range(max_data_jin)]
+
+        for i in range(custom_len(data_user, max_data_user)-2):
+            data_jin[i] = data_user[i+2][0]
+
+        data_jin = urutkan_leksikografis(data_jin, max_data_jin)
+
+        total_jin, total_jin_pengumpul, total_jin_pembangun = count_jin_total_pengumpul_pembangun(data_user, max_data_user)
+        jin_terajin, jin_termalas = jin_terajin_termalas(data_jin, data_candi, max_data_jin, max_data_candi)
+        jumlah_pasir, jumlah_air, jumlah_batu = jumlah_pasir_air_batu(data_bahan_bangunan, max_data_bahan_bangunan)
+
+        print(f"> Total Jin: {total_jin}")
+        print(f"> Total Jin Pengumpul: {total_jin_pengumpul}")
+        print(f"> Total Jin Pembangun: {total_jin_pembangun}")
+        print(f"> Jin Terajin: {jin_terajin}")
+        print(f"> Jin Termalas: {jin_termalas}")
+        print(f"> Jumlah Pasir: {jumlah_pasir} unit")
+        print(f"> Jumlah Air: {jumlah_air} unit")
+        print(f"> Jumlah Batu: {jumlah_batu} unit")
 
 
 # F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)

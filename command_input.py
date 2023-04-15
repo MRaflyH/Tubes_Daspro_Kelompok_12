@@ -18,6 +18,8 @@ def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, ma
         help_role(role)
     elif command == "exit":
         end = exit_game()
+    elif command == "laporanjin":
+        laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
     return nama, role, end, data_user, data_candi, data_bahan_bangunan
 
 

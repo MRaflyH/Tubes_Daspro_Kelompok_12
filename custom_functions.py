@@ -142,4 +142,85 @@ def hitung_candi(data_candi, max_data_candi):
     return jumlah_candi
 
 
+def leksikografis_lebih_rendah(nama_pertama, nama_kedua):
+    kata_pertama_lebih_pendek = True
+    length = len(nama_pertama)
+
+    if len(nama_kedua) < len(nama_pertama):
+        length = len(nama_kedua)
+        kata_pertama_lebih_pendek = False
+
+    for i in range(length):
+        if ord(nama_pertama[i]) < ord(nama_kedua[i]):
+            return True
+        elif ord(nama_kedua[i]) < ord(nama_pertama[i]):
+            return False
+
+    return kata_pertama_lebih_pendek
+
+
+def urutkan_leksikografis(data_jin, max_data_jin):
+    for i in range(custom_len(data_jin, max_data_jin)-1):
+        for j in range(i+1, custom_len(data_jin, max_data_jin)):
+            if not leksikografis_lebih_rendah(data_jin[i], data_jin[j]):
+                data_jin[i], data_jin[j] = data_jin[j], data_jin[i]
+    return data_jin
+
+
+def count_jin_total_pengumpul_pembangun(data_user, max_data_user):
+    count_total_jin = 0
+    count_total_jin_pengumpul = 0
+    count_total_jin_pembangun = 0
+
+    for i in range(custom_len(data_user, max_data_user)):
+        if data_user[i][2] == "jin_pengumpul" or data_user[i][2] == "jin_pembangun":
+            if data_user[i][2] == "jin_pengumpul":
+                count_total_jin_pengumpul += 1
+            elif data_user[i][2] == "jin_pembangun":
+                count_total_jin_pembangun += 1
+            count_total_jin += 1
+
+    return count_total_jin, count_total_jin_pengumpul, count_total_jin_pembangun
+
+
+def jin_terajin_termalas(data_jin, data_candi, max_data_jin, max_data_candi):
+    jumlah_candi_dibangun = [None for i in range(max_data_jin)]
+
+    for i in range(custom_len(data_jin, max_data_jin)):
+        jumlah_candi_dibangun[i] = 0
+
+    for i in range(custom_len(data_candi, max_data_candi)):
+        for j in range(custom_len(data_jin, max_data_jin)):
+            if data_candi[i][1] == data_jin[j]:
+                jumlah_candi_dibangun[j] += 1
+
+    index_jin_terajin = 0
+    index_jin_termalas = 0
+    for i in range(custom_len(jumlah_candi_dibangun, max_data_jin)):
+        if jumlah_candi_dibangun[i] > jumlah_candi_dibangun[index_jin_terajin]:
+            index_jin_terajin = i
+        elif jumlah_candi_dibangun[i] < jumlah_candi_dibangun[index_jin_termalas]:
+            index_jin_termalas = i
+
+    jin_terajin = data_jin[index_jin_terajin]
+    jin_termalas = data_jin[index_jin_termalas]
+
+    return jin_terajin, jin_termalas
+
+
+def jumlah_pasir_air_batu(data_bahan_bangunan, max_data_bahan_bangunan):
+    jumlah_pasir = 0
+    jumlah_air = 0
+    jumlah_batu = 0
+
+    for i in range(custom_len(data_bahan_bangunan, max_data_bahan_bangunan)):
+        if data_bahan_bangunan[i][0] == "pasir":
+            jumlah_pasir = data_bahan_bangunan[i][2]
+        elif data_bahan_bangunan[i][0] == "air":
+            jumlah_air = data_bahan_bangunan[i][2]
+        elif data_bahan_bangunan[i][0] == "batu":
+            jumlah_batu = data_bahan_bangunan[i][2]
+
+    return jumlah_pasir, jumlah_batu, jumlah_air
+
 # test

@@ -1,3 +1,6 @@
+from command_functions import *
+
+
 # def help(nama):
 #     print("=========== HELP ===========")
 #     if nama == '':
@@ -23,7 +26,7 @@
 
 # print(help(nama))
 
-def ayam_berkokok(nama,jumlah_candi):
+def ayam_berkokok(nama, jumlah_candi):
     if nama == "Roro":
         print("Kukuruyuk.. Kukuruyuk..")
         print(f"Jumlah Candi: {jumlah_candi}")
@@ -41,8 +44,3 @@ def ayam_berkokok(nama,jumlah_candi):
         print("Anda tidak memiliki akses ini.")
 
 
-user_login = input("Nama:")
-candi = 99
-
-print(ayam_berkokok(user_login, candi))
-print()
