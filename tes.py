@@ -51,4 +51,3 @@
 #     print(b[0])
 
 # F09 - Ambil Laporan Jin
-def 
