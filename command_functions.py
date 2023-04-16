@@ -250,7 +250,6 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
 
 
 # F09 - Ambil Laporan Jin
-
 def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi,
                 max_data_bahan_bangunan):
     jumlah_candi_tiap_jin = [0 for i in range(custom_len(data_user, max_data_user))]
@@ -353,11 +352,11 @@ def help_role(role):
 def exit_game():
     while True:
         confirm = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
-        if confirm == 'y':
+        if confirm == 'y' or confirm == 'Y':
             print("jalanin save()")
             # save() belum ada
             break
-        elif confirm == 'n':
+        elif confirm == 'n' or confirm == 'N':
             print("tidak jalanin save()")
             break
     return True
