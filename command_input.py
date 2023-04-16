@@ -12,6 +12,8 @@ def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, ma
         data_user, data_candi = hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_candi)
     elif command == "ubahjin":
         data_user = ubah_tipe_jin(nama, role, data_user, max_data_user)
+    elif command == "bangun":
+        data_candi, data_bahan_bangunan = jin_pembangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan)
     elif command == "ayamberkokok":
         end = ayam_berkokok(nama, role, data_candi, max_data_candi)
     elif command == "help":

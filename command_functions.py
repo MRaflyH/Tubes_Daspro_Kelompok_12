@@ -1,4 +1,5 @@
 from custom_functions import *
+from random import randint
 
 """
 JUDUL
@@ -121,6 +122,29 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
 
 
 # F06 - Jin Pembangun (Akses : Jin Pembangun)
+def jin_pembangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan):
+    if role != "jin_pembangun":
+        print(f"{nama} tidak memiliki akses untuk bangun candi")
+    else:
+        butuh_pasir = randint(1, 5)
+        butuh_batu = randint(1, 5)
+        butuh_air = randint(1, 5)
+        jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+
+        if jumlah_pasir >= butuh_pasir and jumlah_batu >= butuh_batu and jumlah_air >= butuh_air:
+            data_candi = append_candi(nama, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+            jumlah_candi = hitung_candi(data_candi, max_data_candi)
+            sisa_candi = 100 - jumlah_candi
+
+            data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+
+            print("Candi berhasil dibangun.")
+            print(f"Sisa candi yang perlu dibangun: {sisa_candi}")
+        else:
+            print("Bahan bangunan tidak mencukupi.")
+            print("Candi tidak bisa dibangun!")
+
+    return data_candi, data_bahan_bangunan
 
 # F07 - Jin Pengumpul (Akses : Jin Pengumpul)
 
@@ -144,7 +168,7 @@ def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data
 
         total_jin, total_jin_pengumpul, total_jin_pembangun = count_jin_total_pengumpul_pembangun(data_user, max_data_user)
         jin_terajin, jin_termalas = jin_terajin_termalas(data_jin, data_candi, max_data_jin, max_data_candi)
-        jumlah_pasir, jumlah_air, jumlah_batu = jumlah_pasir_air_batu(data_bahan_bangunan, max_data_bahan_bangunan)
+        jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 
         print(f"> Total Jin: {total_jin}")
         print(f"> Total Jin Pengumpul: {total_jin_pengumpul}")

@@ -208,19 +208,54 @@ def jin_terajin_termalas(data_jin, data_candi, max_data_jin, max_data_candi):
     return jin_terajin, jin_termalas
 
 
-def jumlah_pasir_air_batu(data_bahan_bangunan, max_data_bahan_bangunan):
+def jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan):
     jumlah_pasir = 0
     jumlah_air = 0
     jumlah_batu = 0
 
     for i in range(custom_len(data_bahan_bangunan, max_data_bahan_bangunan)):
-        if data_bahan_bangunan[i][0] == "pasir":
-            jumlah_pasir = data_bahan_bangunan[i][2]
-        elif data_bahan_bangunan[i][0] == "air":
+        if data_bahan_bangunan[i][0] == "air":
             jumlah_air = data_bahan_bangunan[i][2]
         elif data_bahan_bangunan[i][0] == "batu":
             jumlah_batu = data_bahan_bangunan[i][2]
+        elif data_bahan_bangunan[i][0] == "pasir":
+            jumlah_pasir = data_bahan_bangunan[i][2]
 
-    return jumlah_pasir, jumlah_batu, jumlah_air
+    return jumlah_air, jumlah_batu, jumlah_pasir
+
+
+def append_candi(nama, air, batu, pasir, data_candi, max_data_candi):
+    data_kosong_ditemukan = False
+
+    for i in range(custom_len(data_candi, max_data_candi)):
+        if data_candi[i][1] is None:
+            data_candi[i][1] = nama
+            data_candi[i][2] = pasir
+            data_candi[i][3] = batu
+            data_candi[i][4] = air
+            data_kosong_ditemukan = True
+            break
+
+    if not data_kosong_ditemukan:
+        candi_baru = [custom_len(data_candi, max_data_candi)+1, nama, pasir, batu, air]
+        data_candi = custom_append(data_candi, candi_baru, max_data_candi)
+
+    return data_candi
+
+
+def pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
+    jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+    jumlah_air -= butuh_air
+    jumlah_batu -= butuh_batu
+    jumlah_pasir -= butuh_pasir
+
+    for i in range(custom_len(data_bahan_bangunan, max_data_bahan_bangunan)):
+        if data_bahan_bangunan[i][0] == "air":
+            data_bahan_bangunan[i][2] = jumlah_air
+        elif data_bahan_bangunan[i][0] == "batu":
+            data_bahan_bangunan[i][2] = jumlah_batu
+        elif data_bahan_bangunan[i][0] == "pasir":
+            data_bahan_bangunan[i][2] = jumlah_pasir
+    return data_bahan_bangunan
 
 # test

@@ -1,13 +1,15 @@
 from custom_functions import *
-from matriks import user, max_user
+from matriks import user, max_user, candi, max_candi, bahan_bangunan, max_bahan_bangunan
+from random import randint
 
-length_jin = 100
-data_jin = [None for i in range(length_jin)]
+nama = "jin1"
+air = randint(1, 5)
+batu = randint(1, 5)
+pasir = randint(1, 5)
 
-for i in range(custom_len(user, max_user)-2):
-    data_jin[i] = user[i+2][0]
-
-print(data_jin)
-print(urutkan_leksikografis(data_jin, length_jin))
-
-print(count_jin_total_pengumpul_pembangun(user, max_user))
+print(candi)
+print(bahan_bangunan)
+candi = append_candi(nama, air, batu, pasir, candi, max_candi)
+bahan_bangunan = pakai_bahan(air, batu, pasir, bahan_bangunan, max_bahan_bangunan)
+print(candi)
+print(bahan_bangunan)
