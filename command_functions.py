@@ -122,7 +122,7 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
 
 
 # F06 - Jin Pembangun (Akses : Jin Pembangun)
-def jin_pembangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan):
+def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan):
     if role != "jin_pembangun":
         print(f"{nama} tidak memiliki akses untuk bangun candi")
     else:
@@ -149,7 +149,7 @@ def jin_pembangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, m
 
 
 # F07 - Jin Pengumpul (Akses : Jin Pengumpul)
-def jin_pengumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
+def kumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
     if role != "jin_pengumpul":
         print(f"{nama} tidak memiliki akses untuk kumpul bahan")
     else:
@@ -167,10 +167,44 @@ def jin_pengumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
 
         print(f"Jin menemukan {nemu_pasir} pasir, {nemu_batu} batu, dan {nemu_air} air")
 
-        return data_bahan_bangunan
+        return data_bahan_bangunan, nemu_air, nemu_batu, nemu_pasir
 
 
 # F08 - Batch Kumpul/Bangun
+def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_data_bahan_bangunan):
+    # hasil print belum sesuai karena pake jin_pengumpul()
+    # print(f'Jin menemukan total {pasir} pasir, {batu} batu, dan {air} air.')
+
+    if role != "bandung_bondowoso":
+        print(f"{nama} tidak memiliki akses untuk batch kumpul")
+    else:
+        jumlah_pembangun_jin = 0
+        total_air = 0
+        total_batu = 0
+        total_pasir = 0
+        for i in range(custom_len(data_user, max_data_user)):
+            if data_user[i][2] == "jin_pengumpul":
+                jumlah_pembangun_jin += 1
+                data_bahan_bangunan, nemu_air, nemu_batu, nemu_pasir = kumpul(data_user[i][0], data_user[i][2], data_bahan_bangunan, max_data_bahan_bangunan)
+                total_air += nemu_air
+                total_batu += nemu_batu
+                total_pasir += nemu_pasir
+
+        print(f'Mengerahkan {jumlah_pembangun_jin} jin untuk mengumpulkan bahan.')
+        print(f'Jin menemukan total {total_pasir} pasir, {total_batu} batu, dan {total_air} air.')
+
+    return data_bahan_bangunan
+
+
+# def batch_bangun(nama, role, data_user, max_data_user, data_candi, max_data_candi, data_bahan_bangunan, max_data_bahan_bangunan):
+#     if role != "bandung_bondowoso":
+#         print(f"{nama} tidak memiliki akses untuk batch kumpul")
+#     else:
+#         jumlah_pengumpul_jin = 0
+#         for i in range(custom_len(data_user, max_data_user)):
+#             if data_user[i][2] == "jin_pengumpul":
+#                 jumlah_pengumpul_jin += 1
+
 
 # F09 - Ambil Laporan Jin
 
