@@ -325,9 +325,6 @@ def help_role(role):
         print("   Untuk keluar dari akun yang digunakan sekarang")
         print("2. summonjin")
         print("   Untuk memanggil jin")
-        # print("3. ")
-        # Jika ada, lanjutkan
-    elif role == "roro_jonggrang":
         print("3. hapusjin")
         print("   Untuk menghapus jin")
         print("4. ubahjin")
@@ -342,10 +339,17 @@ def help_role(role):
         print("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
         print("9. exit")
         print("   Untuk keluar dari program dan kembali ke terminal")
-
+    elif role == "roro_jonggrang":
+        print("1. logout")
+        print("   Untuk keluar dari akun yang digunakan sekarang")
+        print("2. hancurkancandi")
+        print("   Untuk menghancurkan candi yang tersedia")
+        print("3. ayamberkokok")
+        print("   Untuk menyelesaikan permainan dengan memalsukan pagi hari")
+        print("4. exit")
+        print("   Untuk keluar dari program dan kembali ke terminal")
 
 # F16 - Exit
-
 def exit_game():
     while True:
         confirm = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
