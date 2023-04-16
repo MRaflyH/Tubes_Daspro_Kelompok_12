@@ -274,4 +274,14 @@ def tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_
     data_bahan_bangunan = update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
 
     return data_bahan_bangunan
+
+
+def copy_matriks(array, max_array):
+    array_baru = [None for i in range(max_array)]
+
+    for i in range(custom_len(array, max_array)):
+        array_baru[i] = array[i]
+    return array_baru
+
+
 # test

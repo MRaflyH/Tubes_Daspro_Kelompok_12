@@ -123,6 +123,11 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
 
 # F06 - Jin Pembangun (Akses : Jin Pembangun)
 def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan):
+    berhasil_dibangun = False
+    butuh_pasir = 0
+    butuh_batu = 0
+    butuh_air = 0
+
     if role != "jin_pembangun":
         print(f"{nama} tidak memiliki akses untuk bangun candi")
     else:
@@ -139,13 +144,16 @@ def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data
             data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan,
                                               max_data_bahan_bangunan)
 
+            berhasil_dibangun = True
+
             print("Candi berhasil dibangun.")
             print(f"Sisa candi yang perlu dibangun: {sisa_candi}")
+
         else:
             print("Bahan bangunan tidak mencukupi.")
             print("Candi tidak bisa dibangun!")
 
-    return data_candi, data_bahan_bangunan
+    return data_candi, data_bahan_bangunan, butuh_air, butuh_batu, butuh_pasir, berhasil_dibangun
 
 
 # F07 - Jin Pengumpul (Akses : Jin Pengumpul)
@@ -163,7 +171,8 @@ def kumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
         jumlah_batu += nemu_batu
         jumlah_air += nemu_air
 
-        data_bahan_bangunan = tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan,max_data_bahan_bangunan)
+        data_bahan_bangunan = tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan,
+                                           max_data_bahan_bangunan)
 
         print(f"Jin menemukan {nemu_pasir} pasir, {nemu_batu} batu, dan {nemu_air} air")
 
@@ -185,7 +194,9 @@ def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_
         for i in range(custom_len(data_user, max_data_user)):
             if data_user[i][2] == "jin_pengumpul":
                 jumlah_pembangun_jin += 1
-                data_bahan_bangunan, nemu_air, nemu_batu, nemu_pasir = kumpul(data_user[i][0], data_user[i][2], data_bahan_bangunan, max_data_bahan_bangunan)
+                data_bahan_bangunan, nemu_air, nemu_batu, nemu_pasir = kumpul(data_user[i][0], data_user[i][2],
+                                                                              data_bahan_bangunan,
+                                                                              max_data_bahan_bangunan)
                 total_air += nemu_air
                 total_batu += nemu_batu
                 total_pasir += nemu_pasir
@@ -196,14 +207,46 @@ def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_
     return data_bahan_bangunan
 
 
-# def batch_bangun(nama, role, data_user, max_data_user, data_candi, max_data_candi, data_bahan_bangunan, max_data_bahan_bangunan):
-#     if role != "bandung_bondowoso":
-#         print(f"{nama} tidak memiliki akses untuk batch kumpul")
-#     else:
-#         jumlah_pengumpul_jin = 0
-#         for i in range(custom_len(data_user, max_data_user)):
-#             if data_user[i][2] == "jin_pengumpul":
-#                 jumlah_pengumpul_jin += 1
+def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan):
+    batch_bangun_berhasil = True
+    if role != "bandung_bondowoso":
+        print(f"{nama} tidak memiliki akses untuk batch kumpul")
+    else:
+        jumlah_pembangun_jin = 0
+        total_air = 0
+        total_batu = 0
+        total_pasir = 0
+        data_candi_sementara = copy_matriks(data_candi, max_data_candi)
+        data_bahan_bangunan_sementara = copy_matriks(data_bahan_bangunan, max_data_bahan_bangunan)
+
+        for i in range(custom_len(data_user, max_data_user)):
+            if data_user[i][2] == "jin_pembangun":
+                jumlah_pembangun_jin += 1
+                data_candi_sementara, data_bahan_bangunan_sementara, butuh_air, butuh_batu, butuh_pasir, berhasil_dibangun = bangun(data_user[i][0], data_user[i][2], data_candi_sementara, data_bahan_bangunan_sementara, max_data_candi, max_data_bahan_bangunan)
+                if not berhasil_dibangun:
+                    batch_bangun_berhasil = False
+                total_air += butuh_air
+                total_batu += butuh_batu
+                total_pasir += butuh_pasir
+                print(data_bahan_bangunan)
+                print(data_bahan_bangunan_sementara)
+        print(f"Mengerahkan {jumlah_pembangun_jin} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+
+        if batch_bangun_berhasil:
+            data_candi = copy_matriks(data_candi_sementara, max_data_candi)
+            data_bahan_bangunan = copy_matriks(data_bahan_bangunan_sementara, max_data_bahan_bangunan)
+
+            print(f"Jin berhasil membangun total {jumlah_pembangun_jin} candi")
+
+        else:
+            jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+            kurang_air = total_air - jumlah_air
+            kurang_batu = total_batu - jumlah_batu
+            kurang_pasir = total_pasir - jumlah_pasir
+
+            print(f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
+
+        return data_candi, data_bahan_bangunan
 
 
 # F09 - Ambil Laporan Jin
