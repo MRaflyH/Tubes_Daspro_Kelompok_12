@@ -136,7 +136,8 @@ def jin_pembangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, m
             jumlah_candi = hitung_candi(data_candi, max_data_candi)
             sisa_candi = 100 - jumlah_candi
 
-            data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+            data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan,
+                                              max_data_bahan_bangunan)
 
             print("Candi berhasil dibangun.")
             print(f"Sisa candi yang perlu dibangun: {sisa_candi}")
@@ -146,13 +147,35 @@ def jin_pembangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, m
 
     return data_candi, data_bahan_bangunan
 
+
 # F07 - Jin Pengumpul (Akses : Jin Pengumpul)
+def jin_pengumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
+    if role != "jin_pengumpul":
+        print(f"{nama} tidak memiliki akses untuk kumpul bahan")
+    else:
+        jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+
+        nemu_pasir = randint(1, 5)
+        nemu_batu = randint(1, 5)
+        nemu_air = randint(1, 5)
+
+        jumlah_air += nemu_pasir
+        jumlah_batu += nemu_batu
+        jumlah_air += nemu_air
+
+        data_bahan_bangunan = tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan,max_data_bahan_bangunan)
+
+        print(f"Jin menemukan {nemu_pasir} pasir, {nemu_batu} batu, dan {nemu_air} air")
+
+        return data_bahan_bangunan
+
 
 # F08 - Batch Kumpul/Bangun
 
 # F09 - Ambil Laporan Jin
 
-def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan):
+def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi,
+                max_data_bahan_bangunan):
     jumlah_candi_tiap_jin = [0 for i in range(custom_len(data_user, max_data_user))]
 
     if role != "bandung_bondowoso":
@@ -161,12 +184,13 @@ def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data
         max_data_jin = 100
         data_jin = [None for i in range(max_data_jin)]
 
-        for i in range(custom_len(data_user, max_data_user)-2):
-            data_jin[i] = data_user[i+2][0]
+        for i in range(custom_len(data_user, max_data_user) - 2):
+            data_jin[i] = data_user[i + 2][0]
 
         data_jin = urutkan_leksikografis(data_jin, max_data_jin)
 
-        total_jin, total_jin_pengumpul, total_jin_pembangun = count_jin_total_pengumpul_pembangun(data_user, max_data_user)
+        total_jin, total_jin_pengumpul, total_jin_pembangun = count_jin_total_pengumpul_pembangun(data_user,
+                                                                                                  max_data_user)
         jin_terajin, jin_termalas = jin_terajin_termalas(data_jin, data_candi, max_data_jin, max_data_candi)
         jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 

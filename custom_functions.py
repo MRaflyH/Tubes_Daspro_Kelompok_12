@@ -243,12 +243,7 @@ def append_candi(nama, air, batu, pasir, data_candi, max_data_candi):
     return data_candi
 
 
-def pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
-    jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
-    jumlah_air -= butuh_air
-    jumlah_batu -= butuh_batu
-    jumlah_pasir -= butuh_pasir
-
+def update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
     for i in range(custom_len(data_bahan_bangunan, max_data_bahan_bangunan)):
         if data_bahan_bangunan[i][0] == "air":
             data_bahan_bangunan[i][2] = jumlah_air
@@ -258,4 +253,25 @@ def pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_dat
             data_bahan_bangunan[i][2] = jumlah_pasir
     return data_bahan_bangunan
 
+
+def pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
+    jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+    jumlah_air -= butuh_air
+    jumlah_batu -= butuh_batu
+    jumlah_pasir -= butuh_pasir
+
+    data_bahan_bangunan = update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+
+    return data_bahan_bangunan
+
+
+def tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
+    jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+    jumlah_air += nemu_air
+    jumlah_batu += nemu_batu
+    jumlah_pasir += nemu_pasir
+
+    data_bahan_bangunan = update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+
+    return data_bahan_bangunan
 # test
