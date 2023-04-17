@@ -19,4 +19,3 @@ while not end_game:
                                                                         candi, bahan_bangunan, max_user, max_candi,
                                                                         max_bahan_bangunan)
 
-# test

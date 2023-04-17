@@ -1,5 +1,6 @@
 from custom_functions import *
 from random import randint
+from os import path, mkdir
 
 """
 JUDUL
@@ -75,14 +76,15 @@ def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_can
     if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk hilangkan jin")
     else:
-        confirm = ""
         jin = input("Masukkan username jin: ")
         if not cek_nama_terdaftar(jin, data_user, max_data_user):
             print()
             print("Tidak ada jin dengan username tersebut.")
 
         else:
-            confirm = input(f"Apakah anda yakin ingin menghapus jin dengan username {jin} (Y/N)? ")
+            confirm = ""
+            while confirm.lower() != "y" and confirm.lower() != "n":
+                confirm = input(f"Apakah anda yakin ingin menghapus jin dengan username {jin} (Y/N)? ")
             print()
 
             if confirm.lower() == 'y':
@@ -118,12 +120,14 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
             for i in range(custom_len(data_user, max_data_user)):
                 if data_user[i][0] == jin:
                     if data_user[i][2] == "jin_pengumpul":
-                        confirm = input(
-                            "Jin ini bertipe \"Pengumpul\". Yakin ingin mengubah ke tipe \"Pembangun\" (Y/N)? ")
+                        while confirm.lower() != "y" and confirm.lower() != "n":
+                            confirm = input(
+                                "Jin ini bertipe \"Pengumpul\". Yakin ingin mengubah ke tipe \"Pembangun\" (Y/N)? ")
                         reverse_role_jin = "jin_pembangun"
                     else:
-                        confirm = input(
-                            "Jin ini bertipe \"Pembangun\". Yakin ingin mengubah ke tipe \"Pengumpul\" (Y/N)? ")
+                        while confirm.lower() != "y" and confirm.lower() != "n":
+                            confirm = input(
+                                "Jin ini bertipe \"Pembangun\". Yakin ingin mengubah ke tipe \"Pengumpul\" (Y/N)? ")
                         reverse_role_jin = "jin_pembangun"
                     break
 
@@ -143,11 +147,6 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
 
 # F06 - Jin Pembangun (Akses : Jin Pembangun)
 def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan):
-    berhasil_dibangun = False
-    butuh_pasir = 0
-    butuh_batu = 0
-    butuh_air = 0
-
     if role != "jin_pembangun":
         print(f"{nama} tidak memiliki akses untuk bangun candi")
 
@@ -155,18 +154,12 @@ def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data
         butuh_pasir = randint(1, 5)
         butuh_batu = randint(1, 5)
         butuh_air = randint(1, 5)
-        jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 
-        if jumlah_pasir >= butuh_pasir and jumlah_batu >= butuh_batu and jumlah_air >= butuh_air:
-            data_candi = append_candi(nama, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+        data_candi, data_bahan_bangunan, berhasil_dibangun = bangun_tunggal(nama, butuh_pasir, butuh_batu, butuh_air, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan)
+
+        if berhasil_dibangun:
             jumlah_candi = hitung_candi(data_candi, max_data_candi)
             sisa_candi = 100 - jumlah_candi
-
-            data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan,
-                                              max_data_bahan_bangunan)
-
-            berhasil_dibangun = True
-
             print("Candi berhasil dibangun.")
             print(f"Sisa candi yang perlu dibangun: {sisa_candi}")
 
@@ -174,33 +167,24 @@ def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data
             print("Bahan bangunan tidak mencukupi.")
             print("Candi tidak bisa dibangun!")
 
-    return data_candi, data_bahan_bangunan, butuh_air, butuh_batu, butuh_pasir, berhasil_dibangun
+    return data_candi, data_bahan_bangunan
 
 
 # F07 - Jin Pengumpul (Akses : Jin Pengumpul)
 def kumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
-    nemu_air, nemu_batu, nemu_pasir = 0, 0, 0
-
     if role != "jin_pengumpul":
         print(f"{nama} tidak memiliki akses untuk kumpul bahan")
 
     else:
-        jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
-
         nemu_pasir = randint(1, 5)
         nemu_batu = randint(1, 5)
         nemu_air = randint(1, 5)
 
-        jumlah_air += nemu_pasir
-        jumlah_batu += nemu_batu
-        jumlah_air += nemu_air
-
-        data_bahan_bangunan = tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan,
-                                           max_data_bahan_bangunan)
+        data_bahan_bangunan = kumpul_tunggal(nemu_pasir, nemu_batu, nemu_air, data_bahan_bangunan, max_data_bahan_bangunan)
 
         print(f"Jin menemukan {nemu_pasir} pasir, {nemu_batu} batu, dan {nemu_air} air")
 
-    return data_bahan_bangunan, nemu_air, nemu_batu, nemu_pasir
+    return data_bahan_bangunan
 
 
 # F08 - Batch Kumpul/Bangun
@@ -210,17 +194,23 @@ def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_
 
     if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk batch kumpul")
+
     else:
         jumlah_pembangun_jin = 0
         total_air = 0
         total_batu = 0
         total_pasir = 0
+
         for i in range(custom_len(data_user, max_data_user)):
             if data_user[i][2] == "jin_pengumpul":
                 jumlah_pembangun_jin += 1
-                data_bahan_bangunan, nemu_air, nemu_batu, nemu_pasir = kumpul(data_user[i][0], data_user[i][2],
-                                                                              data_bahan_bangunan,
-                                                                              max_data_bahan_bangunan)
+
+                nemu_pasir = randint(1, 5)
+                nemu_batu = randint(1, 5)
+                nemu_air = randint(1, 5)
+
+                data_bahan_bangunan = kumpul_tunggal(nemu_pasir, nemu_batu, nemu_air, data_bahan_bangunan, max_data_bahan_bangunan)
+
                 total_air += nemu_air
                 total_batu += nemu_batu
                 total_pasir += nemu_pasir
@@ -233,32 +223,51 @@ def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_
 
 def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi,
                  max_data_bahan_bangunan):
+
     batch_bangun_berhasil = True
+
     if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk batch kumpul")
+
     else:
         jumlah_pembangun_jin = 0
         total_air = 0
         total_batu = 0
         total_pasir = 0
+
+        # data_candi_sementara = [None for i in range(max_data_candi)]
+        #
+        # for i in range(custom_len(data_candi, max_data_candi)):
+        #     data_candi_sementara[i] = data_candi[i]
+        #
+        # data_bahan_bangunan_sementara = [None for i in range(max_data_bahan_bangunan)]
+        #
+        # for i in range(custom_len(data_bahan_bangunan, max_data_bahan_bangunan)):
+        #     data_bahan_bangunan_sementara[i] = data_bahan_bangunan[i]
+
         data_candi_sementara = copy_matriks(data_candi, max_data_candi)
         data_bahan_bangunan_sementara = copy_matriks(data_bahan_bangunan, max_data_bahan_bangunan)
 
         for i in range(custom_len(data_user, max_data_user)):
             if data_user[i][2] == "jin_pembangun":
                 jumlah_pembangun_jin += 1
-                data_candi_sementara, data_bahan_bangunan_sementara, butuh_air, butuh_batu, butuh_pasir, berhasil_dibangun = bangun(
-                    data_user[i][0], data_user[i][2], data_candi_sementara, data_bahan_bangunan_sementara,
-                    max_data_candi, max_data_bahan_bangunan)
-                if not berhasil_dibangun:
-                    batch_bangun_berhasil = False
+                butuh_pasir = randint(1, 5)
+                butuh_batu = randint(1, 5)
+                butuh_air = randint(1, 5)
+
+                data_candi_sementara, data_bahan_bangunan_sementara, berhasil_dibangun = bangun_tunggal(data_user[i][0], butuh_pasir, butuh_batu, butuh_air, data_candi_sementara, data_bahan_bangunan_sementara, max_data_candi, max_data_bahan_bangunan)
+
                 total_air += butuh_air
                 total_batu += butuh_batu
                 total_pasir += butuh_pasir
-                print(data_bahan_bangunan)
-                print(data_bahan_bangunan_sementara)
-        print(
-            f"Mengerahkan {jumlah_pembangun_jin} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+
+                if not berhasil_dibangun:
+                    batch_bangun_berhasil = False
+
+                # print(21, data_candi)
+                # print(22, data_candi_sementara)
+
+        print(f"Mengerahkan {jumlah_pembangun_jin} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
 
         if batch_bangun_berhasil:
             data_candi = copy_matriks(data_candi_sementara, max_data_candi)
@@ -274,13 +283,12 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
 
             print(f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
 
-        return data_candi, data_bahan_bangunan
+    return data_candi, data_bahan_bangunan
 
 
 # F09 - Ambil Laporan Jin
-def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi,
+def laporan_jin(role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi,
                 max_data_bahan_bangunan):
-    jumlah_candi_tiap_jin = [0 for i in range(custom_len(data_user, max_data_user))]
 
     if role != "bandung_bondowoso":
         print("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
@@ -303,6 +311,7 @@ def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data
 
         jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 
+        print()
         print(f"> Total Jin: {total_jin}")
         print(f"> Total Jin Pengumpul: {total_jin_pengumpul}")
         print(f"> Total Jin Pembangun: {total_jin_pembangun}")
@@ -314,7 +323,7 @@ def laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data
 
 
 # F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
-def laporan_candi(nama, role, data_candi, max_data_candi):
+def laporan_candi(role, data_candi, max_data_candi):
     if role != "bandung_bondowoso":
         print("Laporan candi hanya dapat diakses oleh akun Bandung Bondowoso.")
     else:
@@ -347,6 +356,7 @@ def laporan_candi(nama, role, data_candi, max_data_candi):
                     id_candi_termurah = data_candi[i][0]
                     harga_candi_termurah = harga_candi
 
+        print()
         print(f"Total Candi: {total_candi}")
         print(f"Total Pasir yang digunakan: {total_pasir}")
         print(f"Total Batu yang digunakan: {total_batu}")
@@ -361,7 +371,7 @@ def laporan_candi(nama, role, data_candi, max_data_candi):
 
 
 # F11 - Hancurkan Candi (Akses : Roro Jonggrang)
-def hancurkan_candi(nama, role, data_candi, max_data_candi):
+def hancurkan_candi(role, data_candi, max_data_candi):
     if role != "roro_jonggrang":
         print("Hancurkan candi hanya dapat diakses oleh akun Roro Jonggrang.")
 
@@ -373,15 +383,22 @@ def hancurkan_candi(nama, role, data_candi, max_data_candi):
             if data_candi[i][0] == id_candi:
                 if data_candi[i][1] is not None:
                     candi_ditemukan = True
-                    confirm = input("Apakah anda yakin ingin menghancurkan candi ID: 5 (Y/N)? ")
+                    confirm = ""
+
+                    while confirm.lower() != "y" and confirm.lower() != "n":
+                        confirm = input("Apakah anda yakin ingin menghancurkan candi ID: 5 (Y/N)? ")
+
+                    print()
+
                     if confirm.lower() == "y":
                         data_candi = hapus_candi(i, data_candi)
                         print("Candi telah berhasil dihancurkan.")
                     else:
-                        print("Candi telah berhasil dihancurkan.")
+                        print("Candi tidak berhasil dihancurkan.")
                 break
 
         if not candi_ditemukan:
+            print()
             print("Tidak ada candi dengan ID tersebut.")
 
     return data_candi
@@ -393,14 +410,18 @@ def ayam_berkokok(nama, role, data_candi, max_data_candi):
 
     if role == "roro_jonggrang":
         print("Kukuruyuk.. Kukuruyuk..")
+        print()
         print(f"Jumlah Candi: {jumlah_candi}")
+        print()
 
         if jumlah_candi < 100:
             print("Selamat, Roro Jonggrang memenangkan permainan!")
+            print()
             print("*Bandung Bondowoso angry noise*")
             print("Roro Jonggrang dikutuk menjadi candi.")
         else:
             print("Selamat, Bandung Bondowoso memenangkan permainan!")
+            print()
             print("*Roro Jonggrang angry noise*")
             print("Bandung Bondowoso menikahi Roro Jonggrang.")
         return True
@@ -413,6 +434,30 @@ def ayam_berkokok(nama, role, data_candi, max_data_candi):
 # F13 - Load
 
 # F14 - Save
+def save(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan):
+    folder_name = input("Masukkan nama folder: ")
+    print()
+    print("Saving...")
+    print()
+
+    if not path.exists("save"):
+        mkdir("save")
+        print("Membuat folder save...")
+
+    folder_path = "save/" + folder_name
+
+    if not path.exists(folder_path):
+        mkdir(folder_path)
+        print(f"Membuat folder {folder_path}...")
+
+    print()
+
+    matriks_to_csv(folder_path, "user.csv", 3, data_user, max_data_user)
+    matriks_to_csv(folder_path, "candi.csv", 5, data_candi, max_data_candi)
+    matriks_to_csv(folder_path, "bahan_bangunan.csv", 3, data_bahan_bangunan, max_data_bahan_bangunan)
+
+    print(f"Berhasil menyimpan data di folder {folder_path}!")
+
 
 # F15 - Help
 def help_role(role):
@@ -453,14 +498,13 @@ def help_role(role):
 
 
 # F16 - Exit
-def exit_game():
-    while True:
+def exit_game(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan):
+    confirm = ""
+
+    while confirm.lower() != "y" and confirm.lower() != "n":
         confirm = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
-        if confirm.lower() == 'y':
-            print("jalanin save()")
-            # save() belum ada
-            break
-        elif confirm.lower() == 'n':
-            print("tidak jalanin save()")
-            break
+
+    if confirm.lower() == 'y':
+        save(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
+
     return True

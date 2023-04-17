@@ -12,33 +12,33 @@ def custom_append(array, elemen, max_array):
 
 
 def custom_insert(elemen, array, max_array):
-    for i in range(custom_len(array, max_array)-1, 0, -1):
-        array[i] = array[i-1]
+    for i in range(custom_len(array, max_array) - 1, 0, -1):
+        array[i] = array[i - 1]
     array[0] = elemen
     return array
 
 
 def custom_pop(array, index, max_array):
-    for i in range(index, custom_len(array, max_array)-1):
-        array[i] = array[i+1]
-    array[custom_len(array, max_array)-1] = None
+    for i in range(index, custom_len(array, max_array) - 1):
+        array[i] = array[i + 1]
+    array[custom_len(array, max_array) - 1] = None
     return array
 
 
 def custom_split(string_list, jumlah_elemen, pemisah=" "):
     data_list = [None for i in range(jumlah_elemen)]
-    elemen_sementara = ""
     index = 0
     index_awal = 0
     index_akhir = -1
+    elemen_sementara = ""
     while True:
         if string_list[index] == pemisah or string_list[index] == "\n":
-            index_awal = index_akhir + 1
-            index_akhir = index
-            elemen_sementara = string_list[index_awal: index_akhir]
             data_list = custom_append(data_list, elemen_sementara, jumlah_elemen)
+            elemen_sementara = ""
             if string_list[index] == "\n":
                 return data_list
+        else:
+            elemen_sementara += string_list[index]
         index += 1
 
 
@@ -156,6 +156,8 @@ def find_huruf_awal(data_user):
         huruf = data_user[i][0]
     return huruf[0]
 """
+
+
 # def pengumpul_terajin(data_user):
 
 
@@ -185,8 +187,8 @@ def leksikografis_lebih_rendah(nama_pertama, nama_kedua):
 
 
 def urutkan_leksikografis(data_jin, max_data_jin):
-    for i in range(custom_len(data_jin, max_data_jin)-1):
-        for j in range(i+1, custom_len(data_jin, max_data_jin)):
+    for i in range(custom_len(data_jin, max_data_jin) - 1):
+        for j in range(i + 1, custom_len(data_jin, max_data_jin)):
             if not leksikografis_lebih_rendah(data_jin[i], data_jin[j]):
                 data_jin[i], data_jin[j] = data_jin[j], data_jin[i]
     return data_jin
@@ -209,7 +211,7 @@ def count_jin_total_pengumpul_pembangun(data_user, max_data_user):
 
 
 def jin_terajin_termalas(data_jin, data_candi, max_data_jin, max_data_candi):
-    jumlah_candi_dibangun = [None for i in range(max_data_jin)]
+    jumlah_candi_dibangun = [None for j in range(max_data_jin)]
 
     for i in range(custom_len(data_jin, max_data_jin)):
         jumlah_candi_dibangun[i] = 0
@@ -262,7 +264,7 @@ def append_candi(nama, air, batu, pasir, data_candi, max_data_candi):
             break
 
     if not data_kosong_ditemukan:
-        candi_baru = [custom_len(data_candi, max_data_candi)+1, nama, pasir, batu, air]
+        candi_baru = [custom_len(data_candi, max_data_candi) + 1, nama, pasir, batu, air]
         data_candi = custom_append(data_candi, candi_baru, max_data_candi)
 
     return data_candi
@@ -289,7 +291,8 @@ def update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max
     if not batu_ditemukan:
         data_bahan_bangunan = custom_append(data_bahan_bangunan, ["batu", "batu", jumlah_batu], max_data_bahan_bangunan)
     if not pasir_ditemukan:
-        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["pasir", "pasir", jumlah_pasir], max_data_bahan_bangunan)
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["pasir", "pasir", jumlah_pasir],
+                                            max_data_bahan_bangunan)
 
     return data_bahan_bangunan
 
@@ -300,7 +303,8 @@ def pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_dat
     jumlah_batu -= butuh_batu
     jumlah_pasir -= butuh_pasir
 
-    data_bahan_bangunan = update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+    data_bahan_bangunan = update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan,
+                                       max_data_bahan_bangunan)
 
     return data_bahan_bangunan
 
@@ -311,17 +315,64 @@ def tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_
     jumlah_batu += nemu_batu
     jumlah_pasir += nemu_pasir
 
-    data_bahan_bangunan = update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+    data_bahan_bangunan = update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan,
+                                       max_data_bahan_bangunan)
 
     return data_bahan_bangunan
 
 
 def copy_matriks(array, max_array):
     array_baru = [None for i in range(max_array)]
-
-    for i in range(custom_len(array, max_array)):
+    for i in range(max_array):
         array_baru[i] = array[i]
     return array_baru
+
+
+def bangun_tunggal(nama, butuh_pasir, butuh_batu, butuh_air, data_candi, data_bahan_bangunan, max_data_candi,
+                   max_data_bahan_bangunan):
+    berhasil_dibangun = False
+    jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+
+    if jumlah_pasir >= butuh_pasir and jumlah_batu >= butuh_batu and jumlah_air >= butuh_air:
+        data_candi = append_candi(nama, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+        data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan,
+                                          max_data_bahan_bangunan)
+
+        berhasil_dibangun = True
+
+    return data_candi, data_bahan_bangunan, berhasil_dibangun
+
+
+def kumpul_tunggal(nemu_pasir, nemu_batu, nemu_air, data_bahan_bangunan, max_data_bahan_bangunan):
+    jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+
+    jumlah_pasir += nemu_pasir
+    jumlah_batu += nemu_batu
+    jumlah_air += nemu_air
+
+    data_bahan_bangunan = tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+
+    return data_bahan_bangunan
+
+
+def custom_reverse_split(data_list, jumlah_elemen):
+    string_list = ""
+    for i in range(jumlah_elemen):
+        string_list += str(data_list[i])
+        if i < jumlah_elemen - 1:
+            string_list += ";"
+        else:
+            string_list += "\n"
+    return string_list
+
+
+def matriks_to_csv(folder_path, file_name, jumlah_elemen, data_matriks, max_data_matriks):
+    file_path = folder_path + '/' + file_name
+    with open(file_path, 'w') as f:
+        f.write('username;password;role\n')
+        for i in range(custom_len(data_matriks, max_data_matriks)):
+            string_list = custom_reverse_split(data_matriks[i], jumlah_elemen)
+            f.write(string_list)
 
 
 # test
