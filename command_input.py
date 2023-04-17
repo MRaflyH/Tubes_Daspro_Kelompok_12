@@ -20,14 +20,20 @@ def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, ma
         data_bahan_bangunan = batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_data_bahan_bangunan)
     elif command == "batchbangun":
         data_candi, data_bahan_bangunan = batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
+    elif command == "laporanjin":
+        laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
+    elif command == "laporancandi":
+        laporan_candi(nama, role, data_candi, max_data_candi)
+    elif command == "hancurkancandi":
+        data_candi = hancurkan_candi(nama, role, data_candi, max_data_candi)
     elif command == "ayamberkokok":
         end = ayam_berkokok(nama, role, data_candi, max_data_candi)
     elif command == "help":
         help_role(role)
     elif command == "exit":
         end = exit_game()
-    elif command == "laporanjin":
-        laporan_jin(nama, role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
+
+    print()
     return nama, role, end, data_user, data_candi, data_bahan_bangunan
 
 

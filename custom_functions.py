@@ -6,7 +6,8 @@ def custom_len(array, max_array):
 
 
 def custom_append(array, elemen, max_array):
-    array[custom_len(array, max_array)] = elemen
+    if custom_len(array, max_array) < max_array:
+        array[custom_len(array, max_array)] = elemen
     return array
 
 
@@ -81,38 +82,62 @@ def nama_to_role(nama, data_user, max_data_user):
 def daftar_jin(data_user, max_data_user):
     while True:
         nomor_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
+        print()
+
         if nomor_jin != 1 and nomor_jin != 2:
             print(f'Tidak ada jenis jin bernomor "{nomor_jin}"')
+            print()
+
         else:
             if nomor_jin == 1:  # Jin pengumpul
-                print('Memilih jin “Pengumpul”.\n')
+                print('Memilih jin “Pengumpul”.')
                 jenis_jin = "jin_pengumpul"
+
             else:  # nomor_jin == 2; Jin pembangun
-                print('Memilih jin "Pembangun”.\n')
+                print('Memilih jin "Pembangun”.')
                 jenis_jin = "jin_pembangun"
+
+            print()
+
             break
 
     while True:
         user_jin = input("Masukkan username jin: ")
+
         if cek_nama_terdaftar(user_jin, data_user, max_data_user):
+            print()
             print(f"Username “{user_jin}” sudah diambil!")
+            print()
+
         else:
             break
 
     while True:
         pass_jin = input("Masukkan password jin: ")
+        print()
+
         if (len(pass_jin) < 5) or (len(pass_jin) > 25):
-            print("Password panjangnya harus 5-25 karakter!\n")
+            print("Password panjangnya harus 5-25 karakter!")
+            print()
+
         else:
             break
 
     return [user_jin, pass_jin, jenis_jin]
 
 
+def hapus_candi(index, data_candi):
+    data_candi[index][1] = None
+    data_candi[index][2] = None
+    data_candi[index][3] = None
+    data_candi[index][4] = None
+    return data_candi
+
+
 def hapus_candi_jin(jin, data_candi, max_data_candi):
     for i in range(custom_len(data_candi, max_data_candi) - 1, -1, -1):
         if data_candi[i][1] == jin:
-            data_candi = custom_pop(data_candi, i, max_data_candi)
+            hapus_candi(i, data_candi)
     return data_candi
 
 
@@ -244,13 +269,28 @@ def append_candi(nama, air, batu, pasir, data_candi, max_data_candi):
 
 
 def update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
+    air_ditemukan = False
+    batu_ditemukan = False
+    pasir_ditemukan = False
+
     for i in range(custom_len(data_bahan_bangunan, max_data_bahan_bangunan)):
         if data_bahan_bangunan[i][0] == "air":
             data_bahan_bangunan[i][2] = jumlah_air
+            air_ditemukan = True
         elif data_bahan_bangunan[i][0] == "batu":
             data_bahan_bangunan[i][2] = jumlah_batu
+            batu_ditemukan = True
         elif data_bahan_bangunan[i][0] == "pasir":
             data_bahan_bangunan[i][2] = jumlah_pasir
+            pasir_ditemukan = True
+
+    if not air_ditemukan:
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["air", "air", jumlah_air], max_data_bahan_bangunan)
+    if not batu_ditemukan:
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["batu", "batu", jumlah_batu], max_data_bahan_bangunan)
+    if not pasir_ditemukan:
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["pasir", "pasir", jumlah_pasir], max_data_bahan_bangunan)
+
     return data_bahan_bangunan
 
 
