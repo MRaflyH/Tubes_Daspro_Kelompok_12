@@ -85,16 +85,16 @@ def daftar_jin(data_user, max_data_user):
         print()
 
         if nomor_jin != 1 and nomor_jin != 2:
-            print(f'Tidak ada jenis jin bernomor "{nomor_jin}"')
+            print(f"Tidak ada jenis jin bernomor \"{nomor_jin}\"")
             print()
 
         else:
             if nomor_jin == 1:  # Jin pengumpul
-                print('Memilih jin “Pengumpul”.')
+                print("Memilih jin “Pengumpul\".")
                 jenis_jin = "jin_pengumpul"
 
             else:  # nomor_jin == 2; Jin pembangun
-                print('Memilih jin "Pembangun”.')
+                print("Memilih jin \"Pembangun\”.")
                 jenis_jin = "jin_pembangun"
 
             print()
@@ -369,7 +369,7 @@ def custom_reverse_split(data_list, jumlah_elemen):
 def matriks_to_csv(folder_path, file_name, jumlah_elemen, data_matriks, max_data_matriks):
     file_path = folder_path + '/' + file_name
     with open(file_path, 'w') as f:
-        f.write('username;password;role\n')
+        f.write("username;password;role\n")
         for i in range(custom_len(data_matriks, max_data_matriks)):
             string_list = custom_reverse_split(data_matriks[i], jumlah_elemen)
             f.write(string_list)
