@@ -1,0 +1,111 @@
+F01 - Login
+KAMUS LOKAL
+    max_data_user : integer
+    nama, role, input_user, input_password : string
+    berhasil_login : boolean
+    data_user : array of array of string
+
+F02 - Logout
+KAMUS LOKAL
+    nama : string
+
+F03 - Summon Jin
+KAMUS LOKAL
+    max_data_user : integer
+    nama, role : string
+    data_jin : array of string
+    data_user : array of array of string
+
+F04 - Hilangkan Jin
+KAMUS LOKAL
+    max_data_user, max_data_candi, i : integer
+    nama, role, jin, confirm : string
+    data_user, data_candi : array of array of string
+
+F05 - Ubah Tipe Jin
+KAMUS LOKAL
+    max_data_user : integer
+    nama, role, jin, confirm, reverse_role_jin : string
+    data_user : array of array of string
+
+# F06 - Jin Pembangun (Akses : Jin Pembangun)
+KAMUS LOKAL
+    max_data_candi, max_data_bahan_bangunan, bahan_pasir, bahan_batu, bahan_air,
+    jumlah_candi, sisa_candi : integer
+    nama, role : string
+    berhasil_dibangun : boolean
+    data_candi, data_bahan_bangunan : array of array of string
+
+# F07 - Jin Pengumpul (Akses : Jin Pengumpul)
+KAMUS LOKAL
+    max_data_bahan_bangunan, nemu_pasir, nemu_batu, nemu_air : integer
+    nama, role : string
+    data_bahan_bangunan : array of array of string
+
+# F08 - Batch Kumpul/Bangun
+KAMUS LOKAL
+    max_data_user, max_data_bahan_bangunan, jumlah_pembangun_jin,
+    total_air, total_batu, total_pasir, i, nemu_pasir, nemu_batu, nemu_air, 
+    butuh_pasir, butuh_batu, butuh_air, jumlah_pasir, jumlah_batu, jumlah_air,
+    kurang_pasir, kurang_batu, kurang_air : integer
+    nama, role : string
+    batch_bangun_berhasil, berhasil_dibangun : boolean
+    data_user, data_bahan_bangunan, data_candi_sementara,
+    data_bahan_bangunan_sementara, data_candi : array of array of string
+
+# F09 - Ambil Laporan Jin
+KAMUS LOKAL
+    max_data_user, max_data_candi, max_data_bahan_bangunan, max_data_jin,
+    total_jin, total_jin_pengumpul, total_jin_pembangun,
+    jumlah_air, jumlah_batu, jumlah_pasir : integer
+    role, jin_terajin, jin_termalas : string
+    data_jin : array of string
+    data_user, data_candi, data_bahan_bangunan : array of array of string
+
+# F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
+KAMUS LOKAL
+    max_data_candi, total_candi, total_pasir, total_batu, total_air,
+    harga_candi_termahal, harga_candi_termurah, pasir, batu, air,
+    total_pasir, total_batu, total_air, total_candi, harga_candi,
+    harga_candi_termahal, harga_candi_termurah, i : integer
+    role, id_candi_termahal, id_candi_termurah : string
+    data_candi : array of array of string
+
+# F11 - Hancurkan Candi (Akses : Roro Jonggrang)
+KAMUS LOKAL
+    max_data_candi, i : integer
+    role, id_candi, confirm : string
+    candi_ditemukan : boolean
+    data_candi : array of array of string
+
+# F12 - Ayam Berkokok (Akses : Roro Jonggrang)
+KAMUS LOKAL
+    max_data_candi, jumlah_candi : integer
+    nama, role : string
+    data_candi : array of array of string
+
+# F13 - Load
+
+# F14 - Save
+KAMUS LOKAL
+    max_data_user, max_data_candi, max_data_bahan_bangunan : integer
+    folder_name, folder_path : string
+    path : type alias
+    data_user, data_candi, data_bahan_bangunan : array of array of string
+
+# F15 - Help
+KAMUS LOKAL
+    index_save : integer
+    role : string
+
+# F16 - Exit
+KAMUS LOKAL
+    max_data_user, max_data_candi, max_data_bahan_bangunan : integer
+    confirm : string
+    data_user, data_candi, data_bahan_bangunan : array of array of string
+
+# BONUS : F17 - Undo
+KAMUS LOKAL
+    max_sejarah : integer
+    nama, role, data_user, data_candi, data_bahan_bangunan : string
+    data_sejarah : array of array of string
