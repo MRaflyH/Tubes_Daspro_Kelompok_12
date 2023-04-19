@@ -720,3 +720,26 @@ def exit_game(data_user, data_candi, data_bahan_bangunan, max_data_user, max_dat
         save(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
 
     return True
+
+
+def undo(data_sejarah, max_sejarah):
+    """
+    :param data_sejarah:
+    :param max_sejarah:
+    :return: nama, role, end, data_user, data_candi, data_bahan_bangunan, sejarah
+    """
+
+    if custom_len(data_sejarah, max_sejarah) == 1:
+        print("Undo gagal karena tidak ada sejarah")
+
+    else:
+        data_sejarah = custom_pop(data_sejarah, 0, max_sejarah)
+        print("Undo berhasil")
+
+    nama = data_sejarah[0][0]
+    role = data_sejarah[0][1]
+    data_user = data_sejarah[0][2]
+    data_candi = data_sejarah[0][3]
+    data_bahan_bangunan = data_sejarah[0][4]
+
+    return nama, role, data_user, data_candi, data_bahan_bangunan, data_sejarah

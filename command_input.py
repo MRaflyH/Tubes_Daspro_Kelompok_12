@@ -1,7 +1,7 @@
 from command_functions import *
 
 
-def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan):
+def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan, data_sejarah, max_sejarah):
     if command == "login":
         nama, role = login(nama, role, data_user, max_data_user)
     elif command == "logout":
@@ -35,5 +35,12 @@ def run(command, nama, role, end, data_user, data_candi, data_bahan_bangunan, ma
     elif command == "exit":
         end = exit_game(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
 
+    if command == "undo":
+        nama, role, data_user, data_candi, data_bahan_bangunan, data_sejarah = undo(data_sejarah, max_sejarah)
+    else:
+        semua_data = [nama, role, data_user, data_candi, data_bahan_bangunan]
+        if semua_data != data_sejarah[0]:
+            data_sejarah = custom_insert(semua_data, data_sejarah, max_sejarah)
+
     print()
-    return nama, role, end, data_user, data_candi, data_bahan_bangunan
+    return nama, role, end, data_user, data_candi, data_bahan_bangunan, data_sejarah

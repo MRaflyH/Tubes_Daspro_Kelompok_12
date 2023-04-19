@@ -38,8 +38,12 @@ def custom_insert(elemen, array, max_array):
     :param max_array:
     :return: array
     """
+    # menghapus elemen terakhir jika array penuh
+    if custom_len(array, max_array) == max_array:
+        array[max_array - 1] = None
+
     # setiap elemen array dipindah 1 ke kanan (index tambah 1)
-    for i in range(custom_len(array, max_array) - 1, 0, -1):
+    for i in range(custom_len(array, max_array), 0, -1):
         array[i] = array[i - 1]
 
     # elemen dimasukkan pada awal array
@@ -188,16 +192,16 @@ def daftar_jin(data_user, max_data_user):
         print()
 
         if nomor_jin != 1 and nomor_jin != 2:
-            print(f"Tidak ada jenis jin bernomor {nomor_jin}")
+            print(f"Tidak ada jenis jin bernomor \"{nomor_jin}\"")
             print()
 
         else:
             if nomor_jin == 1:  # Jin pengumpul
-                print("Memilih jin “Pengumpul\".")
+                print("Memilih jin \"Pengumpul\".")
                 jenis_jin = "jin_pengumpul"
 
             else:  # nomor_jin == 2; Jin pembangun
-                print("Memilih jin \"Pembangun\”.")
+                print("Memilih jin \"Pembangun\".")
                 jenis_jin = "jin_pembangun"
 
             print()
@@ -210,7 +214,7 @@ def daftar_jin(data_user, max_data_user):
 
         if cek_nama_terdaftar(user_jin, data_user, max_data_user):
             print()
-            print(f"Username “{user_jin}” sudah diambil!")
+            print(f"Username \"{user_jin}\"sudah diambil!")
             print()
 
         else:
@@ -383,7 +387,7 @@ def jin_terajin_termalas(data_jin, data_user, data_candi, max_data_jin, max_data
             break
 
     # menjadi jin terajin dan termalas dengan membandingkan jumlah candi yang dibangunnya
-    for i in range(index_awal, custom_len(jumlah_candi_dibangun, max_data_jin)-1):
+    for i in range(index_awal, custom_len(jumlah_candi_dibangun, max_data_jin) - 1):
         if nama_to_role(data_jin[i], data_user, max_data_user) == "jin_pembangun" or jumlah_candi_dibangun[i] != 0:
             if jumlah_candi_dibangun[i] > jumlah_candi_dibangun[index_jin_terajin]:
                 index_jin_terajin = i
@@ -583,6 +587,7 @@ def custom_reverse_split(data_list, jumlah_elemen, pemisah):
     mengubah array menjadi string dengan suatu pemisah
     :param data_list:
     :param jumlah_elemen:
+    :param pemisah:
     :return: string
     """
     string_list = ""
