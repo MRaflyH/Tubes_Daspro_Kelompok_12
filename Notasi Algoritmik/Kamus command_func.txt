@@ -28,7 +28,7 @@ KAMUS LOKAL
     nama, role, jin, confirm, reverse_role_jin : string
     data_user : array of array of string
 
-# F06 - Jin Pembangun (Akses : Jin Pembangun)
+F06 - Jin Pembangun (Akses : Jin Pembangun)
 KAMUS LOKAL
     max_data_candi, max_data_bahan_bangunan, bahan_pasir, bahan_batu, bahan_air,
     jumlah_candi, sisa_candi : integer
@@ -36,13 +36,13 @@ KAMUS LOKAL
     berhasil_dibangun : boolean
     data_candi, data_bahan_bangunan : array of array of string
 
-# F07 - Jin Pengumpul (Akses : Jin Pengumpul)
+F07 - Jin Pengumpul (Akses : Jin Pengumpul)
 KAMUS LOKAL
     max_data_bahan_bangunan, nemu_pasir, nemu_batu, nemu_air : integer
     nama, role : string
     data_bahan_bangunan : array of array of string
 
-# F08 - Batch Kumpul/Bangun
+F08 - Batch Kumpul/Bangun
 KAMUS LOKAL
     max_data_user, max_data_bahan_bangunan, jumlah_pembangun_jin,
     total_air, total_batu, total_pasir, i, nemu_pasir, nemu_batu, nemu_air, 
@@ -53,7 +53,7 @@ KAMUS LOKAL
     data_user, data_bahan_bangunan, data_candi_sementara,
     data_bahan_bangunan_sementara, data_candi : array of array of string
 
-# F09 - Ambil Laporan Jin
+F09 - Ambil Laporan Jin
 KAMUS LOKAL
     max_data_user, max_data_candi, max_data_bahan_bangunan, max_data_jin,
     total_jin, total_jin_pengumpul, total_jin_pembangun,
@@ -62,7 +62,7 @@ KAMUS LOKAL
     data_jin : array of string
     data_user, data_candi, data_bahan_bangunan : array of array of string
 
-# F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
+F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
 KAMUS LOKAL
     max_data_candi, total_candi, total_pasir, total_batu, total_air,
     harga_candi_termahal, harga_candi_termurah, pasir, batu, air,
@@ -71,40 +71,40 @@ KAMUS LOKAL
     role, id_candi_termahal, id_candi_termurah : string
     data_candi : array of array of string
 
-# F11 - Hancurkan Candi (Akses : Roro Jonggrang)
+F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 KAMUS LOKAL
     max_data_candi, i : integer
     role, id_candi, confirm : string
     candi_ditemukan : boolean
     data_candi : array of array of string
 
-# F12 - Ayam Berkokok (Akses : Roro Jonggrang)
+F12 - Ayam Berkokok (Akses : Roro Jonggrang)
 KAMUS LOKAL
     max_data_candi, jumlah_candi : integer
     nama, role : string
     data_candi : array of array of string
 
-# F13 - Load
+F13 - Load
 
-# F14 - Save
+F14 - Save
 KAMUS LOKAL
     max_data_user, max_data_candi, max_data_bahan_bangunan : integer
     folder_name, folder_path : string
     path : type alias
     data_user, data_candi, data_bahan_bangunan : array of array of string
 
-# F15 - Help
+F15 - Help
 KAMUS LOKAL
     index_save : integer
     role : string
 
-# F16 - Exit
+F16 - Exit
 KAMUS LOKAL
     max_data_user, max_data_candi, max_data_bahan_bangunan : integer
     confirm : string
     data_user, data_candi, data_bahan_bangunan : array of array of string
 
-# BONUS : F17 - Undo
+BONUS : F17 - Undo
 KAMUS LOKAL
     max_sejarah : integer
     nama, role, data_user, data_candi, data_bahan_bangunan : string
