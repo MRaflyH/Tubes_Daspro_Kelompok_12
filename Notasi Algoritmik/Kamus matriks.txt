@@ -1,0 +1,6 @@
+F01 - Matriks
+KAMUS LOKAL
+    max_sejarah, max_user, max_candi, max_bahan_bangunan : integer
+    user_login, role_login : None
+    end_game : boolean
+    user, candi, bahan_bangunan, sejarah : array of None

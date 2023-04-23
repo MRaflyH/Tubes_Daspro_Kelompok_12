@@ -1,0 +1,6 @@
+F01 - Main program
+KAMUS LOKAL
+    user_login : string
+    end_game : boolean
+    role_login, user : array of string
+    candi, bahan_bangunan : array of any

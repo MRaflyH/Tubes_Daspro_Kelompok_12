@@ -1,0 +1,5 @@
+F01 - Run command
+KAMUS LOKAL
+    command, nama, role : string
+    end : boolean
+    data_user, data_candi, data_bahan_bangunan, data_sejarah : array of array of any
