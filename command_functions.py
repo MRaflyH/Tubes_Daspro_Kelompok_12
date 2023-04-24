@@ -684,7 +684,7 @@ def help_role(role):
 
         elif role == "jin_pembangun":
             print("2. bangun")
-            print("   Untuk membangunn candi")
+            print("   Untuk membangun candi")
             index_save = 3
 
         elif role == "jin_pengumpul":
