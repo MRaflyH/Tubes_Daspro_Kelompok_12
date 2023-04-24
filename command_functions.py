@@ -68,7 +68,7 @@ def logout(nama):
     return None, None
 
 
-# F03 - Summon Jin
+# F03 - Summon Jin (Akses : Bandung Bondowoso)
 def summon_jin(nama, role, data_user, max_data_user):
     """
     :param nama:
@@ -154,7 +154,7 @@ def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_can
     return data_user, data_candi
 
 
-# F05 - Ubah Tipe Jin
+# F05 - Ubah Tipe Jin (Akses : Bandung Bondowoso)
 def ubah_tipe_jin(nama, role, data_user, max_data_user):
     """
     :param nama:
@@ -278,7 +278,7 @@ def kumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
     return data_bahan_bangunan
 
 
-# F08 - Batch Kumpul/Bangun
+# F08 - Batch Kumpul/Bangun (Akses : Bandung Bondowoso)
 def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_data_bahan_bangunan):
     """
     :param nama:
@@ -400,7 +400,7 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
     return data_candi, data_bahan_bangunan
 
 
-# F09 - Ambil Laporan Jin
+# F09 - Ambil Laporan Jin (Akses : Bandung Bondowoso)
 def laporan_jin(role, data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi,
                 max_data_bahan_bangunan):
     """
@@ -721,7 +721,7 @@ def exit_game(data_user, data_candi, data_bahan_bangunan, max_data_user, max_dat
 
     return True
 
-
+# BONUS - Undo
 def undo(data_sejarah, max_sejarah):
     """
     :param data_sejarah:

@@ -1,0 +1,90 @@
+F01 - Login
+function login (nama, role: string, data_user: array of array of string, max_data_user: integer) -> string
+    { Menghasilkan suatu string dari input jika benar dan akan tertulis None jika input salah }
+
+# F02 - Logout
+procedure logout (input nama: string)
+    { I.S. Menerima nama user yang terdaftar/tidak terdaftar
+      F.S. Keluar dari sistem login atau mencetak "gagal" jika user belum login }
+
+# F03 - Summon Jin (Akses : Bandung Bondowoso)
+function summon_jin (nama, role: string, data_user: array of array of string, max) -> array of array of string
+    { Menambah jumlah jin pengumpul atau jin pembangun yang hanya dapat diakses
+      oleh Bandung Bondowoso }
+
+# F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
+function hilangkan_jin (nama, role: string, data_user: array of array of string, max_data_user, max_data_candi: integer) -> array of array of any
+    { Menghapus jin pengumpul/jin pembangun yang hanya dapat diakses oleh Bandung Bondowoso }
+
+# F05 - Ubah Tipe Jin (Akses : Bandung Bondowoso)
+function ubah_tipe_jin (nama, role: string, data_user: array of array of string, max_data_user, max_data_candi: integer)
+    { Mengubah tipe jin dari tipe pengumpul menjadi pembangun atau tipe pembangun menjadi
+      pengumpul yang hanya dapat diakses oleh Bandung Bondowoso }
+
+# F06 - Jin Pembangun (Akses : Jin Pembangun)
+function bangun (nama, role: string, data_candi, data_bahan_bangunan: array of array of any, max_data_candi, max_data_bahan_bangunan: integer) -> array of array of any
+    { Membangun candi dengan syarat dan dari bahan bangunan yang sudah dikumpulkan serta hanya dapat 
+      diakses oleh jin pembangun }
+
+# F07 - Jin Pengumpul (Akses : Jin Pengumpul)
+function kumpul (nama, role: string, data_bahan_bangunan : array of array of any, max_data_bahan_bangunan: integer) -> array of array of any
+    { Mengumpulkan bahan candi berupa pasir, batu, dan air dalam jumlah acak dari 1 s.d. 5 yang disimpan
+      dalam suatu data yang hanya dapat diakses oleh jin pengumpul }
+
+# F08 - Batch Kumpul/Bangun (Akses : Bandung Bondowoso)
+function batch_kumpul (nama, role: string, data_user: array of array of string, data_bahan_bangunan: array of array of any,
+                      max_data_user, max_data_bahan_bangunan : integer) -> array of array of any
+    { Mengumpulkan jumlah bahan bangunan pasir, batu, dan air yang dikerahkan oleh jin pengumpul yang hanya
+      dapat diakses oleh Bandung Bondowoso }
+
+function batch_bangun(nama, role: string, data_user: array of array of string, data candi, data_bahan_bangunan: array of array of any,
+                      max_data_user, max_data_candi, max_data_bahan_bangunan: integer) -> array of array of any
+    { Mengerahkan sekian jumlah jin pembangun untuk membangun candi yang hanya dapat diakses oleh Bandung Bondowoso}
+
+# F09 - Ambil Laporan Jin (Akses : Bandung Bondowoso)
+procedure laporan_jin (input role: string, input max_data_jin: integer, input/output data_jin: array of array of any,
+                       input/output total_jin, total_jin_pengumpul, total_jin_pembangun, jumlah_air, jumlah_batu,
+                       jumlah_pasir: integer, output jin_terajin, jin_termalas: string)
+    { I.S. Menerima jenis role user dan jumlah maksimum data jin
+      F.S. Mencetak total jin, total jin pengumpul, total jin pembangun, jin terajin, jin termalas, jumlah pasir,
+           jumlah air, dan jumlah batu }
+
+# F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
+procedure laporan_candi (input role: string, input data_candi: array of array of any, input max_data_candi: integer,
+                         input/output total_candi, total_pasir, total_batu, total_air, id_candi_termahal,
+                         harga_candi_termahal, id_candi_termurah, harga_candi_termurah: integer)
+    { I.S. Menerima jenis role user, data candi, max_data_candi
+      F.S. Mencetak total candi, total pasir, total batu, total air, ID candi termahal, dan ID candi termurah beserta
+           harganya }
+
+# F11 - Hancurkan Candi (Akses : Roro Jonggrang)
+function hancurkan_candi (role: string, data_candi: array of array of any, max_data_candi: integer) -> array of array of any
+    { Menghancurkan candi dengan ID tertentu yang telah dibangun oleh Bandung Bondowoso dan hanya dapat diakses oleh Roro Jonggrang}
+
+# F12 - Ayam Berkokok (Akses : Roro Jonggrang)
+function ayam_berkokok (nama, role: string, data_candi: array of array of any, max_data_candi: integer) -> Boolean
+    { Menghitung jumlah candi yang terbangun, jika jumlah candi kurang dari 100, Roro Jonggrang memenangkan permainan,
+      jika jumlah candi mencapai 100, Bandung Bondowoso memenangkan permainan, serta menghasilkan nilai True/False untuk
+      menandakan selesai atau belum selesainya permainan }
+
+# F13 - Load
+
+# F14 - Save
+procedure save (input data_user: array of array of string, input data_candi, data_bahan_bangunan : array of array of any,
+                input max_data_user, max_data_candi, max_data_bahan_bangunan: integer) -> type_save
+    { I.S. Menerima informasi data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, dan max_data_bahan_bangunan
+      F.S. Menyimpan informasi pada suatu folder }
+
+# F15 - Help
+procedure help_role (input role: string)
+    { I.S. Menerima informasi jenis role user
+      F.S. Mencetak petunjuk permainan berdasarkan jenis role user }
+
+# F16 - Exit
+function exit_game (data_user: array of array of string, data_candi, data_bahan_bangunan: array of array of any,
+                    max_data_user, max_data_candi, max_data_bahan_bangunan: integer) -> Boolean
+    { Keluar dari permainan dengan opsi melakukan penyimpanan atau tidak }
+
+# BONUS - Undo
+function undo (data_sejarah: array of array of any, max_sejarah: integer) -> type_undo
+    { Melakukan akses mundur dalam permainan }
