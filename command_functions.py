@@ -194,7 +194,7 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
                         while confirm.lower() != "y" and confirm.lower() != "n":
                             confirm = input(
                                 "Jin ini bertipe \"Pembangun\". Yakin ingin mengubah ke tipe \"Pengumpul\" (Y/N)? ")
-                        reverse_role_jin = "jin_pembangun"
+                        reverse_role_jin = "jin_pengumpul"
 
                     break
 
@@ -721,7 +721,7 @@ def exit_game(data_user, data_candi, data_bahan_bangunan, max_data_user, max_dat
 
     return True
 
-# BONUS - Undo
+# B04 - Undo
 def undo(data_sejarah, max_sejarah):
     """
     :param data_sejarah:

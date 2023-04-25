@@ -1,0 +1,164 @@
+F01 - Login
+ALGORITMA
+    berhasil_login <- False
+    input_user <- ""
+
+    if (role is not None) then
+        output("Login gagal!")
+        output("Anda telah login dengan username " + nama + " silahkan lakukan “logout” sebelum melakukan login kembali.")
+    else    { role terdaftar pada data }
+        input_user <- input("Username: ")
+        input_password <- input("Password: ")
+
+        depend on (input_user, input_password, data_user, max_data_user)
+            not (cek_nama_terdaftar(input_user, data_user, max_data_user)) : output("Username tidak terdaftar!")
+            not (cek_password_cocok(input_password, input_user, data_user, max_data_user)) : output("Password salah!")
+
+        else { username dan password cocok }
+            output("Selamat datang " + input_user + "!")
+            output("Masukkan command "help" untuk daftar command yang dapat kamu panggil.")
+            berhasil_login <- True
+
+    if (berhasil_login) then
+        role <- nama_to_role(input_user, data_user, max_data_user)
+        -> input_user, role
+    else { tidak berhasil login}
+        -> nama, role
+
+F02 - Logout
+ALGORITMA
+    if (nama is None) then
+        output("Logout gagal!")
+        output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan logout")
+
+    -> None, None
+
+F03 - Summon Jin (Akses : Bandung Bondowoso)
+ALGORITMA
+    if (role != "bandung_bondowoso") then
+        output(nama + " tidak memiliki akses untuk summon jin")
+
+    else { User adalah Bandung Bondowoso }
+            output("Jenis jin yang dapat dipanggil:")
+            output("(1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
+            output("(2) Pembangun - Bertugas membangun candi")
+
+            data_jin <- daftar_jin(data_user, max_data_user)
+
+            output("Mengumpulkan sesajen...")
+            output("Menyerahkan sesajen...")
+            output("Membacakan mantra...")
+            output("Jin " + data_jin[0] + " berhasil dipanggil!")
+
+            data_user <- custom_append(data_user, data_jin, max_data_user)
+    
+    -> data_user
+
+F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
+ALGORITMA
+    if (role != "bandung_bondowoso") then
+        output(nama + " tidak memiliki akses untuk hilangkan jin")
+    else { User adalah Bandung Bondowoso }
+        jin <- input("Masukkan username jin: ")
+
+        if (not cek_nama_terdaftar(jin, data_user, max_data_user)) then
+            output("Tidak ada jin dengan username tersebut.")
+        else { Jin terdaftar pada data }
+            confirm <- ""
+
+            while (confirm.lower() != "y" and confirm.lower() != "n") do
+                confirm <- input("Apakah anda yakin ingin menghapus jin dengan username " + jin + " (Y/N)? ")
+
+            if (confirm.lower() == 'y') then
+                repeat (custom_len(data_user, max_data_user)) times
+                    if (data_user[i][0] == jin) then
+                        data_user <- custom_pop(data_user, i, max_data_user)
+                        { Kondisi berhenti dicapai di sini }
+
+                data_candi <- hapus_candi_jin(jin, data_candi, max_data_candi)
+
+                output("Jin telah berhasil dihapus dari alam gaib.")
+            else { confirm == 'n' }
+                output("Jin tidak dihapus dari alam gaib.")
+
+    -> data_user, data_candi
+
+F05 - Ubah Tipe Jin (Akses : Bandung Bondowoso)
+ALGORITMA
+    if (role != "bandung_bondowoso") then
+        output(nama + " tidak memiliki akses untuk ubah tipe jin")
+    else { User adalah Bandung Bondowoso }
+        confirm <- ""
+        reverse_role_jin <- ""
+        jin <- input("Masukkan username jin: ")
+
+        if (not cek_nama_terdaftar(jin, data_user, max_data_user)) then
+            output("Tidak ada jin dengan username tersebut.")
+        else { Jin terdaftar pada data }
+            repeat (custom_len(data_user, max_data_user)) times
+                if (data_user[i][0] == jin) then
+                    if (data_user[i][2] == "jin_pengumpul")  then
+                        while (confirm.lower() != "y" and confirm.lower() != "n") do
+                            confirm <- input("Jin ini bertipe "Pengumpul". Yakin ingin mengubah ke tipe "Pembangun" (Y/N)? ")
+                            reverse_role_jin <- "jin_pembangun"
+                    else { Jin adalah jenis Jin Pembangun }
+                        while (confirm.lower() != "y" and confirm.lower() != "n") do
+                            confirm <- input("Jin ini bertipe "Pembangun". Yakin ingin mengubah ke tipe "Pengumpul" (Y/N)? ")
+                            reverse_role_jin <- "jin_pembangun"
+     
+
+                    { Kondisi berhenti dicapai di sini }
+
+    
+
+   
+
+
+
+F06 - Jin Pembangun (Akses : Jin Pembangun)
+ALGORITMA
+
+F07 - Jin Pengumpul (Akses : Jin Pengumpul)
+ALGORITMA
+
+F08 - Batch Kumpul/Bangun (Akses : Bandung Bondowoso)
+ALGORITMA
+
+F09 - Ambil Laporan Jin (Akses : Bandung Bondowoso)
+ALGORITMA
+
+F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
+ALGORITMA
+
+F11 - Hancurkan Candi (Akses : Roro Jonggrang)
+ALGORITMA
+
+F12 - Ayam Berkokok (Akses : Roro Jonggrang)
+ALGORITMA
+
+F13 - Load
+ALGORITMA
+
+F14 - Save
+ALGORITMA
+
+F15 - Help
+ALGORITMA
+
+F16 - Exit
+ALGORITMA
+
+B04 - Undo
+ALGORITMA
+    if (custom_len(data_sejarah, max_sejarah) == 1) then
+        output("Undo gagal karena tidak ada sejarah")
+    else
+        output("Undo berhasil")
+
+    nama <- data_sejarah[0][0]
+    role <- data_sejarah[0][1]
+    data_user <- data_sejarah[0][2]
+    data_candi <- data_sejarah[0][3]
+    data_bahan_bangunan <- data_sejarah[0][4]
+
+    -> nama, role, data_user, data_candi, data_bahan_bangunan, data_sejarah

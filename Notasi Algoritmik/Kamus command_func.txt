@@ -104,7 +104,7 @@ KAMUS LOKAL
     confirm : string
     data_user, data_candi, data_bahan_bangunan : array of array of string
 
-BONUS : F17 - Undo
+B04 - Undo
 KAMUS LOKAL
     max_sejarah : integer
     nama, role, data_user, data_candi, data_bahan_bangunan : string
