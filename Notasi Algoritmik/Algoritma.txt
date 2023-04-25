@@ -35,7 +35,7 @@ ALGORITMA
 
 F03 - Summon Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role != "bandung_bondowoso") then
+    if (role ≠ "bandung_bondowoso") then
         output(nama + " tidak memiliki akses untuk summon jin")
 
     else { User adalah Bandung Bondowoso }
@@ -56,7 +56,7 @@ ALGORITMA
 
 F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role != "bandung_bondowoso") then
+    if (role ≠ "bandung_bondowoso") then
         output(nama + " tidak memiliki akses untuk hilangkan jin")
     else { User adalah Bandung Bondowoso }
         jin <- input("Masukkan username jin: ")
@@ -66,26 +66,26 @@ ALGORITMA
         else { Jin terdaftar pada data }
             confirm <- ""
 
-            while (confirm.lower() != "y" and confirm.lower() != "n") do
+            while (confirm.lower() ≠ "y" and confirm.lower() ≠ "n") do
                 confirm <- input("Apakah anda yakin ingin menghapus jin dengan username " + jin + " (Y/N)? ")
 
-            if (confirm.lower() == 'y') then
+            if (confirm.lower() = 'y') then
                 repeat (custom_len(data_user, max_data_user)) times
-                    if (data_user[i][0] == jin) then
+                    if (data_user[i][0] = jin) then
                         data_user <- custom_pop(data_user, i, max_data_user)
                         { Kondisi berhenti dicapai di sini }
 
                 data_candi <- hapus_candi_jin(jin, data_candi, max_data_candi)
 
                 output("Jin telah berhasil dihapus dari alam gaib.")
-            else { confirm == 'n' }
+            else { confirm = 'n' }
                 output("Jin tidak dihapus dari alam gaib.")
 
     -> data_user, data_candi
 
 F05 - Ubah Tipe Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role != "bandung_bondowoso") then
+    if (role ≠ "bandung_bondowoso") then
         output(nama + " tidak memiliki akses untuk ubah tipe jin")
     else { User adalah Bandung Bondowoso }
         confirm <- ""
@@ -96,31 +96,31 @@ ALGORITMA
             output("Tidak ada jin dengan username tersebut.")
         else { Jin terdaftar pada data }
             repeat (custom_len(data_user, max_data_user)) times
-                if (data_user[i][0] == jin) then
-                    if (data_user[i][2] == "jin_pengumpul")  then
-                        while (confirm.lower() != "y" and confirm.lower() != "n") do
+                if (data_user[i][0] = jin) then
+                    if (data_user[i][2] = "jin_pengumpul")  then
+                        while (confirm.lower() ≠ "y" and confirm.lower() ≠ "n") do
                             confirm <- input("Jin ini bertipe "Pengumpul". Yakin ingin mengubah ke tipe "Pembangun" (Y/N)? ")
                             reverse_role_jin <- "jin_pembangun"
                     else { Jin adalah jenis Jin Pembangun }
-                        while (confirm.lower() != "y" and confirm.lower() != "n") do
+                        while (confirm.lower() ≠ "y" and confirm.lower() ≠ "n") do
                             confirm <- input("Jin ini bertipe "Pembangun". Yakin ingin mengubah ke tipe "Pengumpul" (Y/N)? ")
                             reverse_role_jin <- "jin_pengumpul"
                     { Kondisi berhenti dicapai di sini }
 
-            if (confirm.lower() == 'y') then
+            if (confirm.lower() = 'y') then
                 repeat (custom_len(data_user, max_data_user)) times
-                    if (data_user[i][0] == jin) then
+                    if (data_user[i][0] = jin) then
                         data_user[i][2] <- reverse_role_jin
                         { Kondisi berhenti dicapai di sini }
                 output("Jin telah berhasil diubah.")
-            else { confirm == 'n' }
+            else { confirm = 'n' }
                 output("Jin tidak berhasil diubah.")
 
     -> data_user
 
 F06 - Jin Pembangun (Akses : Jin Pembangun)
 ALGORITMA
-    if (role != "jin_pembangun") then
+    if (role ≠ "jin_pembangun") then
         output(nama + " tidak memiliki akses untuk bangun candi")
     else { User adalah Jin Pembangun }
         butuh_pasir <- randint(1, 5)
@@ -142,7 +142,7 @@ ALGORITMA
 
 F07 - Jin Pengumpul (Akses : Jin Pengumpul)
 ALGORITMA
-    if (role != "jin_pengumpul") then
+    if (role ≠ "jin_pengumpul") then
         output(nama + " tidak memiliki akses untuk kumpul bahan")
     else { User adalah Jin Pengumpul }
         nemu_pasir <- randint(1, 5)
@@ -157,7 +157,8 @@ ALGORITMA
 
 F08 - Batch Kumpul/Bangun (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role != "bandung_bondowoso") then
+    { Batch Kumpul }
+    if (role ≠ "bandung_bondowoso") then
         output(nama + " tidak memiliki akses untuk batch kumpul")
     else { User adalah Bandung Bondowoso }
         jumlah_pembangun_jin <- 0
@@ -166,7 +167,7 @@ ALGORITMA
         total_pasir <- 0
 
         repeat (custom_len(data_user, max_data_user)) times
-            if (data_user[i][2] == "jin_pengumpul") then
+            if (data_user[i][2] = "jin_pengumpul") then
                 jumlah_pembangun_jin <-  jumlah_pembangun_jin + 1
 
                 nemu_pasir <- randint(1, 5)
@@ -184,10 +185,10 @@ ALGORITMA
 
     -> data_bahan_bangunan
 
-
+    { Batch Bangun }
     batch_bangun_berhasil <- True
 
-    if (role != "bandung_bondowoso") then
+    if (role ≠ "bandung_bondowoso") then
         output(nama + " tidak memiliki akses untuk batch bangun")
     else { User adalah Bandung Bondowoso }
         jumlah_pembangun_jin <- 0
@@ -199,7 +200,7 @@ ALGORITMA
         data_bahan_bangunan_sementara <- copy_matriks(data_bahan_bangunan, max_data_bahan_bangunan)
 
         repeat (custom_len(data_user, max_data_user)) times
-            if (data_user[i][2] == "jin_pembangun") then
+            if (data_user[i][2] = "jin_pembangun") then
                 jumlah_pembangun_jin <- jumlah_pembangun_jin + 1
                 butuh_pasir <- randint(1, 5)
                 butuh_batu <- randint(1, 5)
@@ -233,7 +234,7 @@ ALGORITMA
 
 F09 - Ambil Laporan Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role != "bandung_bondowoso") then
+    if (role ≠ "bandung_bondowoso") then
         output("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
     else { User adalah Bandung Bondowoso }
         max_data_jin <- 100
@@ -245,9 +246,8 @@ ALGORITMA
         data_jin <- urutkan_leksikografis(data_jin, max_data_jin)
         output(data_jin)
 
-        total_jin, total_jin_pengumpul, total_jin_pembangun <- count_jin_total_pengumpul_pembangun(data_user,
-                                                                                                  max_data_user)
-        if (hitung_candi(data_candi, max_data_candi) == 0 and total_jin_pembangun == 0) then
+        total_jin, total_jin_pengumpul, total_jin_pembangun <- count_jin_total_pengumpul_pembangun(data_user,max_data_user)
+        if (hitung_candi(data_candi, max_data_candi) = 0 and total_jin_pembangun = 0) then
             jin_terajin, jin_termalas <- "-", "-"
 
         else { Ada candi dan Jin Pembangun }
@@ -266,7 +266,7 @@ ALGORITMA
 
 F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role != "bandung_bondowoso") then
+    if (role ≠ "bandung_bondowoso") then
         output("Laporan candi hanya dapat diakses oleh akun Bandung Bondowoso.")
 
     else { User adalah Bandung Bondowoso }
@@ -304,7 +304,7 @@ ALGORITMA
         output("Total Batu yang digunakan: " + total_batu)
         output("Total Air yang digunakan: " + total_air)
 
-        if (total_candi == 0) then
+        if (total_candi = 0) then
             output("ID Candi Termahal: -")
             output("ID Candi Termurah: -")
         else { Total candi lebih dari 0 }
@@ -313,7 +313,7 @@ ALGORITMA
 
 F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 ALGORITMA
-    if (role != "roro_jonggrang") then
+    if (role ≠ "roro_jonggrang") then
         output("Hancurkan candi hanya dapat diakses oleh akun Roro Jonggrang.")
 
     else { User adalah Roro Jonggrang }
@@ -321,18 +321,18 @@ ALGORITMA
         candi_ditemukan <- False
 
         repeat (custom_len(data_candi, max_data_candi)) times
-            if (data_candi[i][0] == id_candi) then
+            if (data_candi[i][0] = id_candi) then
                 if (data_candi[i][1] is not None) then
                     candi_ditemukan <- True
                     confirm <- ""
 
-                    while (confirm.lower() != "y" and confirm.lower() != "n") do
+                    while (confirm.lower() ≠ "y" and confirm.lower() ≠ "n") do
                         confirm <- input("Apakah anda yakin ingin menghancurkan candi ID: 5 (Y/N)? ")
 
-                    if (confirm.lower() == "y") then
+                    if (confirm.lower() = "y") then
                         data_candi <- hapus_candi(i, data_candi)
                         output("Candi telah berhasil dihancurkan.")
-                    else { confirm == 'n' }
+                    else { confirm = 'n' }
                         output("Candi tidak berhasil dihancurkan.")
 
                 { Kondisi berhenti dicapai di sini }
@@ -346,7 +346,7 @@ F12 - Ayam Berkokok (Akses : Roro Jonggrang)
 ALGORITMA
     jumlah_candi <- hitung_candi(data_candi, max_data_candi)
 
-    if (role == "roro_jonggrang") then
+    if (role = "roro_jonggrang") then
         output("Kukuruyuk.. Kukuruyuk..")
         output("Jumlah Candi: " + jumlah_candi)
 
@@ -354,7 +354,7 @@ ALGORITMA
             output("Selamat, Roro Jonggrang memenangkan permainan!")
             output("*Bandung Bondowoso angry noise*")
             output("Roro Jonggrang dikutuk menjadi candi.")
-        else { jumlah_candi == 100 }
+        else { jumlah_candi = 100 }
             output("Selamat, Bandung Bondowoso memenangkan permainan!")
             output("*Roro Jonggrang angry noise*")
             output("Bandung Bondowoso menikahi Roro Jonggrang.")
@@ -390,7 +390,7 @@ ALGORITMA
 
 F15 - Help
 ALGORITMA
-    output("=========== HELP ===========")
+    output("====== HELP ======")
     index_save <- 0
 
     if (role is None) then
@@ -403,7 +403,7 @@ ALGORITMA
         output("   Untuk keluar dari akun yang digunakan sekarang")
 
         depend on (role)
-            role == "bandung_bondowoso" :   output("2. summonjin")
+            role = "bandung_bondowoso" :   output("2. summonjin")
                                             output("   Untuk memanggil jin")
                                             output("3. hapusjin")
                                             output("   Untuk menghapus jin")
@@ -418,15 +418,15 @@ ALGORITMA
                                             output("8. laporancandi")
                                             output("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
                                             index_save = 9
-            role == "roro_jonggrang" :  output("2. hancurkancandi")
+            role = "roro_jonggrang" :  output("2. hancurkancandi")
                                         output("   Untuk menghancurkan candi yang tersedia")
                                         output("3. ayamberkokok")
                                         output("   Untuk menyelesaikan permainan dengan memalsukan pagi hari")
                                         index_save = 4
-            role == "jin_pembangun" :   output("2. bangun")
+            role = "jin_pembangun" :   output("2. bangun")
                                         output("   Untuk membangun candi")
                                         index_save = 3
-            role == "jin_pengumpul" :   output("2. kumpul")
+            role = "jin_pengumpul" :   output("2. kumpul")
                                         output("   Untuk mengumpul bahan bangunan")
                                         index_save = 3
 
@@ -440,18 +440,17 @@ ALGORITMA
     confirm <- ""
 
     # konfirmasi save
-    while (confirm.lower() != "y" and confirm.lower() != "n") do
+    while (confirm.lower() ≠ "y" and confirm.lower() ≠ "n") do
         confirm <- input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
 
-    if (confirm.lower() == 'y') then
+    if (confirm.lower() = 'y') then
         save(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
 
     -> True
 
-
 B04 - Undo
 ALGORITMA
-    if (custom_len(data_sejarah, max_sejarah) == 1) then
+    if (custom_len(data_sejarah, max_sejarah) = 1) then
         output("Undo gagal karena tidak ada sejarah")
     else { Terdapat riwayat akses }
         data_sejarah <- custom_pop(data_sejarah, 0, max_sejarah)
