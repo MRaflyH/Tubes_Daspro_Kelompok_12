@@ -433,7 +433,7 @@ def laporan_jin(role, data_user, data_candi, data_bahan_bangunan, max_data_user,
         total_jin, total_jin_pengumpul, total_jin_pembangun = count_jin_total_pengumpul_pembangun(data_user,
                                                                                                   max_data_user)
 
-        # jika tidak ada candi dan tidak ada jin pembangunn
+        # jika tidak ada candi dan tidak ada jin pembangun
         if hitung_candi(data_candi, max_data_candi) == 0 and total_jin_pembangun == 0:
             jin_terajin, jin_termalas = "-", "-"
 
@@ -507,8 +507,8 @@ def laporan_candi(role, data_candi, max_data_candi):
         print(f"Total Air yang digunakan: {total_air}")
 
         if total_candi == 0:
-            print(f"ID Candi Termahal: -")
-            print(f"ID Candi Termurah: -")
+            print("ID Candi Termahal: -")
+            print("ID Candi Termurah: -")
         else:
             print(f"ID Candi Termahal: {id_candi_termahal} (Rp {harga_candi_termahal})")
             print(f"ID Candi Termurah: {id_candi_termurah} (Rp {harga_candi_termurah})")
