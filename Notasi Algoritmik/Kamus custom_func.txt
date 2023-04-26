@@ -1,95 +1,95 @@
-F01 - Custom len
+C01 - Custom len
 KAMUS LOKAL
     max_array, i : integer
     array : array of any
 
-F02 - Custom append
+C02 - Custom append
 KAMUS LOKAL
     elemen, max_array : integer
     array : array of any
 
-F03 - Custom insert
+C03 - Custom insert
 KAMUS LOKAL
     elemen, max_array, i : integer
     array : array of any
 
-F04 - Custom pop
+C04 - Custom pop
 KAMUS LOKAL
     index, max_array, i : integer
     array : array of any
 
-F05 - Custom split
+C05 - Custom split
 KAMUS LOKAL
     jumlah_elemen, index : integer
     pemisah, elemen_sementara : string
     data_list : array of any
     string_list : array of string
 
-F06 - CSV to matriks
+C06 - CSV to matriks
 KAMUS LOKAL
     jumlah_elemen, max_data : integer
     nama_file_csv, string_baris_user : string
-    file_user : Text IO wrapper
+    file_user : type_file_user
     data_baris_user, data_matriks : array of any
 
-F07 - Cek nama terdaftar
+C07 - Cek nama terdaftar
 KAMUS LOKAL
     max_data_user, i : integer
     nama : string
     data_user : array of array of string
 
-F08 - Cek password cocok
+C08 - Cek password cocok
 KAMUS LOKAL
     max_data_user, i : integer
     password, nama : string
     data_user : array of array of string
 
-F09 - Name to role
+C09 - Name to role
 KAMUS LOKAL
     max_data_user, i : integer
     nama : string
     data_user : array of array of string
 
-F10 - Daftar jin
+C10 - Daftar jin
 KAMUS LOKAL
     max_data_user, nomor_jin : integer
     jenis_jin, user_jin, pass_jin : string
     data_user : array of array of string
 
-F11 - Hapus candi
+C11 - Hapus candi
 KAMUS LOKAL
     index : integer
     data_candi : array of array of any
 
-F12 - Hapus candi jin
+C12 - Hapus candi jin
 KAMUS LOKAL
     max_data_candi, i : integer
-    jin = string
+    jin : string
     data_candi : array of array string
 
-F13 - Hitung candi
+C13 - Hitung candi
 KAMUS LOKAL
     jumlah_candi, max_data_candi, i: integer
     data_candi : array of array any
 
-F14 - Leksikografis lebih rendah
+C14 - Leksikografis lebih rendah
 KAMUS LOKAL
     length, i: integer
     nama_pertama, nama_kedua : string
     kata_pertama_lebih_pendek : boolean
 
-F15 - Urutkan leksikografis
+C15 - Urutkan leksikografis
 KAMUS LOKAL
     max_data_jin, i, j : integer
     data_jin : array of array of any
 
-F16 - Count jin total pengumpul pembangun
+C16 - Count jin total pengumpul pembangun
 KAMUS LOKAL
     count_total_jin, count_total_jin_pengumpul,
     count_total_jin_pembangun, max_data_user, i : integer
     data_user : array of array of string
 
-F17 - Jin terajin termalas
+C17 - Jin terajin termalas
 KAMUS LOKAL
     max_data_jin, max_data_user, max_data_candi,
     index_awal, index_jin_terajin, index_jin_termalas,
@@ -98,25 +98,25 @@ KAMUS LOKAL
     data_user : array of array of string
     data_jin : array of array of any
 
-F18 - Jumlah air batu pasir
+C18 - Jumlah air batu pasir
 KAMUS LOKAL
     jumlah_pasir, jumlah_air, jumlah_batu, max_data_bahan_bangunan, i : integer
     data_bahan_bangunan : array of array of any
 
-F19 - Append candi
+C19 - Append candi
 KAMUS LOKAL
     nama : steing
     air, batu, pasir, max_data_candi, i : integer
     data_kosong_ditemukan : boolean
     data_candi, candi_baru : array of array of any
 
-F20 - Update bahan
+C20 - Update bahan
 KAMUS LOKAL
     jumlah_air, jumlah_batu, jumlah_pasir, max_data_bahan_bangunan, i : integer
     air_ditemukan, batu_ditemukan, pasir_ditemukan : boolean
     data_bahan_bangunan : array of array of any
 
-F21 - Pakai bahan
+C21 - Pakai bahan
 KAMUS LOKAL
     , data_bahan_bangunan
     butuh_air, butuh_batu, butuh_pasir,
@@ -124,19 +124,19 @@ KAMUS LOKAL
     max_data_bahan_bangunan : integer
     data_bahan_bangunan : array of array of any
 
-F22 - Tambah bahan
+C22 - Tambah bahan
 KAMUS LOKAL
     nemu_air, nemu_batu, nemu_pasir,
     jumlah_air, jumlah_batu, jumlah_pasir,
     max_data_bahan_bangunan : integer
     data_bahan_bangunan : array of array of any
 
-F23 - Copy matriks
+C23 - Copy matriks
 KAMUS LOKAL
     max_array, i : integer
     array, array_baru : array of any
 
-F24 - Bangun tunggal
+C24 - Bangun tunggal
 KAMUS LOKAL
     butuh_pasir, butuh_batu, butuh_air,
     jumlah_air, jumlah_batu, jumlah_pasir,
@@ -145,13 +145,13 @@ KAMUS LOKAL
     berhasil_dibangun : boolean
     data_candi, data_bahan_bangunan : array of array of any
 
-F25 - Custom reverse split
+C25 - Custom reverse split
 KAMUS LOKAL
     jumlah_elemen, i : integer
     pemisah : string
     data_list, string_list : array of string
 
-F26 - Matriks to CSV
+C26 - Matriks to CSV
 KAMUS LOKAL
     jumlah_elemen, max_data_matriks, i : integer
     folder_path, file_name : string

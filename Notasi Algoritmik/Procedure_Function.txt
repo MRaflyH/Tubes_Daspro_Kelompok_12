@@ -68,6 +68,10 @@ function ayam_berkokok (nama, role: string, data_candi: array of array of any, m
       menandakan selesai atau belum selesainya permainan }
 
 F13 - Load
+procedure argparse (input/output parser: type_parser, input/output arg: type_argument, input/output folder: type_folder,
+                    input/output end_game: Boolean, input/output user, candi, bahan_bangunan: arra of any)
+    { I.S. Menerima argumen berupa nama folder pada penyimpanan
+      F.S. Menjalankan prosedur load data  }
 
 F14 - Save
 procedure save (input data_user: array of array of string, input data_candi, data_bahan_bangunan : array of array of any,

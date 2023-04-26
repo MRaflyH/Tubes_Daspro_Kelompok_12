@@ -84,13 +84,11 @@ KAMUS LOKAL
     nama, role : string
     data_candi : array of array of string
 
-F13 - Load
-
 F14 - Save
 KAMUS LOKAL
     max_data_user, max_data_candi, max_data_bahan_bangunan : integer
     folder_name, folder_path : string
-    path : type alias
+    path : type_path
     data_user, data_candi, data_bahan_bangunan : array of array of string
 
 F15 - Help

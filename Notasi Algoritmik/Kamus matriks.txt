@@ -1,6 +1,14 @@
-F01 - Matriks
+M01 - Matriks
 KAMUS LOKAL
     max_sejarah, max_user, max_candi, max_bahan_bangunan : integer
-    user_login, role_login : None
+    user_login, role_login : none
     end_game : boolean
     user, candi, bahan_bangunan, sejarah : array of None
+
+F13 - Load
+KAMUS LOKAL
+    parser : type_parser
+    arg : type_argument
+    folder : type_folder
+    end_game : boolean
+    user, candi, bahan_bangunan : array of any

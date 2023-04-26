@@ -1,4 +1,4 @@
-F01 - Run command
+R01 - Run command
 KAMUS LOKAL
     command, nama, role : string
     end : boolean

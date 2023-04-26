@@ -1,4 +1,4 @@
-F01 - Main program
+I01 - Main program
 KAMUS LOKAL
     user_login : string
     end_game : boolean
