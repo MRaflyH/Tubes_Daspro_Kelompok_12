@@ -14,7 +14,7 @@ bahan_bangunan = [None for i in range(max_bahan_bangunan)]
 user_login = None
 role_login = None
 end_game = False
-sejarah = [None for i in range(max_sejarah)]
+# sejarah = [None for i in range(max_sejarah)]
 
 parser = ArgumentParser()
 parser.add_argument("nama_folder", nargs='?', type=str, default='')
