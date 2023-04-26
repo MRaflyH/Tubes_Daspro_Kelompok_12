@@ -11,11 +11,11 @@ while not end_game:
     print(user)
     print(candi)
     print(bahan_bangunan)
-    print("----- SEJARAH -----")
-    for i in sejarah:
-        if i is None:
-            break
-        print(i)
+    # print("----- SEJARAH -----")
+    # for i in sejarah:
+    #     if i is None:
+    #         break
+    #     print(i)
     print()
     masukan = input(">>> ")
     if masukan == "stop":
