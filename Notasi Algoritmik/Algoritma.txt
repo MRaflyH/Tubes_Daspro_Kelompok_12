@@ -230,7 +230,7 @@ ALGORITMA
 
             output("Bangun gagal. Kurang " + kurang_pasir + " pasir, " + kurang_batu + " batu, dan " + kurang_air + " air.")
 
-    return data_candi, data_bahan_bangunan
+    -> data_candi, data_bahan_bangunan
 
 F09 - Ambil Laporan Jin (Akses : Bandung Bondowoso)
 ALGORITMA
@@ -457,7 +457,7 @@ F16 - Exit
 ALGORITMA
     confirm <- ""
 
-    # konfirmasi save
+    { Konfirmasi save }
     while (confirm.lower() ≠ "y" and confirm.lower() ≠ "n") do
         confirm <- input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
 

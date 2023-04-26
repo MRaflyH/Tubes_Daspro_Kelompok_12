@@ -8,7 +8,7 @@ procedure logout (input nama: string)
       F.S. Keluar dari sistem login atau mencetak "gagal" jika user belum login }
 
 F03 - Summon Jin (Akses : Bandung Bondowoso)
-function summon_jin (nama, role: string, data_user: array of array of string, max) -> array of array of string
+function summon_jin (nama, role: string, data_user: array of array of string, max_data_user: integer) -> array of array of string
     { Menambah jumlah jin pengumpul atau jin pembangun yang hanya dapat diakses
       oleh Bandung Bondowoso }
 
@@ -62,16 +62,16 @@ function hancurkan_candi (role: string, data_candi: array of array of any, max_d
     { Menghancurkan candi dengan ID tertentu yang telah dibangun oleh Bandung Bondowoso dan hanya dapat diakses oleh Roro Jonggrang}
 
 F12 - Ayam Berkokok (Akses : Roro Jonggrang)
-function ayam_berkokok (nama, role: string, data_candi: array of array of any, max_data_candi: integer) -> Boolean
+function ayam_berkokok (nama, role: string, data_candi: array of array of any, max_data_candi: integer) -> boolean
     { Menghitung jumlah candi yang terbangun, jika jumlah candi kurang dari 100, Roro Jonggrang memenangkan permainan,
       jika jumlah candi mencapai 100, Bandung Bondowoso memenangkan permainan, serta menghasilkan nilai True/False untuk
       menandakan selesai atau belum selesainya permainan }
 
 F13 - Load
 procedure argparse (input/output parser: type_parser, input/output arg: type_argument, input/output folder: type_folder,
-                    input/output end_game: Boolean, input/output user, candi, bahan_bangunan: arra of any)
+                    input/output end_game: boolean, input/output user, candi, bahan_bangunan: array of any)
     { I.S. Menerima argumen berupa nama folder pada penyimpanan
-      F.S. Menjalankan prosedur load data  }
+      F.S. Menjalankan prosedur load data }
 
 F14 - Save
 procedure save (input data_user: array of array of string, input data_candi, data_bahan_bangunan : array of array of any,
@@ -86,7 +86,7 @@ procedure help_role (input role: string)
 
 F16 - Exit
 function exit_game (data_user: array of array of string, data_candi, data_bahan_bangunan: array of array of any,
-                    max_data_user, max_data_candi, max_data_bahan_bangunan: integer) -> Boolean
+                    max_data_user, max_data_candi, max_data_bahan_bangunan: integer) -> boolean
     { Keluar dari permainan dengan opsi melakukan penyimpanan atau tidak }
 
 B04 - Undo
