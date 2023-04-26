@@ -2,7 +2,7 @@ from custom_functions import custom_len, csv_to_matriks
 from argparse import *
 import os
 
-# max_sejarah = 9999
+max_sejarah = 9999
 max_user = 102
 max_candi = 100
 max_bahan_bangunan = 3
@@ -14,7 +14,7 @@ bahan_bangunan = [None for i in range(max_bahan_bangunan)]
 user_login = None
 role_login = None
 end_game = False
-# sejarah = [None for i in range(max_sejarah)]
+sejarah = [None for i in range(max_sejarah)]
 
 parser = ArgumentParser()
 parser.add_argument("nama_folder", nargs='?', type=str, default='')
