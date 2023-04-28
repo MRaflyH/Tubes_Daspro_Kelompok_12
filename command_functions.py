@@ -235,10 +235,16 @@ def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data
         butuh_batu = randint(1, 5)
         butuh_air = randint(1, 5)
 
-        # menambah 1 candi dan memakai bahan bangunannya
-        data_candi, data_bahan_bangunan, berhasil_dibangun = bangun_tunggal(nama, butuh_pasir, butuh_batu, butuh_air, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan)
+        # menghitung jumlah air, batu, dan pasir
+        jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 
-        if berhasil_dibangun:
+        # jika bahan cukup, membuat candi dan memakai bahan
+        if jumlah_pasir >= butuh_pasir and jumlah_batu >= butuh_batu and jumlah_air >= butuh_air:
+            data_candi = append_candi(nama, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+            data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan,
+                                              max_data_bahan_bangunan)
+
+            # menghitung jumlah candi dan sisa candi
             jumlah_candi = hitung_candi(data_candi, max_data_candi)
             sisa_candi = 100 - jumlah_candi
             print("Candi berhasil dibangun.")
@@ -336,8 +342,6 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
     :return: data_candi, data_bahan_bangunan
     """
 
-    batch_bangun_berhasil = True
-
     if role != "bandung_bondowoso":
         print(f"{nama} tidak memiliki akses untuk batch bangun")
 
@@ -348,8 +352,7 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
         total_pasir = 0
 
         # membuat data sementara
-        data_candi_sementara = copy_matriks(data_candi, max_data_candi)
-        data_bahan_bangunan_sementara = copy_matriks(data_bahan_bangunan, max_data_bahan_bangunan)
+        data_candi_sementara = [None for i in range(max_data_candi)]
 
         for i in range(custom_len(data_user, max_data_user)):
             # untuk setiap jin pembangun
@@ -362,38 +365,44 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
                 butuh_air = randint(1, 5)
 
                 # bangun 1 candi dan memakai bahannya
-                data_candi_sementara, data_bahan_bangunan_sementara, berhasil_dibangun = bangun_tunggal(data_user[i][0], butuh_pasir, butuh_batu, butuh_air, data_candi_sementara, data_bahan_bangunan_sementara, max_data_candi, max_data_bahan_bangunan)
+                data_candi_sementara = append_candi(data_user[i][0], butuh_air, butuh_batu, butuh_pasir, data_candi_sementara, max_data_candi)
 
-                # print(data_bahan_bangunan)
-                # print(data_bahan_bangunan_sementara)
-                # print(data_candi)
-                # print(data_candi_sementara)
-
+                # menghitung keperluan total
                 total_air += butuh_air
                 total_batu += butuh_batu
                 total_pasir += butuh_pasir
 
-                if not berhasil_dibangun:
-                    batch_bangun_berhasil = False
-
-                # print(21, data_candi)
-                # print(22, data_candi_sementara)
-
         print(f"Mengerahkan {jumlah_pembangun_jin} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
 
-        if batch_bangun_berhasil:
-            # membangun semua candi dan pakai semua bahan
-            data_candi = copy_matriks(data_candi_sementara, max_data_candi)
-            data_bahan_bangunan = copy_matriks(data_bahan_bangunan_sementara, max_data_bahan_bangunan)
+        jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+
+        if jumlah_pasir >= total_pasir and jumlah_batu >= total_batu and jumlah_air >= total_air:
+            # membangun semua candi
+            for i in range(jumlah_pembangun_jin):
+                nama_jin = data_candi_sementara[i][1]
+                butuh_pasir = data_candi_sementara[i][2]
+                butuh_batu = data_candi_sementara[i][3]
+                butuh_air = data_candi_sementara[i][4]
+
+                data_candi = append_candi(nama_jin, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+
+            # pakai semua bahan
+            data_bahan_bangunan = pakai_bahan(total_air, total_batu, total_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
 
             print(f"Jin berhasil membangun total {jumlah_pembangun_jin} candi")
 
         else:
             # tidak jadi bangun candi dan pakai bahan serta menghitung kekurangan bahan
-            jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
             kurang_air = total_air - jumlah_air
             kurang_batu = total_batu - jumlah_batu
             kurang_pasir = total_pasir - jumlah_pasir
+
+            if kurang_air < 0:
+                kurang_air = 0
+            if kurang_batu < 0:
+                kurang_batu = 0
+            if kurang_pasir < 0:
+                kurang_pasir = 0
 
             print(f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
 
@@ -540,7 +549,7 @@ def hancurkan_candi(role, data_candi, max_data_candi):
 
                     # konfirmasi
                     while confirm.lower() != "y" and confirm.lower() != "n":
-                        confirm = input("Apakah anda yakin ingin menghancurkan candi ID: 5 (Y/N)? ")
+                        confirm = input(f"Apakah anda yakin ingin menghancurkan candi ID: {id_candi} (Y/N)? ")
 
                     print()
 

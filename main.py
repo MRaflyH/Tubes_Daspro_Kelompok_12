@@ -4,19 +4,19 @@ from command_input import run
 
 while not end_game:
     # hilangkan atau tambahkan comment untuk print jika ingin melihat perubahan setiap input
-    print("----- DATA -----")
-    print(user_login)
-    print(role_login)
-    print(end_game)
-    print(user)
-    print(candi)
-    print(bahan_bangunan)
-    print("----- SEJARAH -----")
-    for i in sejarah:
-        if i is None:
-            break
-        print(i)
-    print()
+    # print("----- DATA -----")
+    # print(user_login)
+    # print(role_login)
+    # print(end_game)
+    # print(user)
+    # print(candi)
+    # print(bahan_bangunan)
+    # print("----- SEJARAH -----")
+    # for i in sejarah:
+    #     if i is None:
+    #         break
+    #     print(i)
+    # print()
     masukan = input(">>> ")
     if masukan == "stop":
         break
