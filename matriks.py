@@ -1,8 +1,8 @@
 from custom_functions import custom_len, csv_to_matriks
 from argparse import *
 import os
+import time
 
-max_sejarah = 9999
 max_user = 102
 max_candi = 100
 max_bahan_bangunan = 3
@@ -12,22 +12,27 @@ candi = [None for i in range(max_candi)]
 bahan_bangunan = [None for i in range(max_bahan_bangunan)]
 
 user_login = None
-role_login = None
+role_login = "roro_jonggrang"
 end_game = False
-sejarah = [None for i in range(max_sejarah)]
 
 parser = ArgumentParser()
 parser.add_argument("nama_folder", nargs='?', type=str, default='')
 arg = parser.parse_args()
 folder = arg.nama_folder
 
-if os.path.isdir(folder) :
-    print("Loading...")
-    print("\nSelamat datang di program \"Manajerial Candi\"")
-    print("Masukkan command \"help\" untuk daftar command yang dapat kamu panggil.")
+
+# F13 - Load
+if os.path.isdir(folder):
+    print("\nLoading...")
+    time.sleep(1)
+
     user = csv_to_matriks(folder + "/user.csv", 3, max_user)
     candi = csv_to_matriks(folder + "/candi.csv", 5, max_candi)
     bahan_bangunan = csv_to_matriks(folder + "/bahan_bangunan.csv", 3, max_bahan_bangunan)
+
+    print("\nSelamat datang di program \"Manajerial Candi\"")
+    print("Masukkan command \"help\" untuk daftar command yang dapat kamu panggil.")
+
 elif folder == '':
     print("\nTidak ada nama folder yang diberikan!\n")
     print("Usage: " + "python main.py" + " <nama_folder>")
@@ -35,9 +40,8 @@ elif folder == '':
 else:
     print(f"\nfolder \"{folder}\" tidak ditemukan")
     end_game = True
+print()
 
-
-# sejarah[0] = [user_login, role_login, user, candi, bahan_bangunan]
 
 for i in range(0, custom_len(candi, max_candi)):
     candi[i][0] = int(candi[i][0])

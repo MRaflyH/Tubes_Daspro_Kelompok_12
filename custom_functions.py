@@ -1,3 +1,28 @@
+import time
+
+
+class bcolors:
+    endc = '\033[0m'
+    bold = '\033[1m'
+    underline = '\033[4m'
+    black = '\033[30m'
+    red = '\033[31m'
+    green = '\033[32m'
+    yellow = '\033[33m'
+    blue = '\033[34m'
+    magenta = '\033[35m'
+    cyan = '\033[36m'
+    white = '\033[37m'
+    gray = '\033[90m'
+    fail = '\033[91m'  # fail brightred
+    input = '\033[92m'  # input brightgreen
+    warning = '\033[93m'  # warning brightyellow
+    brightblue = '\033[94m'
+    header = '\033[95m'  # header brightmagenta
+    brightcyan = '\033[96m'
+    brightwhite = '\033[97m'
+
+
 # F01 - Custom len
 def custom_len(array, max_array):
     """
@@ -189,12 +214,12 @@ def daftar_jin(data_user, max_data_user):
     """
     # meminta tipe jin, diulangi sampai mendapat pengumpul atau pembangun
     while True:
-        nomor_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
+        nomor_jin = int(input(f"{bcolors.input}Masukkan nomor jenis jin yang ingin dipanggil: {bcolors.endc}"))
         print()
 
         if nomor_jin != 1 and nomor_jin != 2:
-            print(f"Tidak ada jenis jin bernomor \"{nomor_jin}\"")
-            print()
+            time.sleep(0.5)
+            print(f"{bcolors.warning}Tidak ada jenis jin bernomor \"{nomor_jin}\"{bcolors.endc}\n")
 
         else:
             if nomor_jin == 1:  # Jin pengumpul
@@ -211,24 +236,24 @@ def daftar_jin(data_user, max_data_user):
 
     # meminta nama jin, diulangi sampai namanya belum terdaftar
     while True:
-        user_jin = input("Masukkan username jin: ")
+        user_jin = input(f"{bcolors.input}Masukkan username jin: {bcolors.endc}")
 
         if cek_nama_terdaftar(user_jin, data_user, max_data_user):
             print()
-            print(f"Username \"{user_jin}\"sudah diambil!")
-            print()
+            time.sleep(0.5)
+            print(f"{bcolors.warning}Username \"{user_jin}\" sudah diambil!{bcolors.endc}\n")
 
         else:
             break
 
     # meminta password jin, diulangi sampai panjangnya diantara 5-25 karakter
     while True:
-        pass_jin = input("Masukkan password jin: ")
+        pass_jin = input(f"{bcolors.input}Masukkan password jin: {bcolors.endc}")
         print()
 
         if (len(pass_jin) < 5) or (len(pass_jin) > 25):
-            print("Password panjangnya harus 5-25 karakter!")
-            print()
+            time.sleep(0.5)
+            print(f"{bcolors.warning}Password panjangnya harus 5-25 karakter!{bcolors.endc}\n")
 
         else:
             break
@@ -484,12 +509,11 @@ def update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max
 
     # jika tidak ada, membuat elemen tersebut kemudian mengisinya
     if not air_ditemukan:
-        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["air", "air", jumlah_air], max_data_bahan_bangunan)
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["air", "Air yang bersih", jumlah_air], max_data_bahan_bangunan)
     if not batu_ditemukan:
-        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["batu", "batu", jumlah_batu], max_data_bahan_bangunan)
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["batu", "Batu kali berukuran sedang", jumlah_batu], max_data_bahan_bangunan)
     if not pasir_ditemukan:
-        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["pasir", "pasir", jumlah_pasir],
-                                            max_data_bahan_bangunan)
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["pasir", "Pasir laut", jumlah_pasir], max_data_bahan_bangunan)
 
     return data_bahan_bangunan
 
@@ -556,31 +580,23 @@ def copy_matriks(array, max_array):
     return array_baru
 
 # F24 - Bangun tunggal
-def bangun_tunggal(nama, butuh_pasir, butuh_batu, butuh_air, data_candi, data_bahan_bangunan, max_data_candi,
-                   max_data_bahan_bangunan):
+def candi_milik_jin(jin, data_candi, max_data_candi):
     """
-    membangun suatu candi dan memakai bahan bangunan
-    :param nama:
-    :param butuh_pasir:
-    :param butuh_batu:
-    :param butuh_air:
+    mengembalikan candi hasil buat jin tertentu
+    :param jin:
     :param data_candi:
-    :param data_bahan_bangunan:
     :param max_data_candi:
-    :param max_data_bahan_bangunan:
-    :return: array data candi, array data bahan bangunan, boolean keberhasilan dibangun candi
+    :return: array
     """
-    berhasil_dibangun = False
-    jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
+    candi_jin = [None for i in range(max_data_candi)]
 
-    if jumlah_pasir >= butuh_pasir and jumlah_batu >= butuh_batu and jumlah_air >= butuh_air:
-        data_candi = append_candi(nama, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
-        data_bahan_bangunan = pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan,
-                                          max_data_bahan_bangunan)
+    # cek semua instansi candi dengan pembuat jin tertentu
+    for i in range(custom_len(data_candi, max_data_candi)):
+        if data_candi[i][1] == jin:
+            candi_jin = custom_append(candi_jin, data_candi[i], max_data_candi)
 
-        berhasil_dibangun = True
+    return candi_jin
 
-    return data_candi, data_bahan_bangunan, berhasil_dibangun
 
 # F25 - Custom reverse split
 def custom_reverse_split(data_list, jumlah_elemen, pemisah):
