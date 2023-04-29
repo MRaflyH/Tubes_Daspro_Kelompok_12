@@ -12,7 +12,7 @@ candi = [None for i in range(max_candi)]
 bahan_bangunan = [None for i in range(max_bahan_bangunan)]
 
 user_login = None
-role_login = "roro_jonggrang"
+role_login = None
 end_game = False
 
 parser = ArgumentParser()

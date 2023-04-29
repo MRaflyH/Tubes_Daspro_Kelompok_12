@@ -89,8 +89,11 @@ def summon_jin(nama, role, data_user, max_data_user):
 
         else:
             print("Jenis jin yang dapat dipanggil:")
+            time.sleep(0.5)
             print("  (1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
+            time.sleep(0.5)
             print("  (2) Pembangun - Bertugas membangun candi")
+            time.sleep(0.5)
             print()
 
             # meminta tipe, nama, dan password jin
@@ -131,18 +134,18 @@ def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_can
         print(f"{bcolors.warning}{nama} tidak memiliki akses untuk hilangkan jin{bcolors.endc}")
 
     else:
-        jin = input("Masukkan username jin: ")
+        jin = input(f"{bcolors.input}Masukkan username jin: {bcolors.endc}")
 
         # cek jika ada nama jin tersebut
         if not cek_nama_terdaftar(jin, data_user, max_data_user):
             print()
-            print("Tidak ada jin dengan username tersebut.")
+            print(f"{bcolors.fail}Tidak ada jin dengan username tersebut.{bcolors.endc}")
 
         else:
             # konfirmasi
             confirm = ""
             while confirm.lower() != "y" and confirm.lower() != "n":
-                confirm = input(f"Apakah anda yakin ingin menghapus jin dengan username {jin} (Y/N)? ")
+                confirm = input(f"{bcolors.input}Apakah anda yakin ingin menghapus jin dengan username {jin} (Y/N)? {bcolors.endc}")
             print()
 
             if confirm.lower() == 'y':
@@ -158,7 +161,7 @@ def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_can
                 print("Jin telah berhasil dihapus dari alam gaib.")
 
             else:
-                print("Jin tidak dihapus dari alam gaib.")
+                print(f"{bcolors.fail}Jin tidak dihapus dari alam gaib.{bcolors.endc}")
 
     return data_user, data_candi
 
@@ -183,7 +186,7 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
     else:
         confirm = ""
         reverse_role_jin = ""
-        jin = input("Masukkan username jin: ")
+        jin = input(f"{bcolors.input}Masukkan username jin: {bcolors.endc}")
 
         # cek jika nama jin terdaftar
         if not cek_nama_terdaftar(jin, data_user, max_data_user):
@@ -261,11 +264,15 @@ def bangun(nama, role, data_candi, data_bahan_bangunan, max_data_candi, max_data
             jumlah_candi = hitung_candi(data_candi, max_data_candi)
             sisa_candi = 100 - jumlah_candi
             print("Candi berhasil dibangun.")
+            time.sleep(0.5)
             print(f"Sisa candi yang perlu dibangun: {sisa_candi}")
+            time.sleep(0.5)
 
         else:
             print(f"{bcolors.fail}Bahan bangunan tidak mencukupi.{bcolors.endc}")
+            time.sleep(0.5)
             print(f"{bcolors.fail}Candi tidak bisa dibangun!{bcolors.endc}")
+            time.sleep(0.5)
 
     return data_candi, data_bahan_bangunan
 
@@ -297,6 +304,7 @@ def kumpul(nama, role, data_bahan_bangunan, max_data_bahan_bangunan):
                                            max_data_bahan_bangunan)
 
         print(f"Jin menemukan {nemu_pasir} pasir, {nemu_batu} batu, dan {nemu_air} air")
+        time.sleep(0.5)
 
     return data_bahan_bangunan
 
@@ -346,7 +354,9 @@ def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_
                 total_pasir += nemu_pasir
 
         print(f"Mengerahkan {jumlah_pengumpul_jin} jin untuk mengumpulkan bahan.")
+        time.sleep(0.5)
         print(f"Jin menemukan total {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+        time.sleep(0.5)
 
     return data_bahan_bangunan
 
@@ -402,6 +412,7 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
                 total_pasir += butuh_pasir
 
         print(f"Mengerahkan {jumlah_pembangun_jin} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+        time.sleep(0.5)
 
         jumlah_air, jumlah_batu, jumlah_pasir = jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 
@@ -435,6 +446,8 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
                 kurang_pasir = 0
 
             print(f"{bcolors.fail}Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.{bcolors.endc}")
+
+        time.sleep(0.5)
 
     return data_candi, data_bahan_bangunan
 
@@ -532,7 +545,7 @@ def laporan_candi(role, data_candi, max_data_candi):
         id_candi_termahal = 0
         harga_candi_termahal = 0
         id_candi_termurah = 0
-        harga_candi_termurah = 0
+        harga_candi_termurah = 10000 * 5 + 15000 * 5 + 7500 * 5
 
         # cek semua candi
         for i in range(custom_len(data_candi, max_data_candi)):
@@ -693,7 +706,8 @@ def save(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_can
     :return:
     """
 
-    folder_name = input(f"{bcolors.input}Masukkan nama folder: {bcolors.endc}\n")
+    folder_name = input(f"{bcolors.input}Masukkan nama folder: {bcolors.endc}")
+    print()
     print("Saving...\n")
     time.sleep(1)
 
