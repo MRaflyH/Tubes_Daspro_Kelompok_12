@@ -40,7 +40,7 @@ ALGORITMA
         (role ≠ "bandung_bondowoso"): output(nama + " tidak memiliki akses untuk summon jin")
 
     else { User adalah Bandung Bondowoso }
-        if (custom_len(data_user, max_data_user) == max_data_user) then
+        if (custom_len(data_user, max_data_user) = max_data_user) then
             output("Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
         else { Jumlah jin belum mencapai 100 }
             output("Jenis jin yang dapat dipanggil:")
@@ -371,7 +371,7 @@ ALGORITMA
 
     depend on (role)
         (role is None)  :
-        output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan ayam berkokok")
+            output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan ayam berkokok")
         -> False
 
         (role = "roro_jonggrang") :
