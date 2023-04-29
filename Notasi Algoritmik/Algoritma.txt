@@ -35,10 +35,14 @@ ALGORITMA
 
 F03 - Summon Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role ≠ "bandung_bondowoso") then
-        output(nama + " tidak memiliki akses untuk summon jin")
+    depend on (role)
+        (role is None)              : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan summonjin")
+        (role ≠ "bandung_bondowoso"): output(nama + " tidak memiliki akses untuk summon jin")
 
     else { User adalah Bandung Bondowoso }
+        if (custom_len(data_user, max_data_user) == max_data_user) then
+            output("Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
+        else { Jumlah jin belum mencapai 100 }
             output("Jenis jin yang dapat dipanggil:")
             output("(1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
             output("(2) Pembangun - Bertugas membangun candi")
@@ -56,8 +60,9 @@ ALGORITMA
 
 F04 - Hilangkan Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role ≠ "bandung_bondowoso") then
-        output(nama + " tidak memiliki akses untuk hilangkan jin")
+    depend on (role)
+        (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan hilangkan jin")
+        (role ≠ "bandung_bondowoso") : output(nama + " tidak memiliki akses untuk hilangkan jin")
     else { User adalah Bandung Bondowoso }
         jin <- input("Masukkan username jin: ")
 
@@ -85,8 +90,9 @@ ALGORITMA
 
 F05 - Ubah Tipe Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role ≠ "bandung_bondowoso") then
-        output(nama + " tidak memiliki akses untuk ubah tipe jin")
+    depend on (role)
+        (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan ubah tipe jin")
+        (role ≠ "bandung_bondowoso") : output(nama + " tidak memiliki akses untuk ubah tipe jin")
     else { User adalah Bandung Bondowoso }
         confirm <- ""
         reverse_role_jin <- ""
@@ -120,20 +126,27 @@ ALGORITMA
 
 F06 - Jin Pembangun (Akses : Jin Pembangun)
 ALGORITMA
-    if (role ≠ "jin_pembangun") then
-        output(nama + " tidak memiliki akses untuk bangun candi")
+    depend on (role)  
+        (role is None)           : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan bangun candi")
+        (role ≠ "jin_pembangun") : output(nama + " tidak memiliki akses untuk bangun candi")
+    
     else { User adalah Jin Pembangun }
         butuh_pasir <- randint(1, 5)
         butuh_batu <- randint(1, 5)
         butuh_air <- randint(1, 5)
 
-        data_candi, data_bahan_bangunan, berhasil_dibangun <- bangun_tunggal(nama, butuh_pasir, butuh_batu, butuh_air, data_candi, data_bahan_bangunan, max_data_candi, max_data_bahan_bangunan)
+        jumlah_air, jumlah_batu, jumlah_pasir <- jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 
-        if (berhasil_dibangun) then
+        if (jumlah_pasir >= butuh_pasir and jumlah_batu >= butuh_batu and jumlah_air >= butuh_air) then
+            data_candi <- append_candi(nama, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+            data_bahan_bangunan <- pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan,
+                                               max_data_bahan_bangunan)
+
             jumlah_candi <- hitung_candi(data_candi, max_data_candi)
             sisa_candi <- 100 - jumlah_candi
             output("Candi berhasil dibangun.")
             output("Sisa candi yang perlu dibangun: " + sisa_candi)
+
         else { Candi tidak berhasil dibangun }
             output("Bahan bangunan tidak mencukupi.")
             output("Candi tidak bisa dibangun!")
@@ -142,8 +155,9 @@ ALGORITMA
 
 F07 - Jin Pengumpul (Akses : Jin Pengumpul)
 ALGORITMA
-    if (role ≠ "jin_pengumpul") then
-        output(nama + " tidak memiliki akses untuk kumpul bahan")
+    depend on (role)
+        (role is None)           : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan kumpul bahan")
+        (role ≠ "jin_pengumpul") : output(nama + " tidak memiliki akses untuk kumpul bahan")
     else { User adalah Jin Pengumpul }
         nemu_pasir <- randint(1, 5)
         nemu_batu <- randint(1, 5)
@@ -234,8 +248,9 @@ ALGORITMA
 
 F09 - Ambil Laporan Jin (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role ≠ "bandung_bondowoso") then
-        output("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
+    depend on (role)
+        (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan laporan jin")
+        (role ≠ "bandung_bondowoso") : output("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
     else { User adalah Bandung Bondowoso }
         max_data_jin <- 100
         data_jin <- [None for i in range(max_data_jin)]
@@ -244,9 +259,9 @@ ALGORITMA
             data_jin[i] <- data_user[i + 2][0]
 
         data_jin <- urutkan_leksikografis(data_jin, max_data_jin)
-        output(data_jin)
 
         total_jin, total_jin_pengumpul, total_jin_pembangun <- count_jin_total_pengumpul_pembangun(data_user,max_data_user)
+        
         if (hitung_candi(data_candi, max_data_candi) = 0 and total_jin_pembangun = 0) then
             jin_terajin, jin_termalas <- "-", "-"
 
@@ -255,6 +270,7 @@ ALGORITMA
 
         jumlah_air, jumlah_batu, jumlah_pasir <- jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
 
+        output("============ LAPORAN JIN ============")
         output("> Total Jin: " + total_jin)
         output("> Total Jin Pengumpul: " + total_jin_pengumpul)
         output("> Total Jin Pembangun: " + total_jin_pembangun)
@@ -263,11 +279,14 @@ ALGORITMA
         output("> Jumlah Pasir: " + jumlah_pasir + " unit")
         output("> Jumlah Air: " + jumlah_air + " unit")
         output("> Jumlah Batu: " + jumlah_batu + " unit")
+        output("=====================================")
+
 
 F10 - Ambil Laporan Candi (Akses : Bandung Bondowoso)
 ALGORITMA
-    if (role ≠ "bandung_bondowoso") then
-        output("Laporan candi hanya dapat diakses oleh akun Bandung Bondowoso.")
+    depend on (role) 
+        (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan laporan candi")
+        (role ≠ "bandung_bondowoso") : output("Laporan candi hanya dapat diakses oleh akun Bandung Bondowoso.")
 
     else { User adalah Bandung Bondowoso }
         total_candi <- 0
@@ -299,6 +318,7 @@ ALGORITMA
                     id_candi_termurah <- data_candi[i][0]
                     harga_candi_termurah <- harga_candi
 
+        output("=========== LAPORAN CANDI ===========")
         output("Total Candi: " + total_candi)
         output("Total Pasir yang digunakan: " + total_pasir)
         output("Total Batu yang digunakan: " + total_batu)
@@ -311,10 +331,13 @@ ALGORITMA
             output("ID Candi Termahal: " + id_candi_termahal + " (Rp " + harga_candi_termahal + ")")
             output("ID Candi Termurah: " + id_candi_termurah + " (Rp " + harga_candi_termurah + ")")
 
+        output("=====================================")
+
 F11 - Hancurkan Candi (Akses : Roro Jonggrang)
 ALGORITMA
-    if (role ≠ "roro_jonggrang") then
-        output("Hancurkan candi hanya dapat diakses oleh akun Roro Jonggrang.")
+    depend on (role)
+        (role is None)            : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan hancurkan candi")
+        (role ≠ "roro_jonggrang") : output("Hancurkan candi hanya dapat diakses oleh akun Roro Jonggrang.")
 
     else { User adalah Roro Jonggrang }
         id_candi <- int(input("Masukkan ID candi: "))
@@ -346,19 +369,25 @@ F12 - Ayam Berkokok (Akses : Roro Jonggrang)
 ALGORITMA
     jumlah_candi <- hitung_candi(data_candi, max_data_candi)
 
-    if (role = "roro_jonggrang") then
-        output("Kukuruyuk.. Kukuruyuk..")
-        output("Jumlah Candi: " + jumlah_candi)
+    depend on (role)
+        (role is None)  :
+        output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan ayam berkokok")
+        -> False
 
-        if (jumlah_candi < 100) then
-            output("Selamat, Roro Jonggrang memenangkan permainan!")
-            output("*Bandung Bondowoso angry noise*")
-            output("Roro Jonggrang dikutuk menjadi candi.")
-        else { jumlah_candi = 100 }
-            output("Selamat, Bandung Bondowoso memenangkan permainan!")
-            output("*Roro Jonggrang angry noise*")
-            output("Bandung Bondowoso menikahi Roro Jonggrang.")
-        -> True
+        (role = "roro_jonggrang") :
+            output("Kukuruyuk..", end=" ")
+            output("Kukuruyuk..")
+            output("Jumlah Candi: " + jumlah_candi)
+
+            if (jumlah_candi < 100) then
+                output("Selamat, Roro Jonggrang memenangkan permainan!")
+                output("*Bandung Bondowoso angry noise*")
+                output("Roro Jonggrang dikutuk menjadi candi.")
+            else { jumlah_candi = 100 }
+                output("Selamat, Bandung Bondowoso memenangkan permainan!")
+                output("*Roro Jonggrang angry noise*")
+                output("Bandung Bondowoso menikahi Roro Jonggrang.")
+            -> True
     else { User adalah Roro Jonggrang }
         output(nama + " tidak memiliki akses ini.")
         -> False
@@ -408,7 +437,7 @@ ALGORITMA
 
 F15 - Help
 ALGORITMA
-    output("====== HELP ======")
+    output("=============== HELP ================")
     index_save <- 0
 
     if (role is None) then
@@ -421,37 +450,43 @@ ALGORITMA
         output("   Untuk keluar dari akun yang digunakan sekarang")
 
         depend on (role)
-            role = "bandung_bondowoso" :   output("2. summonjin")
-                                            output("   Untuk memanggil jin")
-                                            output("3. hapusjin")
-                                            output("   Untuk menghapus jin")
-                                            output("4. ubahjin")
-                                            output("   Untuk mengubah tipe jin")
-                                            output("5. batchkumpul")
-                                            output("   Untuk mengerahkan seluruh pasukan jin pengumpul")
-                                            output("6. batchkumpul")
-                                            output("   Untuk mengerahkan seluruh pasukan jin pembangun")
-                                            output("7. laporanjin")
-                                            output("   Untuk mengambil laporan jin dan mengetahui kinerja dari para jin")
-                                            output("8. laporancandi")
-                                            output("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
-                                            index_save = 9
-            role = "roro_jonggrang" :  output("2. hancurkancandi")
-                                        output("   Untuk menghancurkan candi yang tersedia")
-                                        output("3. ayamberkokok")
-                                        output("   Untuk menyelesaikan permainan dengan memalsukan pagi hari")
-                                        index_save = 4
-            role = "jin_pembangun" :   output("2. bangun")
-                                        output("   Untuk membangun candi")
-                                        index_save = 3
-            role = "jin_pengumpul" :   output("2. kumpul")
-                                        output("   Untuk mengumpul bahan bangunan")
-                                        index_save = 3
+            role = "bandung_bondowoso" :    
+                output("2. summonjin")
+                output("   Untuk memanggil jin")
+                output("3. hapusjin")
+                output("   Untuk menghapus jin")
+                output("4. ubahjin")
+                output("   Untuk mengubah tipe jin")
+                output("5. batchkumpul")
+                output("   Untuk mengerahkan seluruh pasukan jin pengumpul")
+                output("6. batchkumpul")
+                output("   Untuk mengerahkan seluruh pasukan jin pembangun")
+                output("7. laporanjin")
+                output("   Untuk mengambil laporan jin dan mengetahui kinerja dari para jin")
+                output("8. laporancandi")
+                output("   Untuk mengambil laporan candi dan mengetahui progress pembangunan candi")
+                index_save = 9
+            role = "roro_jonggrang" :  
+                output("2. hancurkancandi")
+                output("   Untuk menghancurkan candi yang tersedia")
+                output("3. ayamberkokok")
+                output("   Untuk menyelesaikan permainan dengan memalsukan pagi hari")
+                index_save = 4
+            role = "jin_pembangun" :   
+                output("2. bangun")
+                output("   Untuk membangun candi")
+                index_save = 3
+            role = "jin_pengumpul" :   
+                output("2. kumpul")
+                output("   Untuk mengumpul bahan bangunan")
+                index_save = 3
 
     output(index_save + ". save")
     output("   Untuk simpan progres program")
     output(index_save+1 + ". exit")
     output("   Untuk keluar dari program dan kembali ke terminal")
+    output("=====================================")
+
 
 F16 - Exit
 ALGORITMA
@@ -465,19 +500,3 @@ ALGORITMA
         save(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_candi, max_data_bahan_bangunan)
 
     -> True
-
-B04 - Undo
-ALGORITMA
-    if (custom_len(data_sejarah, max_sejarah) = 1) then
-        output("Undo gagal karena tidak ada sejarah")
-    else { Terdapat riwayat akses }
-        data_sejarah <- custom_pop(data_sejarah, 0, max_sejarah)
-        output("Undo berhasil")
-
-    nama <- data_sejarah[0][0]
-    role <- data_sejarah[0][1]
-    data_user <- data_sejarah[0][2]
-    data_candi <- data_sejarah[0][3]
-    data_bahan_bangunan <- data_sejarah[0][4]
-
-    -> nama, role, data_user, data_candi, data_bahan_bangunan, data_sejarah
