@@ -139,6 +139,7 @@ def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_can
         # cek jika ada nama jin tersebut
         if not cek_nama_terdaftar(jin, data_user, max_data_user):
             print()
+            time.sleep(0.5)
             print(f"{bcolors.fail}Tidak ada jin dengan username tersebut.{bcolors.endc}")
 
         else:
@@ -158,9 +159,11 @@ def hilangkan_jin(nama, role, data_user, data_candi, max_data_user, max_data_can
                 # menghapuskan candi yang dibuat jin tersebut
                 data_candi = hapus_candi_jin(jin, data_candi, max_data_candi)
 
+                time.sleep(0.5)
                 print("Jin telah berhasil dihapus dari alam gaib.")
 
             else:
+                time.sleep(0.5)
                 print(f"{bcolors.fail}Jin tidak dihapus dari alam gaib.{bcolors.endc}")
 
     return data_user, data_candi
@@ -681,9 +684,9 @@ def ayam_berkokok(nama, role, data_candi, max_data_candi):
             print("Selamat, Roro Jonggrang memenangkan permainan!\n")
             time.sleep(1)
             print(f"{bcolors.fail}*Bandung Bondowoso angry noise*{bcolors.endc}")
-            time.sleep(0.5)
+            time.sleep(1)
             print("Roro Jonggrang dikutuk menjadi candi.")
-            time.sleep(0.5)
+            time.sleep(1)
 
         else:
             print("Selamat, Bandung Bondowoso memenangkan permainan!\n")
@@ -739,6 +742,7 @@ def save(data_user, data_candi, data_bahan_bangunan, max_data_user, max_data_can
     matriks_to_csv(folder_path, "bahan_bangunan.csv", 3, data_bahan_bangunan, max_data_bahan_bangunan)
 
     print(f"Berhasil menyimpan data di folder {folder_path}!")
+    time.sleep(1)
 
 
 # F15 - Help
