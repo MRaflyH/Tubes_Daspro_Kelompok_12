@@ -509,9 +509,9 @@ def update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max
 
     # jika tidak ada, membuat elemen tersebut kemudian mengisinya
     if not air_ditemukan:
-        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["air", "Air yang bersih", jumlah_air], max_data_bahan_bangunan)
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["air", "Air sungai", jumlah_air], max_data_bahan_bangunan)
     if not batu_ditemukan:
-        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["batu", "Batu kali berukuran sedang", jumlah_batu], max_data_bahan_bangunan)
+        data_bahan_bangunan = custom_append(data_bahan_bangunan, ["batu", "Batu gua", jumlah_batu], max_data_bahan_bangunan)
     if not pasir_ditemukan:
         data_bahan_bangunan = custom_append(data_bahan_bangunan, ["pasir", "Pasir laut", jumlah_pasir], max_data_bahan_bangunan)
 

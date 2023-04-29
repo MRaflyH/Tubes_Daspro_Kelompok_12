@@ -191,6 +191,7 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
         # cek jika nama jin terdaftar
         if not cek_nama_terdaftar(jin, data_user, max_data_user):
             print()
+            time.sleep(0.5)
             print(f"{bcolors.fail}Tidak ada jin dengan username tersebut.{bcolors.endc}")
 
         else:
@@ -219,8 +220,11 @@ def ubah_tipe_jin(nama, role, data_user, max_data_user):
                     if data_user[i][0] == jin:
                         data_user[i][2] = reverse_role_jin
                         break
+
+                time.sleep(0.5)
                 print("Jin telah berhasil diubah.")
             else:
+                time.sleep(0.5)
                 print(f"{bcolors.fail}Jin tidak berhasil diubah.{bcolors.endc}")
 
     return data_user
@@ -630,6 +634,7 @@ def hancurkan_candi(role, data_candi, max_data_candi):
                         confirm = input(f"{bcolors.input}Apakah anda yakin ingin menghancurkan candi ID: {id_candi} (Y/N)? {bcolors.endc}")
 
                     print()
+                    time.sleep(0.5)
 
                     if confirm.lower() == "y":
                         # hapus candi
@@ -670,6 +675,7 @@ def ayam_berkokok(nama, role, data_candi, max_data_candi):
         print("Kukuruyuk..\n")
         time.sleep(1)
         print(f"Jumlah Candi: {jumlah_candi}\n")
+        time.sleep(1)
 
         if jumlah_candi < 100:
             print("Selamat, Roro Jonggrang memenangkan permainan!\n")
