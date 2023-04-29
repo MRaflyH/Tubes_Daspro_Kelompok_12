@@ -23,7 +23,7 @@ class bcolors:
     brightwhite = '\033[97m'
 
 
-# F01 - Custom len
+# C01 - Custom len
 def custom_len(array, max_array):
     """
     mencari panjang suatu array dengan jumlah elemen maksimum tertentu
@@ -38,7 +38,7 @@ def custom_len(array, max_array):
 
     return max_array
 
-# F02 - Custom append
+# C02 - Custom append
 def custom_append(array, elemen, max_array):
     """
     menambah elemen pada akhir array (instansi None) pertama pada array tersebut
@@ -54,7 +54,7 @@ def custom_append(array, elemen, max_array):
 
     return array
 
-# F03 - Custom insert
+# C03 - Custom insert
 def custom_insert(elemen, array, max_array):
     """
     menambah elemen pada awal array pertama pada array tersebut
@@ -77,7 +77,7 @@ def custom_insert(elemen, array, max_array):
 
     return array
 
-# F04 - Custom pop
+# C04 - Custom pop
 def custom_pop(array, index, max_array):
     """
     menghapuskan suatu elemen pada array berdasarkan indexnya
@@ -95,7 +95,7 @@ def custom_pop(array, index, max_array):
 
     return array
 
-# F05 - Custom split
+# C05 - Custom split
 def custom_split(string_list, jumlah_elemen, pemisah):
     """
     memisahkan suatu string menjadi elemen-elemennya berdasarkan suatu pemisah
@@ -123,7 +123,7 @@ def custom_split(string_list, jumlah_elemen, pemisah):
 
         index += 1
 
-# F06 - CSV to matriks
+# C06 - CSV to matriks
 def csv_to_matriks(nama_file_csv, jumlah_elemen, max_data):
     """
     mengubah file csv menjadi suatu matriks
@@ -152,7 +152,7 @@ def csv_to_matriks(nama_file_csv, jumlah_elemen, max_data):
 
     return data_matriks
 
-# F07 - Cek nama terdaftar
+# C07 - Cek nama terdaftar
 def cek_nama_terdaftar(nama, data_user, max_data_user):
     """
     mengecek jika nama tertentu sudah terdaftar atau belum
@@ -168,7 +168,7 @@ def cek_nama_terdaftar(nama, data_user, max_data_user):
 
     return False
 
-# F08 - Cek password cocok
+# C08 - Cek password cocok
 def cek_password_cocok(password, nama, data_user, max_data_user):
     """
     mengecek jika password suatu nama benar/cocok atau tidak
@@ -188,7 +188,7 @@ def cek_password_cocok(password, nama, data_user, max_data_user):
 
     return False
 
-# F09 - Name to role
+# C09 - Name to role
 def nama_to_role(nama, data_user, max_data_user):
     """
     mencari role suatu nama
@@ -204,7 +204,7 @@ def nama_to_role(nama, data_user, max_data_user):
 
     return None
 
-# F10 - Daftar jin
+# C10 - Daftar jin
 def daftar_jin(data_user, max_data_user):
     """
     meminta input tipe, nama, dan password jin yang valid
@@ -260,7 +260,7 @@ def daftar_jin(data_user, max_data_user):
 
     return [user_jin, pass_jin, jenis_jin]
 
-# F11 - Hapus candi
+# C11 - Hapus candi
 def hapus_candi(index, data_candi):
     """
     menghapus candi dengan index tertentu
@@ -276,7 +276,7 @@ def hapus_candi(index, data_candi):
 
     return data_candi
 
-# F12 - Hapus candi jin
+# C12 - Hapus candi jin
 def hapus_candi_jin(jin, data_candi, max_data_candi):
     """
     menghapus candi hasil buat jin tertentu
@@ -293,7 +293,7 @@ def hapus_candi_jin(jin, data_candi, max_data_candi):
 
     return data_candi
 
-# F13 - Hitung candi
+# C13 - Hitung candi
 def hitung_candi(data_candi, max_data_candi):
     """
     menghitung jumlah candi
@@ -310,7 +310,7 @@ def hitung_candi(data_candi, max_data_candi):
 
     return jumlah_candi
 
-# F14 - Leksikografis lebih rendah
+# C14 - Leksikografis lebih rendah
 def leksikografis_lebih_rendah(nama_pertama, nama_kedua):
     """
     mengecek jika kata pertama terurut secara leksikografis lebih duluan daripada kata kedua
@@ -336,7 +336,7 @@ def leksikografis_lebih_rendah(nama_pertama, nama_kedua):
 
     return kata_pertama_lebih_pendek
 
-# F15 - Urutkan leksikografis
+# C15 - Urutkan leksikografis
 def urutkan_leksikografis(data_jin, max_data_jin):
     """
     mengurutkan suatu array string secara leksikografis
@@ -353,7 +353,7 @@ def urutkan_leksikografis(data_jin, max_data_jin):
 
     return data_jin
 
-# F16 - Count jin total pengumpul pembangun
+# C16 - Count jin total pengumpul pembangun
 def count_jin_total_pengumpul_pembangun(data_user, max_data_user):
     """
     menghitung jumlah jin, jin pengumpul, dan jin pembangun
@@ -376,7 +376,7 @@ def count_jin_total_pengumpul_pembangun(data_user, max_data_user):
 
     return count_total_jin, count_total_jin_pengumpul, count_total_jin_pembangun
 
-# F17 - Jin terajin termalas
+# C17 - Jin terajin termalas
 def jin_terajin_termalas(data_jin, data_user, data_candi, max_data_jin, max_data_user, max_data_candi):
     """
     mencari jin terajin dan jin termalas
@@ -425,7 +425,7 @@ def jin_terajin_termalas(data_jin, data_user, data_candi, max_data_jin, max_data
 
     return jin_terajin, jin_termalas
 
-# F18 - Jumlah air batu pasir
+# C18 - Jumlah air batu pasir
 def jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan):
     """
     mencari jumlah air, batu, dan pasir yang tersedia
@@ -448,7 +448,7 @@ def jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan):
 
     return jumlah_air, jumlah_batu, jumlah_pasir
 
-# F19 - Append candi
+# C19 - Append candi
 def append_candi(nama, air, batu, pasir, data_candi, max_data_candi):
     """
     append candi baru
@@ -480,7 +480,7 @@ def append_candi(nama, air, batu, pasir, data_candi, max_data_candi):
 
     return data_candi
 
-# F20 - Update bahan
+# C20 - Update bahan
 def update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
     """
     mengupdate data bahan bangunan dengan jumlah bahan bangunan baru
@@ -517,7 +517,7 @@ def update_bahan(jumlah_air, jumlah_batu, jumlah_pasir, data_bahan_bangunan, max
 
     return data_bahan_bangunan
 
-# F21 - Pakai bahan
+# C21 - Pakai bahan
 def pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
     """
     memakai bahan bangunan dan mengupdate data bahan bangunan
@@ -540,7 +540,7 @@ def pakai_bahan(butuh_air, butuh_batu, butuh_pasir, data_bahan_bangunan, max_dat
 
     return data_bahan_bangunan
 
-# F22 - Tambah bahan
+# C22 - Tambah bahan
 def tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_bahan_bangunan):
     """
     menambah bahan bangunan dan mengupdate data bahan bangunan
@@ -563,7 +563,7 @@ def tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_
 
     return data_bahan_bangunan
 
-# F23 - Copy matriks
+# C23 - Copy matriks
 def copy_matriks(array, max_array):
     """
     melakukan deep copy pada suatu array (memiliki reference object yang beda)
@@ -579,7 +579,7 @@ def copy_matriks(array, max_array):
 
     return array_baru
 
-# F24 - Bangun tunggal
+# C24 - Bangun tunggal
 def candi_milik_jin(jin, data_candi, max_data_candi):
     """
     mengembalikan candi hasil buat jin tertentu
@@ -598,7 +598,7 @@ def candi_milik_jin(jin, data_candi, max_data_candi):
     return candi_jin
 
 
-# F25 - Custom reverse split
+# C25 - Custom reverse split
 def custom_reverse_split(data_list, jumlah_elemen, pemisah):
     """
     mengubah array menjadi string dengan suatu pemisah
@@ -619,7 +619,7 @@ def custom_reverse_split(data_list, jumlah_elemen, pemisah):
 
     return string_list
 
-# F26 - Matriks to CSV
+# C26 - Matriks to CSV
 def matriks_to_csv(folder_path, file_name, jumlah_elemen, data_matriks, max_data_matriks):
     """
     mengubah suatu matriks menjadi file csv
