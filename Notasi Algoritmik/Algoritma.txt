@@ -179,8 +179,8 @@ ALGORITMA
         count_total_jin <- count_jin_total_pengumpul_pembangun(data_user, max_data_user)
         jumlah_pengumpul_jin <- count_total_jin[2]
 
-        if (jumlah_pengumpul_jin == 0) then
-            output ("Kumpul gagal. Anda tidak punya jin pengumpul. Silahkan summon terlebih dahulu.")
+        if (jumlah_pengumpul_jin = 0) then
+            output("Kumpul gagal. Anda tidak punya jin pengumpul. Silahkan summon terlebih dahulu.")
         else { ada minimal 1 jin pengumpul }
             total_air <- 0
             total_batu <- 0
@@ -207,14 +207,14 @@ ALGORITMA
     { Batch Bangun }
 
         depend on (role)
-        (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan kumpul bahan")
-        (role ≠ "bandung_bondowoso") : output(nama + " tidak memiliki akses untuk batch bangun")
+            (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan kumpul bahan")
+            (role ≠ "bandung_bondowoso") : output(nama + " tidak memiliki akses untuk batch bangun")
     else { User adalah Bandung Bondowoso }
         count_total_jin <- count_jin_total_pengumpul_pembangun(data_user, max_data_user)
         jumlah_pengumpul_jin <- count_total_jin[1]
 
-        if (jumlah_pengumpul_jin == 0) then
-            output ("Bangun gagal. Anda tidak punya jin pembangun. Silahkan summon terlebih dahulu.")
+        if (jumlah_pengumpul_jin = 0) then
+            output("Bangun gagal. Anda tidak punya jin pembangun. Silahkan summon terlebih dahulu.")
         else { ada minimal 1 jin pembangun }
 
         total_air <- 0
@@ -223,7 +223,6 @@ ALGORITMA
 
         data_candi_sementara <- [None for i in range(max_data_candi)]
 
-        i <- 0
         repeat (custom_len(data_user, max_data_user)) times
             if (data_user[i][2] = "jin_pembangun") then
                 butuh_pasir <- randint(1, 5)
@@ -242,14 +241,14 @@ ALGORITMA
 
             repeat (jumlah_pembangun_jin) times
                 nama_jin <- data_candi_sementara[i][1]
-                butuh_pasir = data_candi_sementara[i][2]
-                butuh_batu = data_candi_sementara[i][3]
-                butuh_air = data_candi_sementara[i][4]
+                butuh_pasir <- data_candi_sementara[i][2]
+                butuh_batu <- data_candi_sementara[i][3]
+                butuh_air <- data_candi_sementara[i][4]
 
-                data_candi = append_candi(nama_jin, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+                data_candi <- append_candi(nama_jin, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
 
             # pakai semua bahan
-            data_bahan_bangunan = pakai_bahan(total_air, total_batu, total_pasir, data_bahan_bangunan,
+            data_bahan_bangunan <- pakai_bahan(total_air, total_batu, total_pasir, data_bahan_bangunan,
                                               max_data_bahan_bangunan)
 
 
