@@ -327,8 +327,8 @@ def batch_kumpul(nama, role, data_user, max_data_user, data_bahan_bangunan, max_
     :param max_data_bahan_bangunan:
     :return: data_bahan_bangunan
     """
-    count_total_jin, count_total_jin_pengumpul, jumlah_pengumpul_jin = count_jin_total_pengumpul_pembangun(data_user,
-                                                                                                           max_data_user)
+    count_total_jin = count_jin_total_pengumpul_pembangun(data_user, max_data_user)
+    jumlah_pengumpul_jin = count_total_jin[2]
 
     if role is None:
         print(f"{bcolors.warning}Anda belum login, silahkan login terlebih dahulu sebelum melakukan batch kumpul{bcolors.endc}")
@@ -381,8 +381,8 @@ def batch_bangun(nama, role, data_user, data_candi, data_bahan_bangunan, max_dat
     :param max_data_bahan_bangunan:
     :return: data_candi, data_bahan_bangunan
     """
-    count_total_jin, jumlah_pembangun_jin, count_total_jin_pembangun = count_jin_total_pengumpul_pembangun(data_user,
-                                                                                                           max_data_user)
+    count_total_jin = count_jin_total_pengumpul_pembangun(data_user, max_data_user)
+    jumlah_pembangun_jin = count_total_jin[1]
 
     if role is None:
         print(f"{bcolors.warning}Anda belum login, silahkan login terlebih dahulu sebelum melakukan batch bangun{bcolors.endc}")

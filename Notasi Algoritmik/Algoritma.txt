@@ -172,75 +172,99 @@ ALGORITMA
 F08 - Batch Kumpul/Bangun (Akses : Bandung Bondowoso)
 ALGORITMA
     { Batch Kumpul }
-    if (role ≠ "bandung_bondowoso") then
-        output(nama + " tidak memiliki akses untuk batch kumpul")
+    depend on (role)
+        (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan kumpul bahan")
+        (role ≠ "bandung_bondowoso") : output(nama + " tidak memiliki akses untuk batch kumpul")
     else { User adalah Bandung Bondowoso }
-        jumlah_pembangun_jin <- 0
-        total_air <- 0
-        total_batu <- 0
-        total_pasir <- 0
+        count_total_jin <- count_jin_total_pengumpul_pembangun(data_user, max_data_user)
+        jumlah_pengumpul_jin <- count_total_jin[2]
 
-        repeat (custom_len(data_user, max_data_user)) times
-            if (data_user[i][2] = "jin_pengumpul") then
-                jumlah_pembangun_jin <-  jumlah_pembangun_jin + 1
+        if (jumlah_pengumpul_jin == 0) then
+            output ("Kumpul gagal. Anda tidak punya jin pengumpul. Silahkan summon terlebih dahulu.")
+        else { ada minimal 1 jin pengumpul }
+            total_air <- 0
+            total_batu <- 0
+            total_pasir <- 0
 
-                nemu_pasir <- randint(1, 5)
-                nemu_batu <- randint(1, 5)
-                nemu_air <- randint(1, 5)
+            repeat (custom_len(data_user, max_data_user)) times
+                if (data_user[i][2] = "jin_pengumpul") then
 
-                data_bahan_bangunan <- tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
+                    nemu_pasir <- randint(1, 5)
+                    nemu_batu <- randint(1, 5)
+                    nemu_air <- randint(1, 5)
 
-                total_air <- total_air + nemu_air
-                total_batu <- total_batu + nemu_batu
-                total_pasir <- total_pasir + nemu_pasir
+                    data_bahan_bangunan <- tambah_bahan(nemu_air, nemu_batu, nemu_pasir, data_bahan_bangunan, max_data_bahan_bangunan)
 
-        output("Mengerahkan " + jumlah_pembangun_jin + " jin untuk mengumpulkan bahan.")
-        output("Jin menemukan total " + total_pasir + " pasir, " + total_batu + " batu, dan " + total_air + " air.")
+                    total_air <- total_air + nemu_air
+                    total_batu <- total_batu + nemu_batu
+                    total_pasir <- total_pasir + nemu_pasir
+
+            output("Mengerahkan " + jumlah_pembangun_jin + " jin untuk mengumpulkan bahan.")
+            output("Jin menemukan total " + total_pasir + " pasir, " + total_batu + " batu, dan " + total_air + " air.")
 
     -> data_bahan_bangunan
 
     { Batch Bangun }
-    batch_bangun_berhasil <- True
 
-    if (role ≠ "bandung_bondowoso") then
-        output(nama + " tidak memiliki akses untuk batch bangun")
+        depend on (role)
+        (role is None)               : output("Anda belum login, silahkan login terlebih dahulu sebelum melakukan kumpul bahan")
+        (role ≠ "bandung_bondowoso") : output(nama + " tidak memiliki akses untuk batch bangun")
     else { User adalah Bandung Bondowoso }
-        jumlah_pembangun_jin <- 0
+        count_total_jin <- count_jin_total_pengumpul_pembangun(data_user, max_data_user)
+        jumlah_pengumpul_jin <- count_total_jin[1]
+
+        if (jumlah_pengumpul_jin == 0) then
+            output ("Bangun gagal. Anda tidak punya jin pembangun. Silahkan summon terlebih dahulu.")
+        else { ada minimal 1 jin pembangun }
+
         total_air <- 0
         total_batu <- 0
         total_pasir <- 0
 
-        data_candi_sementara <- copy_matriks(data_candi, max_data_candi)
-        data_bahan_bangunan_sementara <- copy_matriks(data_bahan_bangunan, max_data_bahan_bangunan)
+        data_candi_sementara <- [None for i in range(max_data_candi)]
 
+        i <- 0
         repeat (custom_len(data_user, max_data_user)) times
             if (data_user[i][2] = "jin_pembangun") then
-                jumlah_pembangun_jin <- jumlah_pembangun_jin + 1
                 butuh_pasir <- randint(1, 5)
                 butuh_batu <- randint(1, 5)
                 butuh_air <- randint(1, 5)
 
-                data_candi_sementara, data_bahan_bangunan_sementara, berhasil_dibangun <- bangun_tunggal(data_user[i][0], butuh_pasir, butuh_batu, butuh_air, data_candi_sementara, data_bahan_bangunan_sementara, max_data_candi, max_data_bahan_bangunan)
+                data_candi_sementara <- append_candi(data_user[i][0], butuh_air, butuh_batu, butuh_pasir, data_candi_sementara, max_data_candi)
 
                 total_air <- total_air + butuh_air
                 total_batu <- total_batu + butuh_batu
                 total_pasir <- total_pasir + butuh_pasir
 
-                if (not berhasil_dibangun) then
-                    batch_bangun_berhasil <- False
-
         output("Mengerahkan " + jumlah_pembangun_jin + " jin untuk membangun candi dengan total bahan " + total_pasir + " pasir, " + total_batu + " batu, dan " + total_air + " air.")
 
-        if (batch_bangun_berhasil) then
-            data_candi <- copy_matriks(data_candi_sementara, max_data_candi)
-            data_bahan_bangunan <- copy_matriks(data_bahan_bangunan_sementara, max_data_bahan_bangunan)
+        if (jumlah_pasir >= total_pasir and jumlah_batu >= total_batu and jumlah_air >= total_air) then
+
+            repeat (jumlah_pembangun_jin) times
+                nama_jin <- data_candi_sementara[i][1]
+                butuh_pasir = data_candi_sementara[i][2]
+                butuh_batu = data_candi_sementara[i][3]
+                butuh_air = data_candi_sementara[i][4]
+
+                data_candi = append_candi(nama_jin, butuh_air, butuh_batu, butuh_pasir, data_candi, max_data_candi)
+
+            # pakai semua bahan
+            data_bahan_bangunan = pakai_bahan(total_air, total_batu, total_pasir, data_bahan_bangunan,
+                                              max_data_bahan_bangunan)
+
 
             output("Jin berhasil membangun total " + jumlah_pembangun_jin + " candi")
         else { Batch bangun tidak berhasil }
-            jumlah_air, jumlah_batu, jumlah_pasir <- jumlah_air_batu_pasir(data_bahan_bangunan, max_data_bahan_bangunan)
             kurang_air <- total_air - jumlah_air
             kurang_batu <- total_batu - jumlah_batu
             kurang_pasir <- total_pasir - jumlah_pasir
+
+            if (kurang_air < 0) then
+                kurang_air <- 0
+            if (kurang_batu < 0) then
+                kurang_batu <- 0
+            if (kurang_pasir < 0) then
+                kurang_pasir = 0
 
             output("Bangun gagal. Kurang " + kurang_pasir + " pasir, " + kurang_batu + " batu, dan " + kurang_air + " air.")
 
